@@ -13,21 +13,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        sceneId: {
+            default: 1,
+            type: cc.Integer
+        },
         monster: {
             default: null,
             type: cc.Node
@@ -45,6 +34,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.refreshNew()
         this.randomRun()
     },
 
@@ -73,13 +63,31 @@ cc.Class({
         let callback = cc.callFunc(() => {
             bloodNode.destroy()
         }, this)
-        // tosolve bug 应为血量移动，现在 this.node指向了怪兽本身
+        // tosolve bug 应为血量文字移动，现在 this.node指向了怪兽本身
         // this.node.runAction(cc.sequence(moveAction, callback)) 
     },
 
     start () {
 
     },
+
+    refreshNew() {
+        let _this = this
+        let monsterId = mathUtil.getRandomNum(1, 8)
+        let monsterData = this.getMonsterData()
+        this.monster.getComponent('monster').fullBlood = this.monster.getComponent('monster').currentBlood = monsterData.blood
+        let loadUrl = `monsters/scene${_this.sceneId}/s${_this.sceneId}_monster${monsterId}.png`
+        cc.loader.loadRes(loadUrl, cc.SpriteFrame, function (err, spriteFrame) {
+            _this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame
+        })
+    },
+    getMonsterData() {
+        return {
+            blood: 100,
+            name: '比卡丘',
+            id: 1
+        }
+    }
 
     // update (dt) {},
 });

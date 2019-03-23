@@ -12,6 +12,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        monsterId: {
+            default: 1,
+            type: cc.Integer
+        },
         fullblood: {
             default: 100,
             type: cc.Integer

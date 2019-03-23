@@ -20,7 +20,7 @@ cc.Class({
         this.watchMonster()
     },
     watchMonster() {
-        let monster = cc.find('Canvas/background/monster')
+        let monster = cc.find('Canvas/background/monsterBox')
         if (monster) {
             let r = mathUtil.getRotation({ x: this.node.x + 273, y: this.node.y + 272}, { x: monster.x, y: monster.y})
             let rotation = cc.rotateTo(0.2, r - 90)

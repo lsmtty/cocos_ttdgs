@@ -41,7 +41,7 @@ cc.Class({
         // 将新增的节点添加到 Canvas 节点下面
         this.node.addChild(newArrow);
         this.playShootAudio()
-        let monster = cc.find('Canvas/background/monster')
+        let monster = cc.find('Canvas/background/monsterBox')
         newArrow.setAnchorPoint(0.5, 0)
         newArrow.getComponent('arrow').monster = monster;
         newArrow.rotation = this.row.rotation

@@ -15,9 +15,6 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        // wx.cloud.init({env:'debug'})
-
-
         this.node.on('touchend', function(e) {
             console.log(e)
         }, this)
@@ -31,10 +28,10 @@ cc.Class({
         c.fitHeight = true;
         c.fitWidth = false;
 
-        let h = 960 * cc.winSize.height / cc.winSize.width;
+        let h = 750 * cc.winSize.height / cc.winSize.width;
 
-        c.designResolution = new cc.Size(960, h);
-        this.node.setContentSize(960, h);
+        c.designResolution = new cc.Size(750, h);
+        this.node.setContentSize(750, h);
 
         // 适配解决方案
         let _canvas = cc.Canvas.instance;
@@ -54,6 +51,17 @@ cc.Class({
             _canvas.fitHeight = true;
             _canvas.fitWidth = false;
             // console.log("tttttt","winSize: fitHeight");
+        }
+        this.monsterParent = this.node.getChildByName('monsterBox')
+    },
+
+    catchedMonster() {
+        this.node.getChildByName('monsterBox')
+    },
+
+    getANewMonster() {
+        if (this.monsterParent) {
+            this.monsterParent.refreshNew()
         }
     },
 
