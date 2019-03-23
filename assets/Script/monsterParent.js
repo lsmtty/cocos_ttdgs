@@ -66,7 +66,8 @@ cc.Class({
         let callback = cc.callFunc(() => {
             bloodNode.destroy()
         }, this)
-        // this.node.runAction(cc.sequence(moveAction, callback))
+        // tosolve bug 应为血量移动，现在 this.node指向了怪兽本身
+        // this.node.runAction(cc.sequence(moveAction, callback)) 
     },
 
     start () {

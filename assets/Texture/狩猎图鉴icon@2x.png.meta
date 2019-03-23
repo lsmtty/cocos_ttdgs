@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "63227151-bf02-4879-9acb-87ab6e1b3b70",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "狩猎图鉴icon@2x": {
+      "ver": "1.0.3",
+      "uuid": "3fafa3e4-4cfc-450c-9363-f4b7496beeb7",
+      "rawTextureUuid": "63227151-bf02-4879-9acb-87ab6e1b3b70",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 111,
+      "height": 111,
+      "rawWidth": 111,
+      "rawHeight": 111,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

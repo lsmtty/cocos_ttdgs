@@ -1,3 +1,4 @@
+// 抓捕怪兽 主场景
 cc.Class({
     extends: cc.Component,
 
@@ -14,8 +15,19 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        // wx.cloud.init({env:'debug'})
+
+
+        this.node.on('touchend', function(e) {
+            console.log(e)
+        }, this)
+
+        this.node.on('touchmove', function(e) {
+            console.log(e)
+        }, this)
+
+
         let c = this.node.getComponent(cc.Canvas);
-        console.log('tttttt', cc.winSize.height, cc.winSize.width)
         c.fitHeight = true;
         c.fitWidth = false;
 
@@ -35,13 +47,13 @@ cc.Class({
         {
             _canvas.fitHeight = false;
             _canvas.fitWidth = true;
-            console.log("tttttt","winSize: fitWidth");
+            // console.log("tttttt","winSize: fitWidth");
         }
         else
         {
             _canvas.fitHeight = true;
             _canvas.fitWidth = false;
-            console.log("tttttt","winSize: fitHeight");
+            // console.log("tttttt","winSize: fitHeight");
         }
     },
 

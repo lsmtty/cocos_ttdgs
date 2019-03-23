@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "62b8782e-b86c-4fdb-a65f-69cb71008f8a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "icon_世界地图@2x": {
+      "ver": "1.0.3",
+      "uuid": "d1c8bcc0-eab6-4b66-ae00-527ac0f47e9b",
+      "rawTextureUuid": "62b8782e-b86c-4fdb-a65f-69cb71008f8a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 60,
+      "height": 60,
+      "rawWidth": 60,
+      "rawHeight": 60,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

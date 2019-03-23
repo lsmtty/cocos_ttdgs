@@ -39,12 +39,6 @@ Thumbs.db
 
 #cocos files
 
-*.file.meta
-*.meta
-*.mp3.meta
-*.js.meta
-*.prefab.mata
-
 *UnityVS.meta
 *.err
 *.err.meta

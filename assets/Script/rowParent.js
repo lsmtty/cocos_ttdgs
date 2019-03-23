@@ -28,8 +28,10 @@ cc.Class({
 
     onLoad () {
         let _this = this
-        this.node.on('touchend', function() {
+        this.node.on('touchstart',() => {
             _this.row.getComponent('row').rowAnimate()
+        },this);
+        this.node.on('touchend', function() {
             _this.createArrow()
         }, this)
     },
