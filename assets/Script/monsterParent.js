@@ -35,6 +35,10 @@ cc.Class({
         blood: {
             default: null,
             type:cc.Node
+        },
+        blooding: {
+            default: null,
+            type:cc.Node
         }
     },
 
@@ -55,6 +59,9 @@ cc.Class({
     },
 
     hurt(damage) {
+        let bleedingAnim = this.blooding.getComponent(cc.Animation)
+        bleedingAnim.play('blooding')
+
         let bloodNode = new cc.Node('blood node')
         let bloodLabel = bloodNode.addComponent(cc.Label)
         bloodLabel.fontSize = 42

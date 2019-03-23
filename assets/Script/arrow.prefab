@@ -52,8 +52,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 295,
-      "y": 903,
+      "x": 330,
+      "y": 782,
       "z": 0
     },
     "_scale": {
@@ -114,6 +114,7 @@
     },
     "_enabled": true,
     "speed": 600,
+    "attack": 5,
     "_id": ""
   },
   {
@@ -128,12 +129,12 @@
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": 85
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 110,
-      "height": 170
+      "width": 35,
+      "height": 130
     },
     "_id": ""
   },
