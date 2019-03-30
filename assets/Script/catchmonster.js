@@ -10,6 +10,10 @@ cc.Class({
         monsterParent: {
             default: null,
             type: cc.Node
+        },
+        cardParent: {
+            default: null,
+            type: cc.Node
         }
     },
 
@@ -65,8 +69,24 @@ cc.Class({
         }
     },
 
+    showCard(sceneId, monsterId) {
+        let root = cc.find('Canvas')
+        let monsterData = root.getComponent('catchmonster').getMonsterData(sceneId, monsterId)
+        this.cardParent.getComponent('cardParent').showCard(monsterData, 0)
+    },
+
     // called every frame
     update: function (dt) {
 
+    },
+    getMonsterData(sceneId, monsterId) {
+        // cc.sys.localStorage.getItem('monsterData');
+        return {
+            blood: 100,
+            name: '比卡丘',
+            id: 1,
+            sceneId,
+            monsterId
+        }
     }
 });

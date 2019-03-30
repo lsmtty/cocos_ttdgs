@@ -17,7 +17,7 @@ cc.Class({
             type: cc.Integer
         },
         attack: {
-            default: 5,
+            default: 10,
             type: cc.Integer
         }
     },

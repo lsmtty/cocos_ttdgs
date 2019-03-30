@@ -1,19 +1,13 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
 import mathUtil from './utils/mathUtil'
 cc.Class({
     extends: cc.Component,
 
     properties: {
         sceneId: {
+            default: 1,
+            type: cc.Integer
+        },
+        monsterId: {
             default: 1,
             type: cc.Integer
         },
@@ -35,7 +29,6 @@ cc.Class({
 
     onLoad () {
         this.refreshNew()
-        this.randomRun()
     },
 
     randomRun() {
@@ -51,7 +44,6 @@ cc.Class({
     hurt(damage) {
         let bleedingAnim = this.blooding.getComponent(cc.Animation)
         bleedingAnim.play('blooding')
-
         let bloodNode = new cc.Node('blood node')
         let bloodLabel = bloodNode.addComponent(cc.Label)
         bloodLabel.fontSize = 42
@@ -73,21 +65,20 @@ cc.Class({
 
     refreshNew() {
         let _this = this
-        let monsterId = mathUtil.getRandomNum(1, 8)
-        let monsterData = this.getMonsterData()
+        this.node.active = true
+        this.monsterId = mathUtil.getRandomNum(1, 8)
+        this.monster.monsterId = this.monsterId
+        let monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData()
         this.monster.getComponent('monster').fullBlood = this.monster.getComponent('monster').currentBlood = monsterData.blood
-        let loadUrl = `monsters/scene${_this.sceneId}/s${_this.sceneId}_monster${monsterId}.png`
-        cc.loader.loadRes(loadUrl, cc.SpriteFrame, function (err, spriteFrame) {
-            _this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame
+        let loadUrl = `monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`
+        cc.loader.loadRes(loadUrl, cc.SpriteFrame, (err, spriteFrame) => {
+            this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame
         })
+        this.randomRun()
     },
-    getMonsterData() {
-        return {
-            blood: 100,
-            name: '比卡丘',
-            id: 1
-        }
+    showCard() {
+        this.node.stopAllActions()
+        let root = cc.find('Canvas')
+        root.getComponent('catchmonster').showCard(this.sceneId, this.monsterId)
     }
-
-    // update (dt) {},
 });
