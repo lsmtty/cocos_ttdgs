@@ -4,8 +4,7 @@ cc.Class({
 
     properties: {
         cardType: {
-            default: 'monsterCard',
-            type: cc.String
+            default: 'monsterCard'
         },
         monster: {
             type: cc.Node,
@@ -24,8 +23,6 @@ cc.Class({
     onLoad () {
         this.drawBackground()
         this.node.active = false
-        // this.handleSave = this.handleSave.bind(this)
-        // this.saveBtn = this.saveBtn.bind(this)
         this.sendBtn.on('touchend', this.handleSend)
         this.saveBtn.on('touchend', this.handleSave)
     },
