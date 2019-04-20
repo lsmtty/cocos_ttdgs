@@ -41,6 +41,11 @@ cc.Class({
         this.node.runAction(cc.sequence(moveAction, callback))
     },
 
+    // 停止走动
+    stopRun() {
+        this.node.stopAllActions()
+    },
+
     hurt(damage) {
         let bleedingAnim = this.blooding.getComponent(cc.Animation)
         bleedingAnim.play('blooding')

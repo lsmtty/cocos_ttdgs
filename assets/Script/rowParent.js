@@ -26,10 +26,10 @@ cc.Class({
             this.arrowStretch(e)
         })
         this.node.on('touchend', (e) => {
-            this.shootArrow()
+            this.shootArrow(e)
         }, this)
         this.node.on('touchcancel', (e) => {
-            this.shootArrow()
+            this.shootArrow(e)
         }, this)
     },
 
@@ -62,7 +62,13 @@ cc.Class({
         this.arrow.setPosition(cc.v2(0, -73 - moveLength / 2))
         this.row.getComponent('row').drawLines(-60 - moveLength / 2)
     },
-    shootArrow() {
+    shootArrow(e) {
+        let {_prevPoint, _startPoint} = e.touch
+        let moveLength = Math.sqrt(Math.pow(_prevPoint.x - _startPoint.x, 2) + Math.pow(_prevPoint.y - _startPoint.y, 2))
+        if (moveLength < 50) { // 拉动距离太小恢复位置
+            this.replaceArrow()
+            return
+        }
         if (this.arrow) {
             this.playShootAudio()
             this.arrow.getComponent('arrow').shooting()
@@ -72,5 +78,9 @@ cc.Class({
             this.createArrow()
             clearTimeout(timer)
         }, 200)  
+    },
+    replaceArrow() {
+        this.arrow.setPosition(cc.v2(0, -73))
+        this.row.getComponent('row').drawLines(-60)
     }
 });

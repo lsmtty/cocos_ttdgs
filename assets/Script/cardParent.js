@@ -59,10 +59,12 @@ cc.Class({
         })
     },
     handleSave(e) {
+        Toast.makeText(`保存一个${e.target.parent.monsterData.name}`, Toast.LENGTH_SHORT).show()
         console.log(`保存一个${e.target.parent.monsterData.name}`)
         e.target.parent.getComponent('cardParent').refreshMonster()
     },
     handleSend(e) {
+        Toast.makeText(`送出一个${e.target.parent.monsterData.name}`, Toast.LENGTH_SHORT).show()
         console.log(`送出一个${e.target.parent.monsterData.name}`)
         e.target.parent.getComponent('cardParent').refreshMonster()
     },

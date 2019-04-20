@@ -47,12 +47,53 @@ cc.Class({
 
     onCatched() {
         let parent = this.node.parent
-        // 直接调用destory报错
+        parent.getComponent('monsterParent').stopRun()
+        this.progressBar.node.active = false
+        // 创建捕捉效果
+        cc.loader.loadRes('monster_net.png', cc.SpriteFrame, (err, spriteFrame) => {
+            if (err) {
+                cc.error(err)
+                return
+            }
+            let rootBg = cc.find('Canvas/background')
+            // 背景图片设置
+            let bgNode = new cc.Node()
+            // 背景图片透明度
+            bgNode.setPosition(cc.v2(parent.x, 1334))
+            bgNode.width = 400
+            bgNode.height = 700
+            bgNode.setAnchorPoint(0.5 , 0)
+            let bgSprite = bgNode.addComponent(cc.Sprite)
+            bgSprite.spriteFrame = spriteFrame
+            let bgLayout = bgNode.addComponent(cc.Layout)
+            bgLayout.resizeMode = cc.Layout.ResizeMode.CONTAINER
+            rootBg.addChild(bgNode)
+            let netDown = cc.moveTo(2, parent.x, parent.y - 90)
+            let netUp = cc.moveTo(1, parent.x, 1334)
+            // let netCatchCallback = cc.callFunc(this.showCard, this) // callFunc 不生效
+            // bgNode.runAction(cc.sequence(netDown, netUp), netCatchCallback)
+            bgNode.runAction(cc.sequence(netDown, netUp))
+            let timer1 =  setTimeout(() => {
+                this.hideMonster()
+                clearTimeout(timer1)
+            }, 2000)
+            let timer2 = setTimeout(() => {
+                this.showCard()
+                clearTimeout(timer2)
+            }, 3000)
+        })
+    },
+    hideMonster() {
+        let parent = this.node.parent
         parent.active = false
+    },
+    showCard() {
+        let parent = this.node.parent
         parent.getComponent('monsterParent').showCard()
     },
     refreshNew() {
         if (this.progressBar) {
+            this.progressBar.node.active = true
             this.progressBar.progress = this.currentBlood / this.fullblood
         }
     },
