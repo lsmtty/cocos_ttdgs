@@ -8,7 +8,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.watchMonster()
+        // this.watchMonster()
     },
     watchMonster() {
         let monster = cc.find('Canvas/background/monsterBox')

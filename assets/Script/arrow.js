@@ -1,12 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 import globalUtil from './utils/globalUtil'
 cc.Class({
     extends: cc.Component,
@@ -25,6 +16,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.isShooting = false
         cc.director.getCollisionManager().enabled = true
         cc.director.getCollisionManager().enabledDebugDraw = globalUtil.isDebug
         cc.director.getCollisionManager().enabledDrawBoundingBox = globalUtil.isDebug
@@ -39,12 +31,17 @@ cc.Class({
     },
 
     onCollisionEnter: function (other) {
-        cc.Object.prototype.destroy.call(this.node)
-        this.active = false
+        // cc.Object.prototype.destroy.call(this.node)
+        // this.active = false  // 会导致
     },
 
     update (dt) {
-        this.node.x += this.speed * dt * Math.sin(this.node.rotation * Math.PI / 180)
-        this.node.y += this.speed * dt * Math.cos(Math.abs(this.node.rotation) * Math.PI / 180)
+        if (this.isShooting) {
+            this.node.x += this.speed * dt * Math.sin(this.node.rotation * Math.PI / 180)
+            this.node.y += this.speed * dt * Math.cos(Math.abs(this.node.rotation) * Math.PI / 180)
+        }
     },
+    shooting() {
+        this.isShooting = true
+    }
 });
