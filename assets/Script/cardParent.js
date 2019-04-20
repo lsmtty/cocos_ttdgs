@@ -22,7 +22,6 @@ cc.Class({
 
     onLoad () {
         this.drawBackground()
-        this.node.active = false
         this.sendBtn.on('touchend', this.handleSend)
         this.saveBtn.on('touchend', this.handleSave)
     },
@@ -44,7 +43,7 @@ cc.Class({
      * @param {Integer} type 1: 新加 2：重复添加
      */
     showCard(monsterData, currentCount = 0) {
-        this.node.active = true
+        this.node.parent.active = true
         this.node.monsterData = monsterData
         let labelName =this.node.getChildByName('monster_name').getComponent(cc.Label)
         let monster = this.node.getChildByName('monster_pic').getComponent(cc.Label)
@@ -68,7 +67,7 @@ cc.Class({
         e.target.parent.getComponent('cardParent').refreshMonster()
     },
     refreshMonster() {
-        this.node.active = false
+        this.node.parent.active = false
         cc.find('Canvas/background/monsterBox').getComponent('monsterParent').refreshNew()
     }
 });

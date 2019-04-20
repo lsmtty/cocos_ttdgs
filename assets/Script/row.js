@@ -3,12 +3,21 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        leftLine: {
+            type: cc.Node,
+            default: null
+        },
+        rightLine: {
+            type: cc.Node,
+            default: null
+        }
     },
-
-    // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         // this.watchMonster()
+        this.leftGra = this.leftLine.getComponent(cc.Graphics)
+        this.rightGra = this.rightLine.getComponent(cc.Graphics)
+        this.drawLines()
     },
     watchMonster() {
         let monster = cc.find('Canvas/background/monsterBox')
@@ -19,9 +28,6 @@ cc.Class({
             this.node.runAction(cc.sequence(rotation, callback))
         }
     },
-    start () {
-
-    },
 
     rowAnimate() {
         let beSmall = cc.scaleTo(0.2, 1, 0.8)
@@ -31,5 +37,17 @@ cc.Class({
 
     update (dt) {
         
+    },
+
+    drawLines(bottom = -60) {
+        this.leftGra.clear()
+        this.rightGra.clear()
+        this.leftGra.moveTo(0,0)
+        this.leftGra.lineTo(170, bottom)
+        this.rightGra.moveTo(0,0)
+        this.rightGra.lineTo(-170, bottom)
+        new cc.Graphics().lineTo()
+        this.leftGra.stroke()
+        this.rightGra.stroke()
     }
 });

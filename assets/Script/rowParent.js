@@ -60,11 +60,13 @@ cc.Class({
         let moveLength = Math.sqrt(Math.pow(_prevPoint.x - _startPoint.x, 2) + Math.pow(_prevPoint.y - _startPoint.y, 2))
         moveLength = moveLength < 100 ? moveLength : 100
         this.arrow.setPosition(cc.v2(0, -73 - moveLength / 2))
+        this.row.getComponent('row').drawLines(-60 - moveLength / 2)
     },
     shootArrow() {
         if (this.arrow) {
             this.playShootAudio()
             this.arrow.getComponent('arrow').shooting()
+            this.row.getComponent('row').drawLines(-60)
         }
         let timer = setTimeout(() => {
             this.createArrow()

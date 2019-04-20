@@ -31,7 +31,7 @@ cc.Class({
     },
 
     onCollisionEnter: function (other) {
-        if (other.node._name == 'monster') {
+        if (other.node._name == 'monster') { // 需要判断碰撞的是什么元素
             cc.Object.prototype.destroy.call(this.node)
             this.active = false
         }

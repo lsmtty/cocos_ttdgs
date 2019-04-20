@@ -69,7 +69,9 @@ cc.Class({
         this.monsterId = mathUtil.getRandomNum(1, 8)
         this.monster.monsterId = this.monsterId
         let monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData()
-        this.monster.getComponent('monster').fullBlood = this.monster.getComponent('monster').currentBlood = monsterData.blood
+        let monsterScript = this.monster.getComponent('monster')
+        monsterScript.fullBlood = monsterScript.currentBlood = monsterData.blood
+        monsterScript.refreshNew()
         let loadUrl = `monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`
         cc.loader.loadRes(loadUrl, cc.SpriteFrame, (err, spriteFrame) => {
             this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame

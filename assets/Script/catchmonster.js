@@ -19,15 +19,6 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this.node.on('touchend', function(e) {
-            console.log(e)
-        }, this)
-
-        this.node.on('touchmove', function(e) {
-            console.log(e)
-        }, this)
-
-
         let c = this.node.getComponent(cc.Canvas);
         c.fitHeight = true;
         c.fitWidth = false;

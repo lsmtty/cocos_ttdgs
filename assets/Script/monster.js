@@ -51,6 +51,11 @@ cc.Class({
         parent.active = false
         parent.getComponent('monsterParent').showCard()
     },
+    refreshNew() {
+        if (this.progressBar) {
+            this.progressBar.progress = this.currentBlood / this.fullblood
+        }
+    },
 
     update (dt) {
     },
