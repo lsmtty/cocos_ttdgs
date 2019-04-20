@@ -31,8 +31,10 @@ cc.Class({
     },
 
     onCollisionEnter: function (other) {
-        // cc.Object.prototype.destroy.call(this.node)
-        // this.active = false  // 会导致
+        if (other.node._name == 'monster') {
+            cc.Object.prototype.destroy.call(this.node)
+            this.active = false
+        }
     },
 
     update (dt) {
@@ -43,5 +45,7 @@ cc.Class({
     },
     shooting() {
         this.isShooting = true
+        let beSmall = cc.scaleBy(0.8, 0.33, 0.33)
+        this.node.runAction(beSmall) 
     }
 });

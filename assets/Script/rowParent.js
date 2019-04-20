@@ -1,3 +1,4 @@
+// 弓箭整体父级
 import mathUtil from './utils/mathUtil'
 cc.Class({
     extends: cc.Component,
@@ -22,16 +23,13 @@ cc.Class({
         this.createArrow()
         this.node.on('touchmove', (e) => {
             this.rowRotate(e)
+            this.arrowStretch(e)
         })
         this.node.on('touchend', (e) => {
-            if (this.arrow) {
-                this.playShootAudio()
-                this.arrow.getComponent('arrow').shooting()
-            }
-            let timer = setTimeout(() => {
-                this.createArrow()
-                clearTimeout(timer)
-            }, 30)  
+            this.shootArrow()
+        }, this)
+        this.node.on('touchcancel', (e) => {
+            this.shootArrow()
         }, this)
     },
 
@@ -43,12 +41,7 @@ cc.Class({
         let monster = cc.find('Canvas/background/monsterBox')
         newArrow.setAnchorPoint(0.5, 0)
         newArrow.setScale(0.5, 0.5)
-        // newArrow.getComponent('arrow').monster = monster
         newArrow.setPosition(cc.v2(0, -73))
-    },
-
-    start () {
-
     },
 
     playShootAudio: function() {
@@ -61,5 +54,21 @@ cc.Class({
             let rotation = cc.rotateTo(0.05, r - 90)
             this.node.runAction(rotation)
         }
+    },
+    arrowStretch(e) {
+        let {_prevPoint, _startPoint} = e.touch
+        let moveLength = Math.sqrt(Math.pow(_prevPoint.x - _startPoint.x, 2) + Math.pow(_prevPoint.y - _startPoint.y, 2))
+        moveLength = moveLength < 100 ? moveLength : 100
+        this.arrow.setPosition(cc.v2(0, -73 - moveLength / 2))
+    },
+    shootArrow() {
+        if (this.arrow) {
+            this.playShootAudio()
+            this.arrow.getComponent('arrow').shooting()
+        }
+        let timer = setTimeout(() => {
+            this.createArrow()
+            clearTimeout(timer)
+        }, 200)  
     }
 });
