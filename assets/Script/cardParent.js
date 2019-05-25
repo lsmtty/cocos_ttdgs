@@ -1,4 +1,3 @@
-
 cc.Class({
     extends: cc.Component,
 
@@ -40,32 +39,34 @@ cc.Class({
     /**
      * 展示收藏卡片
      * @param {Object} monsterData 
-     * @param {Integer} type 1: 新加 2：重复添加
      */
-    showCard(monsterData, currentCount = 0) {
+    showCard(monsterData) {
         this.node.parent.active = true
         this.node.monsterData = monsterData
         let labelName =this.node.getChildByName('monster_name').getComponent(cc.Label)
         let monster = this.node.getChildByName('monster_pic').getComponent(cc.Label)
         let labelOwn = this.node.getChildByName('monster_own').getComponent(cc.Label)
-        if (currentCount > 0) {
+        if (monsterData.own > 0) {
             this.node.getChildByName('icon_new').active = false
         }
         labelName.string = `捕获${monsterData.name}`
-        labelOwn.string = `我拥有${currentCount}只`
-        let loadUrl = `monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`
+        labelOwn.string = `我拥有${monsterData.own}只`
+        let loadUrl = `monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}`
         cc.loader.loadRes(loadUrl, cc.SpriteFrame, (err, spriteFrame) => {
             this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame
         })
     },
     handleSave(e) {
-        Toast.makeText(`保存一个${e.target.parent.monsterData.name}`, Toast.LENGTH_SHORT).show()
-        console.log(`保存一个${e.target.parent.monsterData.name}`)
+        let { monsterData } =  e.target.parent;
+        let { name, sceneId, monsterId} = monsterData;
+        // Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
+        cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
         e.target.parent.getComponent('cardParent').refreshMonster()
     },
     handleSend(e) {
-        Toast.makeText(`送出一个${e.target.parent.monsterData.name}`, Toast.LENGTH_SHORT).show()
-        console.log(`送出一个${e.target.parent.monsterData.name}`)
+        let { monsterData } =  e.target.parent;
+        let { name, sceneId, monsterId} = monsterData;
+        Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
         e.target.parent.getComponent('cardParent').refreshMonster()
     },
     refreshMonster() {

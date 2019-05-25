@@ -1,4 +1,5 @@
 // 抓捕怪兽 主场景
+import * as globalUtil from './utils/globalUtil';
 cc.Class({
     extends: cc.Component,
 
@@ -19,6 +20,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        this.initGameData()
         let c = this.node.getComponent(cc.Canvas);
         c.fitHeight = true;
         c.fitWidth = false;
@@ -39,13 +41,11 @@ cc.Class({
         {
             _canvas.fitHeight = false;
             _canvas.fitWidth = true;
-            // console.log("tttttt","winSize: fitWidth");
         }
         else
         {
             _canvas.fitHeight = true;
             _canvas.fitWidth = false;
-            // console.log("tttttt","winSize: fitHeight");
         }
         this.monsterParent = this.node.getChildByName('monsterBox')
     },
@@ -63,21 +63,52 @@ cc.Class({
     showCard(sceneId, monsterId) {
         let root = cc.find('Canvas')
         let monsterData = root.getComponent('catchmonster').getMonsterData(sceneId, monsterId)
-        this.cardParent.getComponent('cardParent').showCard(monsterData, 0)
+        this.cardParent.getComponent('cardParent').showCard(monsterData)
     },
-
-    // called every frame
-    update: function (dt) {
-
+    saveMonster(sceneId, monsterId) {
+        let { scenes } =  this.monsterData.result.data
+        let targetScene = {}
+        scenes.forEach(scene => {
+            if (scene.id === `scene${sceneId}`) {
+                targetScene = scene
+            }
+        })
+        targetScene.monsters.forEach(monster => {
+            if (monster.id == `s${sceneId}_monster${monsterId}`) {
+                monster.own++;
+            }
+        })
+        cc.sys.localStorage.setItem('monsterData', JSON.stringify(this.monsterData))
     },
     getMonsterData(sceneId, monsterId) {
-        // cc.sys.localStorage.getItem('monsterData');
+        let { scenes } =  this.monsterData.result.data
+        let targetScene = {}
+        scenes.forEach(scene => {
+            if (scene.id === `scene${sceneId}`) {
+                targetScene = scene
+            }
+        })
+        let targetMonster = {}
+        let targetId = `s${sceneId}_monster${monsterId}`
+        targetScene.monsters.forEach(monster => {
+            if (monster.id == targetId) {
+                targetMonster = monster
+            }
+        })
         return {
-            blood: 100,
-            name: '比卡丘',
-            id: 1,
+            blood: targetMonster.life,
+            name: targetMonster.name,
+            own: targetMonster.own,
             sceneId,
             monsterId
         }
+    },
+    initGameData() {
+        let monsterData = JSON.parse(cc.sys.localStorage.getItem('monsterData'));
+        if (monsterData && globalUtil.isDebug && globalUtil.needRefreshStorage) {
+            monsterData = require('./mockData/gameData')
+            cc.sys.localStorage.setItem('monsterData', JSON.stringify(monsterData))
+        }
+        this.monsterData = monsterData;
     }
 });

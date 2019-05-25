@@ -27,6 +27,7 @@ cc.Class({
         cc.director.getCollisionManager().enabledDebugDraw = globalUtil.isDebug
         cc.director.getCollisionManager().enabledDrawBoundingBox = globalUtil.isDebug
         this.progressBar = this.node.parent.getChildByName('bloodbar').getComponent(cc.ProgressBar)
+        this.showNet = false // 保证只有一个抓捕网兜
     },
 
     start () {
@@ -39,8 +40,9 @@ cc.Class({
             this.currentBlood = this.currentBlood - arrow.attack
             this.node.parent.getComponent('monsterParent').hurt(arrow.attack)
             this.progressBar.progress = this.currentBlood / this.fullblood
-            if (this.currentBlood <= 0) {
+            if (this.currentBlood <= 0 && !this.showNet) {
                 this.onCatched()
+                this.showNet = true
             }
         }
     },
@@ -50,7 +52,7 @@ cc.Class({
         parent.getComponent('monsterParent').stopRun()
         this.progressBar.node.active = false
         // 创建捕捉效果
-        cc.loader.loadRes('monster_net.png', cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes('monster_net', cc.SpriteFrame, (err, spriteFrame) => {
             if (err) {
                 cc.error(err)
                 return
@@ -70,8 +72,6 @@ cc.Class({
             rootBg.addChild(bgNode)
             let netDown = cc.moveTo(2, parent.x, parent.y - 90)
             let netUp = cc.moveTo(1, parent.x, 1334)
-            // let netCatchCallback = cc.callFunc(this.showCard, this) // callFunc 不生效
-            // bgNode.runAction(cc.sequence(netDown, netUp), netCatchCallback)
             bgNode.runAction(cc.sequence(netDown, netUp))
             let timer1 =  setTimeout(() => {
                 this.hideMonster()
@@ -79,6 +79,7 @@ cc.Class({
             }, 2000)
             let timer2 = setTimeout(() => {
                 this.showCard()
+                this.showNet = false
                 clearTimeout(timer2)
             }, 3000)
         })
@@ -96,8 +97,5 @@ cc.Class({
             this.progressBar.node.active = true
             this.progressBar.progress = this.currentBlood / this.fullblood
         }
-    },
-
-    update (dt) {
-    },
+    }
 });

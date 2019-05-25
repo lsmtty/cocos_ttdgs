@@ -1,4 +1,4 @@
-import mathUtil from './utils/mathUtil'
+import mathUtil from './utils/mathUtil';
 cc.Class({
     extends: cc.Component,
 
@@ -24,8 +24,6 @@ cc.Class({
             type:cc.Node
         }
     },
-
-    // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.refreshNew()
@@ -64,20 +62,16 @@ cc.Class({
         // this.node.runAction(cc.sequence(moveAction, callback)) 
     },
 
-    start () {
-
-    },
-
     refreshNew() {
         let _this = this
         this.node.active = true
         this.monsterId = mathUtil.getRandomNum(1, 8)
         this.monster.monsterId = this.monsterId
-        let monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData()
+        let monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData(this.sceneId, this.monsterId)
         let monsterScript = this.monster.getComponent('monster')
         monsterScript.fullBlood = monsterScript.currentBlood = monsterData.blood
         monsterScript.refreshNew()
-        let loadUrl = `monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`
+        let loadUrl = `monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}`
         cc.loader.loadRes(loadUrl, cc.SpriteFrame, (err, spriteFrame) => {
             this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame
         })

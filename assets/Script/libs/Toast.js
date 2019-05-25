@@ -139,3 +139,4 @@ Toast.makeText = function (text, duration) {
 Toast.showText = function (text, duration) {
   Toast.makeText(text, duration).show();
 }
+window.Toast = Toast

@@ -1,0 +1,22 @@
+{
+  "name": "ttdgs",
+  "version": "1.0.0",
+  "description": "Hello world new project template.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsmtty/cocos_ttdgs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lsmtty/cocos_ttdgs/issues"
+  },
+  "homepage": "https://github.com/lsmtty/cocos_ttdgs#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
