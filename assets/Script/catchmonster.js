@@ -48,6 +48,7 @@ cc.Class({
             _canvas.fitWidth = false;
         }
         this.monsterParent = this.node.getChildByName('monsterBox')
+        this.showUserInfoButton()
     },
 
     catchedMonster() {
@@ -104,11 +105,35 @@ cc.Class({
         }
     },
     initGameData() {
-        let monsterData = JSON.parse(cc.sys.localStorage.getItem('monsterData'));
-        if (monsterData && globalUtil.isDebug && globalUtil.needRefreshStorage) {
+        let monsterData = cc.sys.localStorage.getItem('monsterData')
+        if (!monsterData || (globalUtil.isDebug && globalUtil.needRefreshStorage)) {
             monsterData = require('./mockData/gameData')
             cc.sys.localStorage.setItem('monsterData', JSON.stringify(monsterData))
+        } else {
+            monsterData = JSON.parse(monsterData)
         }
         this.monsterData = monsterData;
+    },
+    showUserInfoButton() {
+        let button = wx.createUserInfoButton({
+            type: 'text',
+            text: '获取用户信息',
+            style: {
+                left: 175,
+                top: 76,
+                width: 200,
+                height: 40,
+                lineHeight: 40,
+                backgroundColor: '#ff0000',
+                color: '#ffffff',
+                textAlign: 'center',
+                fontSize: 16,
+                borderRadius: 4
+            }
+        })
+        button.show();
+        button.onTap((res)=>{
+            console.log(res)
+        });
     }
 });

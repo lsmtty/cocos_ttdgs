@@ -14,7 +14,6 @@ cc.Class({
     },
 
     onLoad () {
-        // this.watchMonster()
         this.leftGra = this.leftLine.getComponent(cc.Graphics)
         this.rightGra = this.rightLine.getComponent(cc.Graphics)
         this.drawLines()
@@ -33,10 +32,6 @@ cc.Class({
         let beSmall = cc.scaleTo(0.2, 1, 0.8)
         let beLarge = cc.scaleTo(0.2, 1, 1)
         this.node.runAction(cc.sequence(beSmall, beLarge))
-    },
-
-    update (dt) {
-        
     },
 
     drawLines(bottom = -60) {

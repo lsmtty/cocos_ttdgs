@@ -6,6 +6,8 @@ let gameData = {
         {
           condition: [],
           id: "scene1",
+          scene_name: "元素之地",
+          text_color: "#39BC30",
           monsters: [
             {
               "id": "s1_monster1",
@@ -65,6 +67,8 @@ let gameData = {
             }
           ],
           id: "scene2",
+          scene_name: "中心五岛",
+          text_color: "#C571FF",
           monsters: [
             {
               "id": "s2_monster1",
