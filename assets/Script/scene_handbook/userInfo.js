@@ -28,11 +28,31 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        this.initData(); 
+    },
 
     start () {
 
     },
+
+    initData() {
+        let userInfo = require('../mockData/userInfoData')
+        this.userName.string = userInfo.userName;
+        cc.loader.loadRes(userInfo.avatarUrl, cc.SpriteFrame, (err, spriteFrame) => {
+            this.userImg.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        })
+        let ownerCount = 0
+        let gameData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))
+        let { scenes } =  gameData.result.data
+        scenes.forEach(scene => {
+            let { monsters } = scene
+            monsters.forEach(monster => {
+                ownerCount += monster.own != 0
+            })
+        });
+        this.userEarnCount.string = `${ownerCount}种神兽`
+    }
 
     // update (dt) {},
 });

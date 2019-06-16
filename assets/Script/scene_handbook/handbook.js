@@ -59,9 +59,7 @@ cc.Class({
         }
         cc.director.setClearColor(new cc.Color(89,81,78));
         let returnBtn = cc.find('Canvas/background/返回按钮@2x')
-        returnBtn.on('touchend', () => {
-            cc.director.loadScene('catchmonster')
-        })
+        returnBtn.on('touchend', this.goback)
         this.showUserInfoButton()
     },
 
