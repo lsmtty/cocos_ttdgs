@@ -48,7 +48,7 @@ cc.Class({
             _canvas.fitWidth = false;
         }
         this.monsterParent = this.node.getChildByName('monsterBox')
-        this.showUserInfoButton()
+        // this.showUserInfoButton()
     },
 
     catchedMonster() {

@@ -128,7 +128,7 @@ Toast.makeText = function (text, duration) {
           let finished = cc.callFunc(function (target) {
               bgNode.destroy();
           }, self);
-          let action = cc.sequence(cc.moveBy(_duration,cc.p(0,0)),cc.fadeOut(0.3), finished);
+          let action = cc.sequence(cc.moveBy(_duration,cc.v2(0,0)),cc.fadeOut(0.3), finished);
           bgNode.runAction(action);
       }
   }

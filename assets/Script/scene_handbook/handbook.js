@@ -57,15 +57,40 @@ cc.Class({
             _canvas.fitHeight = true;
             _canvas.fitWidth = false;
         }
-
         cc.director.setClearColor(new cc.Color(89,81,78));
         let returnBtn = cc.find('Canvas/background/返回按钮@2x')
-        returnBtn.on('touchend', this.goback)
+        returnBtn.on('touchend', () => {
+            cc.director.loadScene('catchmonster')
+        })
+        this.showUserInfoButton()
     },
 
     goback() {
         cc.director.loadScene('catchmonster')
+    },
+    showUserInfoButton() {
+        // let button = wx.createUserInfoButton({
+        //     type: 'text',
+        //     text: '获取用户信息',
+        //     style: {
+        //         left: 175,
+        //         top: 76,
+        //         width: 200,
+        //         height: 40,
+        //         lineHeight: 40,
+        //         backgroundColor: '#ff0000',
+        //         color: '#ffffff',
+        //         textAlign: 'center',
+        //         fontSize: 16,
+        //         borderRadius: 4
+        //     }
+        // })
+        // button.show();
+        // button.onTap((res)=>{
+        //     if (res.errMsg = 'getUserInfo:ok') {
+        //         this.userInfo = res.userInfo
+        //         this.drawUserData()
+        //     }
+        // });
     }
-
-    // update (dt) {},
 });
