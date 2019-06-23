@@ -39,9 +39,9 @@ cc.Class({
     initData() {
         let userInfo = require('../mockData/userInfoData')
         this.userName.string = userInfo.userName;
-        cc.loader.loadRes(userInfo.avatarUrl, cc.SpriteFrame, (err, spriteFrame) => {
-            this.userImg.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        })
+        // cc.loader.loadRes(userInfo.avatarUrl, cc.SpriteFrame, (err, spriteFrame) => {
+        //     this.userImg.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        // })
         let ownerCount = 0
         let gameData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))
         let { scenes } =  gameData.result.data

@@ -73,49 +73,49 @@ let gameData = {
             {
               "id": "s2_monster1",
               "life": 100,
-              "name": "皮卡王",
+              "name": "猫龟",
               "own": 0
             },
             {
               "id": "s2_monster2",
               "life": 100,
-              "name": "外星人",
+              "name": "小火喵",
               "own": 0
             },
             {
               "id": "s2_monster3",
               "life": 100,
-              "name": "小狗狗3",
+              "name": "外星人",
               "own": 0
             },
             {
               "id": "s2_monster4",
               "life": 100,
-              "name": "小狗狗4",
+              "name": "长毛怪",
               "own": 0
             },
             {
               "id": "s2_monster5",
               "life": 100,
-              "name": "小狗狗5",
+              "name": "鸡勇士",
               "own": 0
             },
             {
               "id": "s2_monster6",
               "life": 100,
-              "name": "小狗狗6",
+              "name": "小狗狗",
               "own": 0
             },
             {
-              "id": "s7_monster7",
+              "id": "s2_monster7",
               "life": 100,
-              "name": "小狗狗7",
+              "name": "音乐猴",
               "own": 0
             },
             {
               "id": "s2_monster8",
               "life": 100,
-              "name": "小狗狗8",
+              "name": "胆小龙",
               "own": 0
             }
           ],
