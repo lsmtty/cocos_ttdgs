@@ -1,4 +1,4 @@
-import globalUtil from './utils/globalUtil'
+import constant from './utils/constant'
 cc.Class({
     extends: cc.Component,
 
@@ -24,8 +24,8 @@ cc.Class({
 
         // 添加碰撞检测
         cc.director.getCollisionManager().enabled = true
-        cc.director.getCollisionManager().enabledDebugDraw = globalUtil.isDebug
-        cc.director.getCollisionManager().enabledDrawBoundingBox = globalUtil.isDebug
+        cc.director.getCollisionManager().enabledDebugDraw = constant.isDebug
+        cc.director.getCollisionManager().enabledDrawBoundingBox = constant.isDebug
         this.progressBar = this.node.parent.getChildByName('bloodbar').getComponent(cc.ProgressBar)
         this.showNet = false // 保证只有一个抓捕网兜
     },

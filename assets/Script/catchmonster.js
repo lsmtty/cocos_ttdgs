@@ -1,5 +1,5 @@
 // 抓捕怪兽 主场景
-import * as globalUtil from './utils/globalUtil';
+import * as constant from './utils/constant';
 cc.Class({
     extends: cc.Component,
 
@@ -106,7 +106,7 @@ cc.Class({
     },
     initGameData() {
         let monsterData = cc.sys.localStorage.getItem('monsterData')
-        if (!monsterData || (globalUtil.isDebug && globalUtil.needRefreshStorage)) {
+        if (!monsterData || (constant.isDebug && constant.needRefreshStorage)) {
             monsterData = require('./mockData/gameData')
             cc.sys.localStorage.setItem('monsterData', JSON.stringify(monsterData))
         } else {

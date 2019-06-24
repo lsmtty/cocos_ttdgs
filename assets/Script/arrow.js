@@ -1,4 +1,4 @@
-import globalUtil from './utils/globalUtil'
+import constant from './utils/constant'
 cc.Class({
     extends: cc.Component,
 
@@ -18,8 +18,8 @@ cc.Class({
     onLoad () {
         this.isShooting = false
         cc.director.getCollisionManager().enabled = true
-        cc.director.getCollisionManager().enabledDebugDraw = globalUtil.isDebug
-        cc.director.getCollisionManager().enabledDrawBoundingBox = globalUtil.isDebug
+        cc.director.getCollisionManager().enabledDebugDraw = constant.isDebug
+        cc.director.getCollisionManager().enabledDrawBoundingBox = constant.isDebug
     },
 
     getMonsterDistance() {
