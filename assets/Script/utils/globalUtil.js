@@ -1,14 +1,15 @@
-export class globalUtil{
-  ccLoadScene(sceneName: string, params: Object) : void {
+export default {
+  ttdgsLoadScene(sceneName, params) {
     let tempNode = new cc.Node();
     tempNode.name = sceneName;
     tempNode.paramsData = params;
     cc.game.addPersistRootNode(tempNode);
-  }
+    cc.director.loadScene(sceneName);
+  },
 
-  getScenesParams(sceneName: string) : any {
-    let tempNode = cc.find('Canvas').getChildByName(sceneName);
-    if (tempNode !== undefined) {
+  getSceneParams(sceneName) {
+    let tempNode = cc.find(sceneName);
+    if (tempNode) {
       let targetData = tempNode.paramsData;
       cc.game.removePersistRootNode(tempNode);
       return targetData

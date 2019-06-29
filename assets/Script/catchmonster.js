@@ -1,5 +1,6 @@
 // 抓捕怪兽 主场景
 import * as constant from './utils/constant';
+import globalUtil from '../Script/utils/globalUtil';
 cc.Class({
     extends: cc.Component,
 
@@ -21,6 +22,7 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this.initGameData()
+        this.initSceneData()
         let c = this.node.getComponent(cc.Canvas);
         c.fitHeight = true;
         c.fitWidth = false;
@@ -112,7 +114,13 @@ cc.Class({
         } else {
             monsterData = JSON.parse(monsterData)
         }
-        this.monsterData = monsterData;
+        this.monsterData = monsterData
+    },
+    initSceneData() {
+        // let { sceneId} = globalUtil.getSceneParams('catchmonster') || { sceneId : 'scene1'}
+        let { sceneId} = globalUtil.getSceneParams('catchmonster') || { sceneId : '1'}
+        // sceneId = sceneId.replace(/[^0-9]/ig, '')
+        this.monsterParent.getComponent('monsterParent').sceneId = sceneId
     },
     showUserInfoButton() {
         let button = wx.createUserInfoButton({
