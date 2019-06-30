@@ -31,8 +31,8 @@ cc.Class({
 
     drawBackground() {
         let ctx = this.node.getComponent(cc.Graphics);
-        ctx.fillColor = new cc.Color().fromHEX('#0000003c')
-        ctx.rect(0, 0, 750, 1334)
+        ctx.fillColor = new cc.Color().fromHEX('#ffffff')
+        ctx.roundRect(0, 0 , 602, 794, 25);
         ctx.fill()
     },
 });

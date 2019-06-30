@@ -26,7 +26,7 @@ cc.Class({
         cc.director.getCollisionManager().enabled = true
         cc.director.getCollisionManager().enabledDebugDraw = constant.isDebug
         cc.director.getCollisionManager().enabledDrawBoundingBox = constant.isDebug
-        this.progressBar = this.node.parent.getChildByName('bloodbar').getComponent(cc.ProgressBar)
+        this.progressBar = this.node.parent.getChildByName('bloodParent').getChildByName('bloodbar').getComponent(cc.ProgressBar)
         this.showNet = false // 保证只有一个抓捕网兜
     },
 
@@ -71,7 +71,7 @@ cc.Class({
             bgLayout.resizeMode = cc.Layout.ResizeMode.CONTAINER
             rootBg.addChild(bgNode)
             let netDown = cc.moveTo(2, parent.x, parent.y - 90)
-            let netUp = cc.moveTo(1, parent.x, 1334)
+            let netUp = cc.moveTo(1, parent.x, 1370)
             bgNode.runAction(cc.sequence(netDown, netUp))
             let timer1 =  setTimeout(() => {
                 this.hideMonster()
@@ -80,6 +80,9 @@ cc.Class({
             let timer2 = setTimeout(() => {
                 this.showCard()
                 this.showNet = false
+                if (cc.isValid(bgNode)) {
+                    bgNode.destroy()
+                }
                 clearTimeout(timer2)
             }, 3000)
         })

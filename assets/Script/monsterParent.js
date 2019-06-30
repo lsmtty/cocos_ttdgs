@@ -27,6 +27,13 @@ cc.Class({
 
     onLoad () {
         this.refreshNew()
+        let bloodCtx = this.node.getChildByName('bloodParent').getComponent(cc.Graphics)
+        bloodCtx.fillColor = new cc.Color(255,255,255)
+        bloodCtx.roundRect(-105, -17, 210, 34, 17)
+        bloodCtx.fill()
+        bloodCtx.fillColor = new cc.Color().fromHEX('#d8d8d8')
+        bloodCtx.roundRect(-100, -12, 200, 24, 12)
+        bloodCtx.fill()
     },
 
     randomRun() {
@@ -49,17 +56,22 @@ cc.Class({
         bleedingAnim.play('blooding')
         let bloodNode = new cc.Node('blood node')
         let bloodLabel = bloodNode.addComponent(cc.Label)
+        let outline = bloodNode.addComponent(cc.LabelOutline)
+        outline.color = new cc.color(255,255,255)
+        outline.width = 4
         bloodLabel.fontSize = 42
         bloodLabel.string = '-' + damage
         bloodNode.color = cc.color(255,85,85)
         bloodNode.parent = this.node
         bloodNode.y = 170
+
         let moveAction = cc.moveTo.call(bloodNode, 0.5, cc.v2(0, 260))
+        let fadeAction = cc.fadeOut(0.5);
         let callback = cc.callFunc(() => {
             bloodNode.destroy()
         }, this)
-        // tosolve bug 应为血量文字移动，现在 this.node指向了怪兽本身
-        // this.node.runAction(cc.sequence(moveAction, callback)) 
+        bloodNode.runAction(fadeAction)
+        bloodNode.runAction(cc.sequence(moveAction, callback)) 
     },
 
     refreshNew() {

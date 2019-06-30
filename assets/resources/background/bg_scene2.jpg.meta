@@ -1,15 +1,15 @@
 {
   "ver": "2.2.0",
-  "uuid": "96c23309-d91c-42f8-8dca-36c8b05aeb86",
+  "uuid": "4675b743-affd-4497-9c16-f3473c50af88",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "背景_暮色森林": {
+    "bg_scene2": {
       "ver": "1.0.3",
-      "uuid": "1b34df7d-7ff1-401e-b289-63dc84afc01e",
-      "rawTextureUuid": "96c23309-d91c-42f8-8dca-36c8b05aeb86",
+      "uuid": "30d36771-3884-4e9f-9eae-1783d7eedafe",
+      "rawTextureUuid": "4675b743-affd-4497-9c16-f3473c50af88",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

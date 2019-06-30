@@ -117,10 +117,16 @@ cc.Class({
         this.monsterData = monsterData
     },
     initSceneData() {
-        // let { sceneId} = globalUtil.getSceneParams('catchmonster') || { sceneId : 'scene1'}
         let { sceneId} = globalUtil.getSceneParams('catchmonster') || { sceneId : '1'}
-        // sceneId = sceneId.replace(/[^0-9]/ig, '')
         this.monsterParent.getComponent('monsterParent').sceneId = sceneId
+        let bgLoadUrl = `background/bg_scene${sceneId}`
+        let showLoadUrl = `background_shadow/shadow_scene${sceneId}`
+        cc.loader.loadRes(bgLoadUrl, cc.SpriteFrame, (err, spriteFrame) => {
+            cc.find('Canvas/background').getComponent(cc.Sprite).spriteFrame = spriteFrame
+        })
+        cc.loader.loadRes(showLoadUrl, cc.SpriteFrame, (err, spriteFrame) => {
+            cc.find('Canvas/background/bg_shadow').getComponent(cc.Sprite).spriteFrame = spriteFrame
+        })
     },
     showUserInfoButton() {
         let button = wx.createUserInfoButton({

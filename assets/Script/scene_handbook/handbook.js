@@ -7,7 +7,6 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-import globalUtil from '../Script/utils/globalUtil'
 
 cc.Class({
     extends: cc.Component,
@@ -44,7 +43,6 @@ cc.Class({
             _canvas.fitHeight = true;
             _canvas.fitWidth = false;
         }
-        console.log('here', globalUtil.getSceneParams('handbook'))
         cc.Camera.main.backgroundColor = new cc.Color(89,81,78)
         let returnBtn = cc.find('Canvas/background/返回按钮@2x')
         returnBtn.on('touchend', this.goback)

@@ -32,7 +32,7 @@ cc.Class({
     drawBackground() {
         let ctx = this.node.getComponent(cc.Graphics);
         ctx.fillColor = new cc.Color().fromHEX('#FFF4D9')
-        ctx.rect(0, 0, 582, 774)
+        ctx.roundRect(0, 0 , 582, 774, 20);
         ctx.fill()
     },
 
