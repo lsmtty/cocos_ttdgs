@@ -78,6 +78,7 @@ cc.Class({
                 clearTimeout(timer1)
             }, 2000)
             let timer2 = setTimeout(() => {
+                // 移除网兜 让怪兽销毁
                 this.showCard()
                 this.showNet = false
                 if (cc.isValid(bgNode)) {
