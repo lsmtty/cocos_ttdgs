@@ -46,10 +46,15 @@ cc.Class({
     this.node.runAction(cc.sequence(moveAction, callback))
   },
 
+  monsterCatched() {
+    this.stopRun()
+    // 🏹停止射击
+    this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = false
+  },
+
   // 停止走动
   stopRun() {
     this.node.stopAllActions()
-    this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = false
   },
 
   hurt(damage) {
@@ -77,7 +82,7 @@ cc.Class({
 
   refreshNew() {
     this.node.active = true
-    this.monsterId = mathUtil.getRandomNum(1, 8)
+    this.monsterId = mathUtil.getRandomNum(8)
     this.monster.monsterId = this.monsterId
     const monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData(this.sceneId, this.monsterId)
     const monsterScript = this.monster.getComponent('monster')

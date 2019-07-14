@@ -1,5 +1,5 @@
 const isDebug = false
-const needRefreshStorage = true
+const needRefreshStorage = false
 
 export default {
   isDebug,

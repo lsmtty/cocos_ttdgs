@@ -49,7 +49,7 @@ cc.Class({
 
   onCatched() {
     const parent = this.node.parent
-    parent.getComponent('monsterParent').stopRun()
+    parent.getComponent('monsterParent').monsterCatched()
     this.progressBar.node.active = false
     // 创建捕捉效果
     cc.loader.loadRes('monster_net', cc.SpriteFrame, (err, spriteFrame) => {

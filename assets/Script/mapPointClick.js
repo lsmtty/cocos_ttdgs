@@ -20,7 +20,7 @@ cc.Class({
   onLoad () {
     this.entries = this.getEntries()
 
-        this.cleanEntries()
+    this.cleanEntries()
 
     this.setEntryActive(this.entries[0])
     this.setEntryActive(this.entries[1])

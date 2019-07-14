@@ -1,6 +1,7 @@
 // 抓捕怪兽 主场景
 import * as constant from './utils/constant'
 import globalUtil from '../Script/utils/globalUtil'
+import request from './utils/request';
 cc.Class({
   extends: cc.Component,
 
@@ -14,6 +15,10 @@ cc.Class({
       type: cc.Node
     },
     cardParent: {
+      default: null,
+      type: cc.Node
+    },
+    refreshMask: {
       default: null,
       type: cc.Node
     }
@@ -47,7 +52,23 @@ cc.Class({
       _canvas.fitWidth = false
     }
     this.monsterParent = this.node.getChildByName('monsterBox')
+
+    this.serverTime = Date.now()
+    this.serverTimeGap = 0
     // this.showUserInfoButton()
+
+    setInterval(() => {
+      if ((Date.now() + this.serverTimeGap) % (3600 * 1000) < 1500) {
+        this.getANewMonster()
+      }
+    }, 1000)
+  },
+
+  adjustTime() {
+    request.getServerTime((res) => {
+      this.serverTime = res
+      this.serverTimeGap = this.serverTime - Date.now() // 默认服务器时间大于本地时间
+    })
   },
 
   catchedMonster() {
@@ -55,15 +76,16 @@ cc.Class({
   },
 
   getANewMonster() {
-    if (this.monsterParent) {
-      this.monsterParent.refreshNew()
-    }
+    cc.find('Canvas/background/monsterBox').getComponent('monsterParent').refreshNew()
   },
 
   showCard(sceneId, monsterId) {
     const root = cc.find('Canvas')
     const monsterData = root.getComponent('catchmonster').getMonsterData(sceneId, monsterId)
     this.cardParent.getComponent('cardParent').showCard(monsterData)
+  },
+  showRefreshInterval() {
+    this.refreshMask.getComponent('refreshMask').show()
   },
   saveMonster(sceneId, monsterId) {
     const { scenes } = this.monsterData.result.data

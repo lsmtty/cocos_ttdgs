@@ -121,7 +121,10 @@ const gameData = {
           ],
           name: '蔚蓝海域'
         }
-      ]
+      ],
+      userData: {
+        rabbits: 100
+      }
     }
   }
 

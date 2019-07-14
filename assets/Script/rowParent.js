@@ -17,7 +17,7 @@ cc.Class({
       type: cc.AudioClip
     },
     shootInterval: {
-      default: 1000,
+      default: 500,
       type: cc.Integer
     },
     validShoot: {

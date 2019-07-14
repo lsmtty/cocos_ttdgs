@@ -66,10 +66,10 @@ cc.Class({
     const { monsterData } = e.target.parent
     const { name } = monsterData
     Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
-    e.target.parent.getComponent('cardParent').refreshMonster()
+     e.target.parent.getComponent('cardParent').refreshMonster()
   },
   refreshMonster() {
     this.node.parent.active = false
-    cc.find('Canvas/background/monsterBox').getComponent('monsterParent').refreshNew()
+    cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
   }
 })

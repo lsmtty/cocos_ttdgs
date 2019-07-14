@@ -22,11 +22,10 @@ const getRandom = function(min, max) {
 }
 
 /**
- * 获取两数之间的随机整数
- * @param {*} min
- * @param {*} max
+ * 获取1到target中间的随机数
+ * @param {*} target
  */
-const getRandomNum = function(min, max) {
-  return Math.floor(Math.random() * (max - min) + min)
+const getRandomNum = function(target) {
+  return Math.floor(Math.random() * Math.floor(target)) + 1;
 }
 export default { getRotation, getRandom, getRandomNum }
