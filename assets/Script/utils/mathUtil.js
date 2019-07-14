@@ -3,9 +3,9 @@
  * @param {*} a 起始坐标
  * @param {*} b 终点坐标
  */
-let getRotation = function(a, b) {
-  let x = Math.abs(a.x - b.x), y = Math.abs(a.y - b.y);
-  let l = Math.sqrt(x * x + y * y);
+const getRotation = function(a, b) {
+  const x = Math.abs(a.x - b.x); const y = Math.abs(a.y - b.y)
+  const l = Math.sqrt(x * x + y * y)
   if (b.x > a.x) {
     return 180 - Math.round(Math.asin(y / l) / Math.PI * 180)
   }
@@ -14,19 +14,19 @@ let getRotation = function(a, b) {
 
 /**
  * 根据两点坐标算出随机的中间位置
- * @param {*} min 
- * @param {*} max 
+ * @param {*} min
+ * @param {*} max
  */
-let getRandom = function(min, max){
+const getRandom = function(min, max) {
   return min + Math.random() * (max - min)
 }
 
 /**
  * 获取两数之间的随机整数
- * @param {*} min 
- * @param {*} max 
+ * @param {*} min
+ * @param {*} max
  */
-let getRandomNum = function(min, max) {
+const getRandomNum = function(min, max) {
   return Math.floor(Math.random() * (max - min) + min)
 }
-export default {getRotation, getRandom, getRandomNum}
+export default { getRotation, getRandom, getRandomNum }

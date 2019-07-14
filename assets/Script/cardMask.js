@@ -9,30 +9,30 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-        cardParent: {
-            type: cc.Node,
-            default: null
-        }
-    },
+  properties: {
+    cardParent: {
+      type: cc.Node,
+      default: null
+    }
+  },
 
-    // LIFE-CYCLE CALLBACKS:
+  // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        this.drawBackground()
-        this.node.active = false
-    },
+  onLoad () {
+    this.drawBackground()
+    this.node.active = false
+  },
 
-    start () {
+  start () {
 
-    },
+  },
 
-    drawBackground() {
-        let ctx = this.node.getComponent(cc.Graphics);
-        ctx.fillColor = new cc.Color().fromHEX('#ffffff')
-        ctx.roundRect(0, 0 , 602, 794, 25);
-        ctx.fill()
-    },
-});
+  drawBackground() {
+    const ctx = this.node.getComponent(cc.Graphics)
+    ctx.fillColor = new cc.Color().fromHEX('#ffffff')
+    ctx.roundRect(0, 0, 602, 794, 25)
+    ctx.fill()
+  }
+})

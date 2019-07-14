@@ -9,73 +9,69 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-        
-    },
+  properties: {
 
-    // LIFE-CYCLE CALLBACKS:
+  },
 
-    onLoad () {
-        let c = this.node.getComponent(cc.Canvas);
-        c.fitHeight = true;
-        c.fitWidth = false;
+  // LIFE-CYCLE CALLBACKS:
 
-        let h = 750 * cc.winSize.height / cc.winSize.width;
+  onLoad () {
+    const c = this.node.getComponent(cc.Canvas)
+    c.fitHeight = true
+    c.fitWidth = false
 
-        c.designResolution = new cc.Size(750, h);
-        this.node.setContentSize(750, h);
+    const h = 750 * cc.winSize.height / cc.winSize.width
 
-        // 适配解决方案
-        let _canvas = cc.Canvas.instance;
-        // 设计分辨率比
-        let _rateR = _canvas.designResolution.height/_canvas.designResolution.width;
-        // 显示分辨率比
-        let _rateV = cc.winSize.height/cc.winSize.width;
-        if (_rateV > _rateR)
-        {
-            _canvas.fitHeight = false;
-            _canvas.fitWidth = true;
-        }
-        else
-        {
-            _canvas.fitHeight = true;
-            _canvas.fitWidth = false;
-        }
-        cc.Camera.main.backgroundColor = new cc.Color(89,81,78)
-        let returnBtn = cc.find('Canvas/background/返回按钮@2x')
-        returnBtn.on('touchend', this.goback)
-        this.showUserInfoButton()
-    },
+    c.designResolution = new cc.Size(750, h)
+    this.node.setContentSize(750, h)
 
-    goback() {
-        cc.director.loadScene('catchmonster');
-        
-    },
-    showUserInfoButton() {
-        // let button = wx.createUserInfoButton({
-        //     type: 'text',
-        //     text: '获取用户信息',
-        //     style: {
-        //         left: 175,
-        //         top: 76,
-        //         width: 200,
-        //         height: 40,
-        //         lineHeight: 40,
-        //         backgroundColor: '#ff0000',
-        //         color: '#ffffff',
-        //         textAlign: 'center',
-        //         fontSize: 16,
-        //         borderRadius: 4
-        //     }
-        // })
-        // button.show();
-        // button.onTap((res)=>{
-        //     if (res.errMsg = 'getUserInfo:ok') {
-        //         this.userInfo = res.userInfo
-        //         this.drawUserData()
-        //     }
-        // });
+    // 适配解决方案
+    const _canvas = cc.Canvas.instance
+    // 设计分辨率比
+    const _rateR = _canvas.designResolution.height / _canvas.designResolution.width
+    // 显示分辨率比
+    const _rateV = cc.winSize.height / cc.winSize.width
+    if (_rateV > _rateR) {
+      _canvas.fitHeight = false
+      _canvas.fitWidth = true
+    } else {
+      _canvas.fitHeight = true
+      _canvas.fitWidth = false
     }
-});
+    cc.Camera.main.backgroundColor = new cc.Color(89, 81, 78)
+    const returnBtn = cc.find('Canvas/background/返回按钮@2x')
+    returnBtn.on('touchend', this.goback)
+    this.showUserInfoButton()
+  },
+
+  goback() {
+    cc.director.loadScene('catchmonster')
+  },
+  showUserInfoButton() {
+    // let button = wx.createUserInfoButton({
+    //     type: 'text',
+    //     text: '获取用户信息',
+    //     style: {
+    //         left: 175,
+    //         top: 76,
+    //         width: 200,
+    //         height: 40,
+    //         lineHeight: 40,
+    //         backgroundColor: '#ff0000',
+    //         color: '#ffffff',
+    //         textAlign: 'center',
+    //         fontSize: 16,
+    //         borderRadius: 4
+    //     }
+    // })
+    // button.show();
+    // button.onTap((res)=>{
+    //     if (res.errMsg = 'getUserInfo:ok') {
+    //         this.userInfo = res.userInfo
+    //         this.drawUserData()
+    //     }
+    // });
+  }
+})

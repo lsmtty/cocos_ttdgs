@@ -9,50 +9,50 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-        userImg: {
-            type: cc.Node,
-            default: null
-        },
-        userName: {
-            type: cc.Label,
-            default: null
-        },
-        userEarnCount: {
-            type: cc.Label,
-            default: null
-        }
+  properties: {
+    userImg: {
+      type: cc.Node,
+      default: null
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
-    onLoad () {
-        this.initData(); 
+    userName: {
+      type: cc.Label,
+      default: null
     },
-
-    start () {
-
-    },
-
-    initData() {
-        let userInfo = require('../mockData/userInfoData')
-        this.userName.string = userInfo.userName;
-        // cc.loader.loadRes(userInfo.avatarUrl, cc.SpriteFrame, (err, spriteFrame) => {
-        //     this.userImg.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        // })
-        let ownerCount = 0
-        let gameData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))
-        let { scenes } =  gameData.result.data
-        scenes.forEach(scene => {
-            let { monsters } = scene
-            monsters.forEach(monster => {
-                ownerCount += monster.own != 0
-            })
-        });
-        this.userEarnCount.string = `${ownerCount}种神兽`
+    userEarnCount: {
+      type: cc.Label,
+      default: null
     }
+  },
 
-    // update (dt) {},
-});
+  // LIFE-CYCLE CALLBACKS:
+
+  onLoad () {
+    this.initData()
+  },
+
+  start () {
+
+  },
+
+  initData() {
+    const userInfo = require('../mockData/userInfoData')
+    this.userName.string = userInfo.userName
+    // cc.loader.loadRes(userInfo.avatarUrl, cc.SpriteFrame, (err, spriteFrame) => {
+    //     this.userImg.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    // })
+    let ownerCount = 0
+    const gameData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))
+    const { scenes } = gameData.result.data
+    scenes.forEach(scene => {
+      const { monsters } = scene
+      monsters.forEach(monster => {
+        ownerCount += monster.own != 0
+      })
+    })
+    this.userEarnCount.string = `${ownerCount}种神兽`
+  }
+
+  // update (dt) {},
+})

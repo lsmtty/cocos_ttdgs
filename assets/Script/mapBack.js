@@ -9,23 +9,23 @@
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-    },
+  properties: {
+  },
 
-    onLoad () {
-        let _this = this
-        this.node.on('touchend', () => {
-            this.goBack()
-        }, this)
-    },
+  onLoad () {
+    const _this = this
+    this.node.on('touchend', () => {
+      this.goBack()
+    }, this)
+  },
 
-    goBack() {
-        cc.director.loadScene("catchmonster")
-    },
+  goBack() {
+    cc.director.loadScene('catchmonster')
+  },
 
-    start () {
+  start () {
 
-    }
-});
+  }
+})

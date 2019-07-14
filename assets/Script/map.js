@@ -68,8 +68,8 @@ cc.Class({
 
             this.node.getChildByName(entryId).opacity = 255
         })
-        this.node.getChildByName('entry2').on('touchstart' (e) => {console.log(e)}, this)
-        this.node.getChildByName('entry3').on('touchstart' (e) => {console.log(e)}, this)
+        this.node.getChildByName('entry2').on('touchstart' (e) => { console.log(e)}, this)
+        this.node.getChildByName('entry3').on('touchstart' (e) => { console.log(e)}, this)
     },
 
     catchedMonster() {
