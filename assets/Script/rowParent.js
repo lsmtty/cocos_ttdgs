@@ -15,11 +15,20 @@ cc.Class({
     shootAudio: {
       default: null,
       type: cc.AudioClip
+    },
+    shootInterval: {
+      default: 1000,
+      type: cc.Integer
+    },
+    validShoot: {
+      default: false,
+      type: cc.Boolean
     }
   },
 
   onLoad () {
     this.arrow = null
+    this.arrowCreateTime = null
     this.createArrow()
     this.node.on('touchmove', (e) => {
       this.rowRotate(e)
@@ -56,27 +65,29 @@ cc.Class({
   },
   arrowStretch(e) {
     const { _prevPoint, _startPoint } = e.touch
+    if (!this.arrow) return
     let moveLength = Math.sqrt(Math.pow(_prevPoint.x - _startPoint.x, 2) + Math.pow(_prevPoint.y - _startPoint.y, 2))
     moveLength = moveLength < 100 ? moveLength : 100
-    this.arrow.setPosition(cc.v2(0, -73 - moveLength / 2))
+    this.arrow && this.arrow.setPosition(cc.v2(0, -73 - moveLength / 2))
     this.row.getComponent('row').drawLines(-60 - moveLength / 2)
   },
   shootArrow(e) {
     const { _prevPoint, _startPoint } = e.touch
     const moveLength = Math.sqrt(Math.pow(_prevPoint.x - _startPoint.x, 2) + Math.pow(_prevPoint.y - _startPoint.y, 2))
-    if (moveLength < 50) { // 拉动距离太小恢复位置
-      this.replaceArrow()
-      return
-    }
-    if (this.arrow) {
+    if (this.arrow && this.validShoot) {
+      if (moveLength < 50) { // 拉动距离太小恢复位置
+        this.replaceArrow()
+        return
+      }
       this.playShootAudio()
       this.arrow.getComponent('arrow').shooting()
       this.row.getComponent('row').drawLines(-60)
+      this.arrow = null
+      const timer = setTimeout(() => {
+        this.createArrow()
+        clearTimeout(timer)
+      }, this.shootInterval)
     }
-    const timer = setTimeout(() => {
-      this.createArrow()
-      clearTimeout(timer)
-    }, 200)
   },
   replaceArrow() {
     this.arrow.setPosition(cc.v2(0, -73))

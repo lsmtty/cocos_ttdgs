@@ -49,6 +49,7 @@ cc.Class({
   // 停止走动
   stopRun() {
     this.node.stopAllActions()
+    this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = false
   },
 
   hurt(damage) {
@@ -87,6 +88,9 @@ cc.Class({
       this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame
     })
     this.randomRun()
+
+    // 让弓箭继续可以射击
+    this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = true
   },
   showCard() {
     this.node.stopAllActions()
