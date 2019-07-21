@@ -60,9 +60,8 @@ cc.Class({
 
   getEntries () {
     let monsterData = cc.sys.localStorage.getItem('monsterData')
-    monsterData = monsterData || monsterData = require('./mockData/gameData')
+    monsterData = monsterData || require('./mockData/gameData')
     monsterData = JSON.parse(monsterData)
-    console.log(monsterData)
     this.monsterData = monsterData.result.data
     let scenes = this.monsterData.scenes
     let entries = this.node.children.filter(item => (/entry/).test(item._name))
