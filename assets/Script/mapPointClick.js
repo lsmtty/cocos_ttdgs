@@ -7,44 +7,74 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+//
+//  [getData] - [getEntries] - [setEntry] - []
+//                    |_ [bind event]
 
 import globalUtil from '../Script/utils/globalUtil'
+
+const BASE_CONDITION_COUNT = 5;
+
 cc.Class({
   extends: cc.Component,
 
   properties: {
     entries: [],
-    monsterData: []
+    monsterData: [],
+    BASE_CONDITION_COUNT
   },
 
   onLoad () {
-    this.entries = this.getEntries()
+    // 获取数据
+    this.monsterData = this.getData();
 
-    this.cleanEntries()
+    // 获取UI上的入口
+    this.entries = this.getEntries();
 
-    this.setEntryActive(this.entries[0])
-    this.setEntryActive(this.entries[1])
+    // 重置入口状态
+    this.cleanEntries();
 
-    this.showArrow(this.entries[0])
-    this.showArrow(this.entries[1])
+    // 根据条件设置入口状态
+    this.setEntries();
 
+    // 绑定点击事件
     this.entries.forEach((item, index) => {
-      let arrow = item.children[0]
-      let title = item.children[1]
+      let arrow = item.children[0];
+      let title = item.children[1];
+      let enterBtn = title.children[3];
 
       arrow.on('touchend', () => {
-        this.showTitle(item)
-      })
+        this.showTitle(item);
+      });
       title.on('touchend', () => {
-        this.showArrow(item)
-      })
-      title.children[3].on('touchend', (e) => {
-        e.stopPropagation()
+        this.showArrow(item);
+      });
+      enterBtn.on('touchend', e => {
+        e.stopPropagation();
         // alert(`点击进入场景${index}`)
         globalUtil.ttdgsLoadScene('catchmonster', { sceneId: index + 1 })
-            })
+      });
+    });
+  },
+
+  setEntries () {
+    let scenes = this.monsterData.scenes
+    this.showArrow(this.entries[0])
+    this.setEntryActive(this.entries[0])
+    scenes.forEach((item, index) => {
+      let monstersCount = 0
+      item.monsters.forEach(monster => {
+        if (monster.own > 0) {
+          monstersCount++
+        }
+      })
+      this.entries[index].children[1].children[1].getComponent(cc.Label).string = monstersCount
+      if (monstersCount > this.BASE_CONDITION_COUNT && this.entries[index + 1]) {
+        this.setEntryActive(this.entries[index + 1])
+        this.showArrow(this.entries[index + 1])
+      }
     })
-    },
+  },
 
   cleanEntries () {
     this.entries.forEach(item => {
@@ -59,10 +89,6 @@ cc.Class({
   },
 
   getEntries () {
-    let monsterData = cc.sys.localStorage.getItem('monsterData')
-    monsterData = monsterData || require('./mockData/gameData')
-    monsterData = JSON.parse(monsterData)
-    this.monsterData = monsterData.result.data
     let scenes = this.monsterData.scenes
     let entries = this.node.children.filter(item => (/entry/).test(item._name))
     entries.forEach((item, index) => {
@@ -77,6 +103,12 @@ cc.Class({
   setEntryActive (entry) {
     entry.isActive = true
     },
+
+  getData () {
+    let monsterData = cc.sys.localStorage.getItem('monsterData');
+    monsterData = JSON.parse(monsterData || require('./mockData/gameData'));
+    return monsterData.result.data;
+  },
 
   showArrow (entry) {
     this.entries.forEach(item => {
