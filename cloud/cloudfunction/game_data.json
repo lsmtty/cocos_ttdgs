@@ -1,0 +1,101 @@
+{
+  "_id": "game_data",
+  "scenes": [
+    {
+      "id": "scene1",
+      "name": "暮色林地",
+      "condition": [],
+      "monsters": [
+        {
+          "id": "s1_monster1",
+          "name": "皮卡王",
+          "life": 100
+        },
+        {
+          "id": "s1_monster2",
+          "name": "外星人",
+          "life": 100
+        },
+        {
+          "id": "s1_monster3",
+          "name": "小狗狗3",
+          "life": 100
+        },
+        {
+          "id": "s1_monster4",
+          "name": "小狗狗4",
+          "life": 100
+        },
+        {
+          "id": "s1_monster5",
+          "name": "小狗狗5",
+          "life": 100
+        },
+        {
+          "id": "s1_monster6",
+          "name": "小狗狗6",
+          "life": 100
+        },
+        {
+          "id": "s1_monster7",
+          "name": "小狗狗7",
+          "life": 100
+        },
+        {
+          "id": "s1_monster8",
+          "name": "小狗狗8",
+          "life": 100
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "name": "蔚蓝海域",
+      "condition": [
+        {"type": 0}
+      ],
+      "monsters": [
+        {
+          "id": "s2_monster1",
+          "name": "皮卡王",
+          "life": 100
+        },
+        {
+          "id": "s2_monster2",
+          "name": "外星人",
+          "life": 100
+        },
+        {
+          "id": "s3_monster3",
+          "name": "小狗狗3",
+          "life": 100
+        },
+        {
+          "id": "s4_monster4",
+          "name": "小狗狗4",
+          "life": 100
+        },
+        {
+          "id": "s5_monster5",
+          "name": "小狗狗5",
+          "life": 100
+        },
+        {
+          "id": "s6_monster6",
+          "name": "小狗狗6",
+          "life": 100
+        },
+        {
+          "id": "s7_monster7",
+          "name": "小狗狗7",
+          "life": 100
+        },
+        {
+          "id": "s8_monster8",
+          "name": "小狗狗8",
+          "life": 100
+        }
+      ]
+    }
+  ]
+}
