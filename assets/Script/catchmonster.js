@@ -56,7 +56,7 @@ cc.Class({
     this.serverTime = Date.now()
     this.serverTimeGap = 0
     // this.showUserInfoButton()
-
+    this.login()
     setInterval(() => {
       if ((Date.now() + this.serverTimeGap) % (3600 * 1000) < 1500) {
         this.getANewMonster()
@@ -147,6 +147,17 @@ cc.Class({
       cc.find('Canvas/background/bg_shadow').getComponent(cc.Sprite).spriteFrame = spriteFrame
     })
   },
+  login() {
+    wx.cloud.callFunction({
+      name: 'login',
+      success: res => {
+        console.log('login success');
+      },
+      fail: res => {
+        console.log('login failed');
+      }
+    })
+  },
   showUserInfoButton() {
     const button = wx.createUserInfoButton({
       type: 'text',
@@ -166,7 +177,24 @@ cc.Class({
     })
     button.show()
     button.onTap((res) => {
-      console.log(res)
+      wx.cloud.callFunction({
+        // 要调用的云函数名称
+        name: 'add',
+        // 传递给云函数的参数
+        data: {
+          x: 1,
+          y: 2,
+        },
+        success: res => {
+          // output: res.result === 3
+        },
+        fail: err => {
+          // handle error
+        },
+        complete: () => {
+          // ...
+        }
+      })
     })
   }
 })
