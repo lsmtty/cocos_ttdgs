@@ -1,12 +1,6 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+
+
+import request from '../utils/request';
 
 cc.Class({
   extends: cc.Component,
@@ -29,19 +23,18 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
-    this.initData()
-  },
-
-  start () {
+    request.getUserInfo().then(data => this.initData(data));
 
   },
 
-  initData() {
-    const userInfo = require('../mockData/userInfoData')
-    this.userName.string = userInfo.userName
-    // cc.loader.loadRes(userInfo.avatarUrl, cc.SpriteFrame, (err, spriteFrame) => {
-    //     this.userImg.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-    // })
+  initData(userInfo) {
+    let _this = this
+    this.userName.string = userInfo.nickName
+    cc.loader.load(userInfo.avatarUrl + '?aa=aa.jpg', (err,texture) => {
+      let fra = _this.userImg.getComponent(cc.Sprite);
+      let sframe = new cc.SpriteFrame(texture)
+      fra.spriteFrame = sframe;
+    })
     let ownerCount = 0
     const gameData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))
     const { scenes } = gameData.result.data

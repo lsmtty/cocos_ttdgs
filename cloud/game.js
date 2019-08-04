@@ -30,5 +30,5 @@ else {
     cc.macro.CLEANUP_IMAGE_CACHE = true;
 }
 
-wx.cloud.init({env: 'ttdgs_test'}); // ttdgs_test 或者 ttdgs_release
+wx.cloud.init({env: 'ttdgs-test-c6724c'}); // ttdgs-test 或者 ttdgs-release
 window.boot();

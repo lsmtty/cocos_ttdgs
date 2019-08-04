@@ -2,6 +2,7 @@
 import * as constant from './utils/constant'
 import globalUtil from '../Script/utils/globalUtil'
 import request from './utils/request';
+import { resolve } from 'path';
 cc.Class({
   extends: cc.Component,
 
@@ -55,13 +56,13 @@ cc.Class({
 
     this.serverTime = Date.now()
     this.serverTimeGap = 0
-    // this.showUserInfoButton()
+    this.getUserData()
     this.login()
-    setInterval(() => {
+    this.schedule(() => {
       if ((Date.now() + this.serverTimeGap) % (3600 * 1000) < 1500) {
         this.getANewMonster()
       }
-    }, 1000)
+    }, 1000, Infinity)
   },
 
   adjustTime() {
@@ -148,13 +149,31 @@ cc.Class({
     })
   },
   login() {
+    request.login()
+      .then(() => { 
+        console.log('login Success'); 
+        request.getUserInfo().then((data) => { console.log('userData', data)}).catch(() => { this.showUserInfoButton()})
+      })
+      .catch(() => {console.log('login Failed');});
+  },
+  getUserData() {
     wx.cloud.callFunction({
-      name: 'login',
-      success: res => {
-        console.log('login success');
+      // 要调用的云函数名称
+      name: 'getUserData',
+      // 传递给云函数的参数
+      data: {
+        x: 1,
+        y: 2,
       },
-      fail: res => {
-        console.log('login failed');
+      success: res => {
+        console.log('getUserData', res)
+        // output: res.result === 3
+      },
+      fail: err => {
+        // handle error
+      },
+      complete: () => {
+        // ...
       }
     })
   },
@@ -177,24 +196,16 @@ cc.Class({
     })
     button.show()
     button.onTap((res) => {
-      wx.cloud.callFunction({
-        // 要调用的云函数名称
-        name: 'add',
-        // 传递给云函数的参数
-        data: {
-          x: 1,
-          y: 2,
-        },
-        success: res => {
-          // output: res.result === 3
-        },
-        fail: err => {
-          // handle error
-        },
-        complete: () => {
-          // ...
-        }
-      })
+      if (res.errMsg == 'getUserInfo:ok') {
+        const { userInfo } = res
+        const { nickName, gender, avatarUrl } = userInfo
+
+        request.updateUserInfo({
+          nickName,
+          gender,
+          avatarUrl
+        }).then(() => { button.hide() }).catch(() => { button.show() })
+      }
     })
   }
 })

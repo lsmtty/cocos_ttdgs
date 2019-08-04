@@ -6,7 +6,16 @@ class GameMain{
 
   login() {
     return new Promise((resolve, reject) => {
-      wx.login()
+      wx.login({
+        success: res => {
+          if(res.code) {
+            code= res.code;
+          }
+        },
+        fail: res => {
+  
+        }
+      })
     })
   }
   showUserInfoButton() {
