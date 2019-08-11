@@ -1,4 +1,6 @@
-import mathUtil from './utils/mathUtil'
+import mathUtil from './utils/mathUtil';
+import { App } from '../Script/utils/App';
+import constant from '../Script/utils/constant';
 cc.Class({
   extends: cc.Component,
 
@@ -88,10 +90,14 @@ cc.Class({
     const monsterScript = this.monster.getComponent('monster')
     monsterScript.fullBlood = monsterScript.currentBlood = monsterData.blood
     monsterScript.refreshNew()
-    const loadUrl = `monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}`
-    cc.loader.loadRes(loadUrl, cc.SpriteFrame, (err, spriteFrame) => {
-      this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame
-    })
+    App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`)
+      .then(url => {
+        cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+          let fra = this.monster.getComponent(cc.Sprite)
+          let sframe = new cc.SpriteFrame(texture)
+          fra.spriteFrame = sframe;
+        })
+      })
     this.randomRun()
 
     // 让弓箭继续可以射击

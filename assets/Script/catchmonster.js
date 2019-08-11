@@ -1,5 +1,5 @@
 // 抓捕怪兽 主场景
-import * as constant from './utils/constant'
+import constant from './utils/constant'
 import { App } from './utils/app';
 import request from './utils/request';
 import { resolve } from 'path';

@@ -6,7 +6,8 @@ class AppMain {
   constructor() {
     this.globalData = {
       appId: '',
-      userInfo: {}
+      userInfo: {},
+      resoureMap: new Map()
     }
   }
 
@@ -103,6 +104,36 @@ class AppMain {
     } else {
       return null
     }
+  }
+
+  getResourceRealUrl(fileID) {
+    const { resoureMap } = this.globalData;
+    let targetFileUrl = resoureMap.get(fileID);
+    return new Promise((resolve, reject) => {
+      if (targetFileUrl) {
+        resolve(targetFileUrl);
+      }
+      wx.cloud.getTempFileURL({
+        fileList: [fileID],
+        success: res => {
+          if (res.errMsg = 'cloud.getTempFileURL:ok') {
+            let targetFile = res.fileList[0]
+            if (targetFile.tempFileURL) {
+              resoureMap.set(fileID, res.fileList[0].tempFileURL);
+              resolve(res.fileList[0].tempFileURL);
+            } else {
+              reject('Image Not Found');
+            }
+          } else {
+            reject(res.errMsg);
+          }
+        }, 
+        fail: err => {
+          console.error();
+          reject(err);
+        }
+      })
+    });
   }
 }
 

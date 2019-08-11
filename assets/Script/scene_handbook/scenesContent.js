@@ -1,12 +1,5 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+import { App } from '../utils/App';
+import constant from '../utils/constant';
 
 cc.Class({
   extends: cc.Component,
@@ -74,15 +67,15 @@ cc.Class({
         countLabel.string = own
       }
       const loadUrl = `monsters/${sceneId}/${monsterId}${own == 0 ? '_shadow' : ''}`
-      cc.loader.loadRes(loadUrl, cc.SpriteFrame, (err, spriteFrame) => {
-        monsterImg.getComponent(cc.Sprite).spriteFrame = spriteFrame
+
+      App.getResourceRealUrl(`${constant.rootWxCloudPath}${loadUrl}.png`)
+      .then(url => {
+        cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+          let fra = monsterImg.getComponent(cc.Sprite)
+          let sframe = new cc.SpriteFrame(texture)
+          fra.spriteFrame = sframe;
+        })
       })
     })
-  },
-
-  start () {
-
   }
-
-  // update (dt) {},
 })

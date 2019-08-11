@@ -1,3 +1,6 @@
+import { App } from '../Script/utils/App';
+import constant from '../Script/utils/constant';
+
 cc.Class({
   extends: cc.Component,
 
@@ -25,10 +28,6 @@ cc.Class({
     this.saveBtn.on('touchend', this.handleSave)
   },
 
-  start () {
-
-  },
-
   drawBackground() {
     const ctx = this.node.getComponent(cc.Graphics)
     ctx.fillColor = new cc.Color().fromHEX('#FFF4D9')
@@ -50,10 +49,14 @@ cc.Class({
     }
     labelName.string = `捕获${monsterData.name}`
     labelOwn.string = `我拥有${monsterData.own}只`
-    const loadUrl = `monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}`
-    cc.loader.loadRes(loadUrl, cc.SpriteFrame, (err, spriteFrame) => {
-      this.monster.getComponent(cc.Sprite).spriteFrame = spriteFrame
-    })
+    App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`)
+      .then(url => {
+        cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+          let fra = this.monster.getComponent(cc.Sprite)
+          let sframe = new cc.SpriteFrame(texture)
+          fra.spriteFrame = sframe;
+        })
+      })
   },
   handleSave(e) {
     const { monsterData } = e.target.parent
