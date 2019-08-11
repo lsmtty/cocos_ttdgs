@@ -22,10 +22,14 @@ const getUserInfo = () => {
   return solveRequest(api.getUserInfo);
 }
 
+const getUserData = () => {
+  return solveRequest(api.getUserData)
+}
+
 const solveRequest = (url, data = {}) => {
   let _this = this
   return new Promise((resolve, reject) => {
-    wx.cloud.callFunction({
+    typeof wx != 'undefined' && wx.cloud.callFunction({
       // 要调用的云函数名称
       name: url,
       // 传递给云函数的参数
@@ -50,5 +54,6 @@ export default {
   updateUserInfo,
   solveRequest,
   login: wxLogin,
-  getUserInfo
+  getUserInfo,
+  getUserData
 }

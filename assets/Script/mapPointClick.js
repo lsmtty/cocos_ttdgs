@@ -11,7 +11,7 @@
 //  [getData] - [getEntries] - [setEntry] - []
 //                    |_ [bind event]
 
-import globalUtil from '../Script/utils/globalUtil'
+import { App } from './utils/App'
 
 const BASE_CONDITION_COUNT = 5;
 
@@ -52,7 +52,7 @@ cc.Class({
       enterBtn.on('touchend', e => {
         e.stopPropagation();
         // alert(`点击进入场景${index}`)
-        globalUtil.ttdgsLoadScene('catchmonster', { sceneId: index + 1 })
+        App.ttdgsLoadScene('catchmonster', { sceneId: index + 1 })
       });
     });
   },

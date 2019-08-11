@@ -8,7 +8,7 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-import globalUtil from '../Script/utils/globalUtil'
+import { App } from './utils/App'
 
 cc.Class({
   extends: cc.Component,
@@ -20,7 +20,7 @@ cc.Class({
 
   onLoad () {
     this.node.on('touchend', () => {
-      globalUtil.ttdgsLoadScene('handbook', {
+      App.ttdgsLoadScene('handbook', {
         test: 'test'
       })
     })
