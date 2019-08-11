@@ -33,19 +33,15 @@ const solveRequest = (url, data = {}) => {
       // 要调用的云函数名称
       name: url,
       // 传递给云函数的参数
-      data,
-      success: res => {
-        _this && (_this.serverTime = res.result.serverTime) // 统一封装绑定serverTime
-        if (res.errMsg == 'cloud.callFunction:ok' && (res.result && res.result.success)) {
-          resolve(res.result.data)
-        } else {
-          reject(res)
-        }
-      },
-      fail: err => {
-        reject(err)
+      data
+    }).then(res => {
+      _this && (_this.serverTime = res.result.serverTime) // 统一封装绑定serverTime
+      if (res.errMsg == 'cloud.callFunction:ok' && (res.result && res.result.success)) {
+        resolve(res.result.data)
+      } else {
+        reject(res)
       }
-    })
+    }).catch(err => reject(err));
   }) 
 }
 

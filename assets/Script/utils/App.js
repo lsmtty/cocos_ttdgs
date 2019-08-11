@@ -1,4 +1,4 @@
-// 唯一的游戏控制主类
+// 唯一的游戏控制主类,以后整理到根目录，根目录的情景js分别
 import request from './request';
 
 class AppMain {
@@ -17,9 +17,11 @@ class AppMain {
         request.getUserInfo().then(data => { 
           console.log('userData', data)
           this.globalData.userInfo = data;
-        }).catch(this.showUserInfoButton())
+        }).catch(this.showUserInfoButton)
       })
-      .catch(console.log('login Failed'));
+      .catch(() => {
+        console.log('login Failed')}
+      );
   }
 
   // 功能相关

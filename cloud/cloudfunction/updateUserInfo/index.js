@@ -58,7 +58,7 @@ exports.main = async (event, context) => {
      data: {
        _id: docId,
        _openid: event.userInfo.openId,
-       niceName: event.nickName || '',
+       nickName: event.nickName || '',
        avatarUrl: event.avatarUrl || '',
        lastLoginTime: Date.now(),
        gender: event.gender,

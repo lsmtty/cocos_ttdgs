@@ -33,7 +33,6 @@ cc.Class({
   },
 
   init() {
-    // this.monsterParent = this.node.getChildByName('monsterBox')
     this.serverTime = Date.now()
     this.serverTimeGap = 0
 

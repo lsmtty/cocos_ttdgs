@@ -4,9 +4,8 @@
   "description": "Hello world new project template.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix ./assets",
-    "gulp": "gulp"
+    "start": "gulp copy"
   },
   "repository": {
     "type": "git",

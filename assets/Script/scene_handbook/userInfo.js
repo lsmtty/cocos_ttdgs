@@ -23,8 +23,7 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
-    request.getUserInfo().then(data => this.initData(data));
-
+    request.getUserInfo().then(data => this.initData(data))
   },
 
   initData(userInfo) {
@@ -46,6 +45,4 @@ cc.Class({
     })
     this.userEarnCount.string = `${ownerCount}种神兽`
   }
-
-  // update (dt) {},
 })
