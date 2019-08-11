@@ -15,8 +15,6 @@ cc.Class({
     }
   },
 
-  // LIFE-CYCLE CALLBACKS:
-
   onLoad () {
     const monsterData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))
     const { scenes } = monsterData.result.data

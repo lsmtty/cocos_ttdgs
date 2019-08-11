@@ -26,20 +26,18 @@ cc.Class({
     cc.director.getCollisionManager().enabled = true
     cc.director.getCollisionManager().enabledDebugDraw = constant.isDebug
     cc.director.getCollisionManager().enabledDrawBoundingBox = constant.isDebug
-    this.progressBar = this.node.parent.getChildByName('bloodParent').getChildByName('bloodbar').getComponent(cc.ProgressBar)
+    this.progressBar = this.node.parent.getChildByName('bloodParent').getChildByName('bloodbar')
+    this.refreshNew()
     this.showNet = false // 保证只有一个抓捕网兜
   },
 
-  start () {
-
-  },
 
   onCollisionEnter: function (other) {
     const arrow = other.getComponent('arrow')
     if (arrow) {
       this.currentBlood = this.currentBlood - arrow.attack
       this.node.parent.getComponent('monsterParent').hurt(arrow.attack)
-      this.progressBar.progress = this.currentBlood / this.fullblood
+      this.drawBlood(this.currentBlood / this.fullblood) 
       if (this.currentBlood <= 0 && !this.showNet) {
         this.onCatched()
         this.showNet = true
@@ -47,10 +45,21 @@ cc.Class({
     }
   },
 
+  drawBlood: function(percent) {
+    const ctx = this.progressBar.getComponent(cc.Graphics)
+    ctx.fillColor = new cc.Color().fromHEX('#ffd8d8')
+    ctx.roundRect(-100, -12, 200, 24, 12)
+    ctx.fill()
+
+    ctx.fillColor = new cc.Color().fromHEX('#ff5555')
+    ctx.roundRect(-100, -12, 200 * percent, 24, 12)
+    ctx.fill()
+  },
+
   onCatched() {
     const parent = this.node.parent
     parent.getComponent('monsterParent').monsterCatched()
-    this.progressBar.node.active = false
+    this.progressBar.active = false
     // 创建捕捉效果
     cc.loader.loadRes('monster_net', cc.SpriteFrame, (err, spriteFrame) => {
       if (err) {
@@ -98,8 +107,8 @@ cc.Class({
   },
   refreshNew() {
     if (this.progressBar) {
-      this.progressBar.node.active = true
-      this.progressBar.progress = this.currentBlood / this.fullblood
+      this.progressBar.active = true
+      this.drawBlood(this.currentBlood / this.fullblood)
     }
   }
 })

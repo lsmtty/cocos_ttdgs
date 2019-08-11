@@ -113,7 +113,7 @@ class AppMain {
       if (targetFileUrl) {
         resolve(targetFileUrl);
       }
-      wx.cloud.getTempFileURL({
+      typeof wx != 'undefined' && wx.cloud.getTempFileURL({
         fileList: [fileID],
         success: res => {
           if (res.errMsg = 'cloud.getTempFileURL:ok') {
