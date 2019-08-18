@@ -72,7 +72,7 @@ cc.Class({
     this.refreshMask.getComponent('refreshMask').show()
   },
   saveMonster(sceneId, monsterId) {
-    const { scenes } = this.monsterData.result.data
+    const { scenes } = this.gameData.result.data
     let targetScene = {}
     scenes.forEach(scene => {
       if (scene.id === `scene${sceneId}`) {
@@ -84,10 +84,10 @@ cc.Class({
         monster.own++
       }
     })
-    cc.sys.localStorage.setItem('monsterData', JSON.stringify(this.monsterData))
+    cc.sys.localStorage.setItem('monsterData', JSON.stringify(this.gameData))
   },
   getMonsterData(sceneId, monsterId) {
-    const { scenes } = this.monsterData.result.data
+    const { scenes } = this.gameData.result.data
     let targetScene = {}
     scenes.forEach(scene => {
       if (scene.id === `scene${sceneId}`) {
@@ -110,14 +110,14 @@ cc.Class({
     }
   },
   initGameData() {
-    let monsterData = cc.sys.localStorage.getItem('monsterData')
-    if (!monsterData || (constant.isDebug && constant.needRefreshStorage)) {
-      monsterData = require('./mockData/gameData')
-      cc.sys.localStorage.setItem('monsterData', JSON.stringify(monsterData))
+    let gameData = cc.sys.localStorage.getItem('gameData')
+    if (!gameData || (constant.isDebug && constant.needRefreshStorage)) {
+      gameData = require('./mockData/gameData')
+      cc.sys.localStorage.setItem('monsterData', JSON.stringify(gameData))
     } else {
-      monsterData = JSON.parse(monsterData)
+      gameData = JSON.parse(gameData)
     }
-    this.monsterData = monsterData
+    this.gameData = gameData
   },
   initSceneData() {
     const { sceneId } = App.getSceneParams('catchmonster') || { sceneId: '1' }
@@ -130,5 +130,18 @@ cc.Class({
     cc.loader.loadRes(showLoadUrl, cc.SpriteFrame, (err, spriteFrame) => {
       cc.find('Canvas/background/bg_shadow').getComponent(cc.Sprite).spriteFrame = spriteFrame
     })
+  },
+
+  // 供其他组件调用的公共函数
+
+  // 游戏数据封装
+
+  _setGameData(newGameData) {
+    this.gameData = newGameData;
+    cc.sys.localStorage.setItem('monsterData', JSON.stringify(this.gameData))
+  },
+
+  _getGameData() {
+    return this.gameData;
   }
 })

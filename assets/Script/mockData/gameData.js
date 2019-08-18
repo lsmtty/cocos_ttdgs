@@ -2,6 +2,9 @@ const gameData = {
   result: {
     data: {
       _id: 'game_data',
+      tools: {
+        rabbits: 99
+      },
       scenes: [
         {
           condition: [],

@@ -19,7 +19,7 @@ cc.Class({
   // LIFE-CYCLE CALLBACKS:
 
   onLoad () {
-    App.adjustScreen();
+    App.adjustScreen(this.node);
     cc.Camera.main.backgroundColor = new cc.Color(89, 81, 78)
     const returnBtn = cc.find('Canvas/background/返回按钮@2x')
     returnBtn.on('touchend', this.goback)
