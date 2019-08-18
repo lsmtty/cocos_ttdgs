@@ -16,14 +16,14 @@ cc.Class({
       default: null,
       type: cc.Node
     },
-    cardParent: {
-      default: null,
-      type: cc.Node
-    },
     refreshMask: {
       default: null,
       type: cc.Node
-    }
+    },
+    cardPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
   },
 
   // use this for initialization
@@ -39,13 +39,6 @@ cc.Class({
     App.login();
     this.initGameData()
     this.initSceneData()
-    
-    // this.getUserData()
-    // this.schedule(() => {
-    //   if ((Date.now() + this.serverTimeGap) % (3600 * 1000) < 1500) {
-    //     this.getANewMonster()
-    //   }
-    // }, 1000, Infinity)
   },
 
   adjustTime() {
@@ -66,7 +59,7 @@ cc.Class({
   showCard(sceneId, monsterId) {
     const root = cc.find('Canvas')
     const monsterData = root.getComponent('catchmonster').getMonsterData(sceneId, monsterId)
-    this.cardParent.getComponent('cardParent').showCard(monsterData)
+    this.cardParent.getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
   },
   showRefreshInterval() {
     this.refreshMask.getComponent('refreshMask').show()
@@ -130,6 +123,10 @@ cc.Class({
     cc.loader.loadRes(showLoadUrl, cc.SpriteFrame, (err, spriteFrame) => {
       cc.find('Canvas/background/bg_shadow').getComponent(cc.Sprite).spriteFrame = spriteFrame
     })
+    let card = cc.instantiate(this.cardPrefab)
+    card.setPosition(cc.v2(-291, -387))
+    this.cardParent = card
+    this.node.addChild(this.cardParent)
   },
 
   // 供其他组件调用的公共函数
