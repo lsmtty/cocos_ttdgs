@@ -42,27 +42,46 @@ cc.Class({
         this.node.active = true
         const label = this.refreshLabel.getComponent(cc.Label)
         this.showRefreshToolCount()
-        setInterval(() => {
+        let showRefreshTime = function() {
             let date = Date.now() + this.root.serverTimeGap
             let overTime = 3600 * 1000 - date % (3600 * 1000)
           
             let minutes = parseInt((overTime % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = parseInt((overTime % (1000 * 60)) / 1000);
             label.string = `${minutes}分${seconds}秒后会有新怪物出现喔！！！`
+        }
+        showRefreshTime.call(this);
+        this.timer = setInterval(() => {
+            showRefreshTime.call(this);
         }, 1000)
     },
 
     hide() {
+        clearInterval(this.timer)
         this.node.active = false
     },
 
     refreshByRabbit() {
-        this.root.getANewMonster()
-        this.node.active = false
+        let gameData = this.root._getGameData()
+        let { rabbits } = gameData.result.data.tools;
+        if (rabbits) {
+            clearInterval(this.timer)
+            this.root.getANewMonster()
+            this.node.active = false
+        }   
+        rabbits--;
+        gameData.result.data.tools.rabbits = rabbits;
+        this.root._setGameData(gameData);
     },
     showRefreshToolCount() {
         let gameData = this.root._getGameData()
         let refToolCount = this.refreshTool.getChildByName('refToolCount');
-        
+        let refToolCountLable = refToolCount.getChildByName('refCountLabel')
+        const { rabbits } = gameData.result.data.tools;
+        const ctx = refToolCount.getComponent(cc.Graphics)
+        ctx.fillColor = new cc.Color(255, 89, 0, 255)
+        ctx.circle(15, 15, 15)
+        ctx.fill()
+        refToolCountLable.getComponent(cc.Label).string = rabbits
     }
 });
