@@ -12,11 +12,23 @@ cc.Class({
       type: cc.Node,
       default: null
     },
-    sendBtn: {
+    handbookControlBox: {
       type: cc.Node,
       default: null
     },
-    saveBtn: {
+    catchControlBox: {
+      type: cc.Node,
+      default: null
+    },
+    onCatchSendBtn: {
+      type: cc.Node,
+      default: null
+    },
+    onCatchSaveBtn: {
+      type: cc.Node,
+      default: null
+    },
+    onSendToFriendButton: {
       type: cc.Node,
       default: null
     }
@@ -24,8 +36,15 @@ cc.Class({
 
   onLoad () {
     this.drawBackground()
-    this.sendBtn.on('touchend', this.handleSend)
-    this.saveBtn.on('touchend', this.handleSave)
+    this.root = cc.find('Canvas')
+    if (this.root.getComponent('catchmonster')) { // 判断是捕捉页
+      this.handbookControlBox.active = false
+    } else {
+      this.catchControlBox.active = false
+    }
+    this.onCatchSendBtn.on('touchend', this.handleSend)
+    this.onCatchSaveBtn.on('touchend', this.handleSave)
+    this.onSendToFriendButton.on('touchend', this.sendToFriend)
   },
 
   drawBackground() {
@@ -69,7 +88,10 @@ cc.Class({
     const { monsterData } = e.target.parent
     const { name } = monsterData
     Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
-     e.target.parent.getComponent('cardParent').refreshMonster()
+    e.target.parent.getComponent('cardParent').refreshMonster()
+  },
+  sendToFriend(e) {
+    this.node.parent.active = false
   },
   refreshMonster() {
     this.node.parent.active = false
