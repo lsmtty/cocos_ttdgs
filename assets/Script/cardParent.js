@@ -86,6 +86,7 @@ cc.Class({
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   handleSend(e) {
+    let cardRoot =  e.target.parent.parent
     const { monsterData } = e.target.parent.parent
     const { name } = monsterData
     Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
