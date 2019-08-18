@@ -78,17 +78,18 @@ cc.Class({
       })
   },
   handleSave(e) {
-    const { monsterData } = e.target.parent
+    let cardRoot =  e.target.parent.parent
+    const { monsterData } = cardRoot
     const { name, sceneId, monsterId } = monsterData
     Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
     cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
-    e.target.parent.getComponent('cardParent').refreshMonster()
+    cardRoot.getComponent('cardParent').refreshMonster()
   },
   handleSend(e) {
-    const { monsterData } = e.target.parent
+    const { monsterData } = e.target.parent.parent
     const { name } = monsterData
     Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
-    e.target.parent.getComponent('cardParent').refreshMonster()
+    cardRoot.getComponent('cardParent').refreshMonster()
   },
   sendToFriend(e) {
     this.node.parent.active = false
