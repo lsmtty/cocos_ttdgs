@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.24448585384224192,
-      "y": 0.24448585384224192,
+      "x": 0.09478028798411123,
+      "y": 0.09478028798411123,
       "z": 1
     },
     "_quat": {
@@ -1507,12 +1507,12 @@
       "width": 750,
       "height": 1334
     },
-    "_fitWidth": true,
+    "_fitWidth": false,
     "_fitHeight": false,
     "_id": "a4nK0B4jFBcY25QG6M8VmQ"
   },
   {
-    "__type__": "26ba9881wpBCpydts5BkS2X",
+    "__type__": "ff202Zy5NdJwbPgHFmIMDgG",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1522,6 +1522,6 @@
     "cardPrefab": {
       "__uuid__": "fbeea412-cf41-4ca9-ab3d-7f75cba9d81b"
     },
-    "_id": "58ATybG8JMYYn3RGlUQ4L7"
+    "_id": "94uo+XqUtEw5z1qLRe2bUj"
   }
 ]

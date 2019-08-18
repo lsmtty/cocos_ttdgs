@@ -1510,7 +1510,9 @@
     "onCatchSaveBtn": {
       "__id__": 18
     },
-    "onSendToFriendButton": null,
+    "onSendToFriendButton": {
+      "__id__": 34
+    },
     "_id": ""
   },
   {
@@ -1562,7 +1564,9 @@
       "__id__": 1
     },
     "_enabled": true,
-    "cardParent": null,
+    "cardParent": {
+      "__id__": 2
+    },
     "_id": ""
   },
   {
