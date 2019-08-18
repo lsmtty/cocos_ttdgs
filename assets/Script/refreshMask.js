@@ -43,16 +43,19 @@ cc.Class({
         const label = this.refreshLabel.getComponent(cc.Label)
         this.showRefreshToolCount()
         let showRefreshTime = function() {
+            if ((Date.now() + this.serverTimeGap) % (3600 * 1000) < 1500) {
+                this.refresh()
+                return
+            }
             let date = Date.now() + this.root.serverTimeGap
             let overTime = 3600 * 1000 - date % (3600 * 1000)
-          
-            let minutes = parseInt((overTime % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = parseInt((overTime % (1000 * 60)) / 1000);
+            let minutes = parseInt((overTime % (1000 * 60 * 60)) / (1000 * 60))
+            let seconds = parseInt((overTime % (1000 * 60)) / 1000)
             label.string = `${minutes}分${seconds}秒后会有新怪物出现喔！！！`
         }
-        showRefreshTime.call(this);
+        showRefreshTime.call(this)
         this.timer = setInterval(() => {
-            showRefreshTime.call(this);
+            showRefreshTime.call(this)
         }, 1000)
     },
 
@@ -65,13 +68,16 @@ cc.Class({
         let gameData = this.root._getGameData()
         let { rabbits } = gameData.result.data.tools;
         if (rabbits) {
-            clearInterval(this.timer)
-            this.root.getANewMonster()
-            this.node.active = false
+            this.refresh()
         }   
         rabbits--;
         gameData.result.data.tools.rabbits = rabbits;
-        this.root._setGameData(gameData);
+        this.root._setGameData(gameData)
+    },
+    refresh() {
+        if (this.timer) clearInterval(this.timer)
+        this.root.getANewMonster()
+        this.node.active = false
     },
     showRefreshToolCount() {
         let gameData = this.root._getGameData()

@@ -41,11 +41,11 @@ cc.Class({
     this.initSceneData()
     
     // this.getUserData()
-    this.schedule(() => {
-      if ((Date.now() + this.serverTimeGap) % (3600 * 1000) < 1500) {
-        this.getANewMonster()
-      }
-    }, 1000, Infinity)
+    // this.schedule(() => {
+    //   if ((Date.now() + this.serverTimeGap) % (3600 * 1000) < 1500) {
+    //     this.getANewMonster()
+    //   }
+    // }, 1000, Infinity)
   },
 
   adjustTime() {

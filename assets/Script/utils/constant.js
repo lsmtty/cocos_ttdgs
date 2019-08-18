@@ -1,6 +1,6 @@
 const isDebug  = false
 const isProd = false
-const needRefreshStorage = true
+const needRefreshStorage = false
 
 export default {
   isDebug,
