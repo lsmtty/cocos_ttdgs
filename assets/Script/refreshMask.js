@@ -47,7 +47,7 @@ cc.Class({
                 this.refresh()
                 return
             }
-            let date = Date.now() + this.root.serverTimeGap
+            let date = Date.now() + this.serverTimeGap
             let overTime = 3600 * 1000 - date % (3600 * 1000)
             let minutes = parseInt((overTime % (1000 * 60 * 60)) / (1000 * 60))
             let seconds = parseInt((overTime % (1000 * 60)) / 1000)

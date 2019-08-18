@@ -68,6 +68,7 @@ cc.Class({
     }
     labelName.string = `捕获${monsterData.name}`
     labelOwn.string = `我拥有${monsterData.own}只`
+    console.log(`${constant.rootWxCloudPath}monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`)
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`)
       .then(url => {
         cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
@@ -93,7 +94,11 @@ cc.Class({
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   sendToFriend(e) {
-    this.node.parent.active = false
+    let cardRoot =  e.target.parent.parent
+    const { monsterData } = e.target.parent.parent
+    const { name } = monsterData
+    cardRoot.parent.active = false
+    Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
   },
   refreshMonster() {
     this.node.parent.active = false

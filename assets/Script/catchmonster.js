@@ -135,7 +135,7 @@ cc.Class({
 
   _setGameData(newGameData) {
     this.gameData = newGameData;
-    cc.sys.localStorage.setItem('monsterData', JSON.stringify(this.gameData))
+    cc.sys.localStorage.setItem('gameData', JSON.stringify(this.gameData))
   },
 
   _getGameData() {
