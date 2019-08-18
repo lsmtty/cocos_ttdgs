@@ -20,7 +20,8 @@ cc.Class({
 
     showCard(e) {
         let data = e.target.getComponent('monsterItem')
-        const { sceneId, monsterData} = data
+        let { sceneId, monsterData} = data
+        monsterData.sceneId = sceneId
         if (monsterData.own != 0) {
             const root = cc.find('Canvas')
             root.getComponent('handbook').showCard(monsterData)
