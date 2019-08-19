@@ -26,6 +26,6 @@ const getRandom = function(min, max) {
  * @param {*} target
  */
 const getRandomNum = function(target) {
-  return Math.floor(Math.random() * Math.floor(target)) + 1;
+  return Math.floor(Math.random() * Math.floor(target)) + 1
 }
 export default { getRotation, getRandom, getRandomNum }

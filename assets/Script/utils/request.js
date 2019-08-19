@@ -11,15 +11,15 @@ const getServerTime = () => {
 }
 
 const wxLogin = () => {
-  return solveRequest(api.login);
+  return solveRequest(api.login)
 }
 
 const updateUserInfo = (data) => {
-  return solveRequest(api.updateUserInfo, data);
+  return solveRequest(api.updateUserInfo, data)
 }
 
 const getUserInfo = () => {
-  return solveRequest(api.getUserInfo);
+  return solveRequest(api.getUserInfo)
 }
 
 const getUserData = () => {
@@ -27,7 +27,7 @@ const getUserData = () => {
 }
 
 const solveRequest = (url, data = {}) => {
-  let _this = this
+  const _this = this
   return new Promise((resolve, reject) => {
     typeof wx != 'undefined' && wx.cloud.callFunction({
       // 要调用的云函数名称
@@ -41,8 +41,8 @@ const solveRequest = (url, data = {}) => {
       } else {
         reject(res)
       }
-    }).catch(err => reject(err));
-  }) 
+    }).catch(err => reject(err))
+  })
 }
 
 export default {

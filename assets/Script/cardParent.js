@@ -1,5 +1,5 @@
-import { App } from '../Script/utils/App';
-import constant from '../Script/utils/constant';
+import { App } from '../Script/utils/App'
+import constant from '../Script/utils/constant'
 
 cc.Class({
   extends: cc.Component,
@@ -72,14 +72,14 @@ cc.Class({
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`)
       .then(url => {
         cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
-          let fra = this.monster.getComponent(cc.Sprite)
-          let sframe = new cc.SpriteFrame(texture)
-          fra.spriteFrame = sframe;
+          const fra = this.monster.getComponent(cc.Sprite)
+          const sframe = new cc.SpriteFrame(texture)
+          fra.spriteFrame = sframe
         })
       })
   },
   handleSave(e) {
-    let cardRoot =  e.target.parent.parent
+    const cardRoot = e.target.parent.parent
     const { monsterData } = cardRoot
     const { name, sceneId, monsterId } = monsterData
     Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
@@ -87,14 +87,14 @@ cc.Class({
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   handleSend(e) {
-    let cardRoot =  e.target.parent.parent
+    const cardRoot = e.target.parent.parent
     const { monsterData } = e.target.parent.parent
     const { name } = monsterData
     Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   sendToFriend(e) {
-    let cardRoot =  e.target.parent.parent
+    const cardRoot = e.target.parent.parent
     const { monsterData } = e.target.parent.parent
     const { name } = monsterData
     cardRoot.parent.active = false

@@ -1,4 +1,4 @@
-const isDebug  = false
+const isDebug = false
 const isProd = false
 const needRefreshStorage = false
 

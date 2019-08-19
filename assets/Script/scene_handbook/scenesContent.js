@@ -1,5 +1,5 @@
-import { App } from '../utils/App';
-import constant from '../utils/constant';
+import { App } from '../utils/App'
+import constant from '../utils/constant'
 
 cc.Class({
   extends: cc.Component,
@@ -46,7 +46,7 @@ cc.Class({
     monsters.forEach(item => {
       const { id: monsterId, own } = item
       const monster = cc.instantiate(this.monsterItem)
-      let monsterScript = monster.getComponent('monsterItem')
+      const monsterScript = monster.getComponent('monsterItem')
       monsterScript.sceneId = sceneId
       monsterScript.monsterData = item
       const ctx = monster.getComponent(cc.Graphics)
@@ -70,13 +70,13 @@ cc.Class({
       const loadUrl = `monsters/${sceneId}/${monsterId}${own == 0 ? '_shadow' : ''}`
 
       App.getResourceRealUrl(`${constant.rootWxCloudPath}${loadUrl}.png`)
-      .then(url => {
-        cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
-          let fra = monsterImg.getComponent(cc.Sprite)
-          let sframe = new cc.SpriteFrame(texture)
-          fra.spriteFrame = sframe;
+        .then(url => {
+          cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+            const fra = monsterImg.getComponent(cc.Sprite)
+            const sframe = new cc.SpriteFrame(texture)
+            fra.spriteFrame = sframe
+          })
         })
-      })
     })
   }
 })

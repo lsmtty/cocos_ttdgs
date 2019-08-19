@@ -1,4 +1,4 @@
-import { App } from '../utils/App';
+import { App } from '../utils/App'
 
 cc.Class({
   extends: cc.Component,
@@ -11,11 +11,11 @@ cc.Class({
   },
 
   onLoad () {
-    App.adjustScreen(this.node);
+    App.adjustScreen(this.node)
     cc.Camera.main.backgroundColor = new cc.Color(89, 81, 78)
     const returnBtn = cc.find('Canvas/background/返回按钮@2x')
     returnBtn.on('touchend', this.goback)
-    let card = cc.instantiate(this.cardPrefab)
+    const card = cc.instantiate(this.cardPrefab)
     card.setPosition(cc.v2(-291, -387))
     this.cardParent = card
     this.node.addChild(this.cardParent)

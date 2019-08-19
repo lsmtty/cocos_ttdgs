@@ -1,6 +1,5 @@
 
-
-import request from '../utils/request';
+import request from '../utils/request'
 
 cc.Class({
   extends: cc.Component,
@@ -27,12 +26,12 @@ cc.Class({
   },
 
   initData(userInfo) {
-    let _this = this
+    const _this = this
     this.userName.string = userInfo.nickName
-    cc.loader.load(userInfo.avatarUrl + '?aa=aa.jpg', (err,texture) => {
-      let fra = _this.userImg.getComponent(cc.Sprite);
-      let sframe = new cc.SpriteFrame(texture)
-      fra.spriteFrame = sframe;
+    cc.loader.load(userInfo.avatarUrl + '?aa=aa.jpg', (err, texture) => {
+      const fra = _this.userImg.getComponent(cc.Sprite)
+      const sframe = new cc.SpriteFrame(texture)
+      fra.spriteFrame = sframe
     })
     let ownerCount = 0
     const gameData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))

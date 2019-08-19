@@ -31,13 +31,12 @@ cc.Class({
     this.showNet = false // 保证只有一个抓捕网兜
   },
 
-
   onCollisionEnter: function (other) {
     const arrow = other.getComponent('arrow')
     if (arrow) {
       this.currentBlood = this.currentBlood - arrow.attack
       this.node.parent.getComponent('monsterParent').hurt(arrow.attack)
-      this.drawBlood(this.currentBlood / this.fullblood) 
+      this.drawBlood(this.currentBlood / this.fullblood)
       if (this.currentBlood <= 0 && !this.showNet) {
         this.onCatched()
         this.showNet = true

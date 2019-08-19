@@ -1,8 +1,8 @@
 // 抓捕怪兽 主场景
 import constant from './utils/constant'
-import { App } from './utils/app';
-import request from './utils/request';
-import { resolve } from 'path';
+import { App } from './utils/app'
+import request from './utils/request'
+import { resolve } from 'path'
 
 cc.Class({
   extends: cc.Component,
@@ -23,20 +23,20 @@ cc.Class({
     cardPrefab: {
       default: null,
       type: cc.Prefab
-    },
+    }
   },
 
   // use this for initialization
   onLoad: function () {
-    App.adjustScreen(this.node);
-    this.init();
+    App.adjustScreen(this.node)
+    this.init()
   },
 
   init() {
     this.serverTime = Date.now()
     this.serverTimeGap = 0
 
-    App.login();
+    App.login()
     this.initGameData()
     this.initSceneData()
   },
@@ -123,7 +123,7 @@ cc.Class({
     cc.loader.loadRes(showLoadUrl, cc.SpriteFrame, (err, spriteFrame) => {
       cc.find('Canvas/background/bg_shadow').getComponent(cc.Sprite).spriteFrame = spriteFrame
     })
-    let card = cc.instantiate(this.cardPrefab)
+    const card = cc.instantiate(this.cardPrefab)
     card.setPosition(cc.v2(-291, -387))
     this.cardParent = card
     this.node.addChild(this.cardParent)
@@ -134,11 +134,11 @@ cc.Class({
   // 游戏数据封装
 
   _setGameData(newGameData) {
-    this.gameData = newGameData;
+    this.gameData = newGameData
     cc.sys.localStorage.setItem('gameData', JSON.stringify(this.gameData))
   },
 
   _getGameData() {
-    return this.gameData;
+    return this.gameData
   }
 })

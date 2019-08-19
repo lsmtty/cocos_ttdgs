@@ -1,6 +1,6 @@
-import mathUtil from './utils/mathUtil';
-import { App } from '../Script/utils/App';
-import constant from '../Script/utils/constant';
+import mathUtil from './utils/mathUtil'
+import { App } from '../Script/utils/App'
+import constant from '../Script/utils/constant'
 cc.Class({
   extends: cc.Component,
 
@@ -93,9 +93,9 @@ cc.Class({
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`)
       .then(url => {
         cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
-          let fra = this.monster.getComponent(cc.Sprite)
-          let sframe = new cc.SpriteFrame(texture)
-          fra.spriteFrame = sframe;
+          const fra = this.monster.getComponent(cc.Sprite)
+          const sframe = new cc.SpriteFrame(texture)
+          fra.spriteFrame = sframe
         })
       })
     this.randomRun()

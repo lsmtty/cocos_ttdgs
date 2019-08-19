@@ -1,8 +1,7 @@
 // 唯一的游戏控制主类,以后整理到根目录，根目录的情景js分别
-import request from './request';
+import request from './request'
 
 class AppMain {
-
   constructor() {
     this.globalData = {
       appId: '',
@@ -13,16 +12,17 @@ class AppMain {
 
   login() {
     request.login()
-      .then(() => { 
-        console.log('login Success'); 
-        request.getUserInfo().then(data => { 
+      .then(() => {
+        console.log('login Success')
+        request.getUserInfo().then(data => {
           console.log('userData', data)
-          this.globalData.userInfo = data;
+          this.globalData.userInfo = data
         }).catch(this.showUserInfoButton)
       })
       .catch(() => {
-        console.log('login Failed')}
-      );
+        console.log('login Failed')
+      }
+      )
   }
 
   // 功能相关
@@ -53,7 +53,7 @@ class AppMain {
   }
 
   showUserInfoButton() {
-    if(typeof wx == 'undefined') return;
+    if (typeof wx == 'undefined') return
     const button = wx.createUserInfoButton({
       type: 'text',
       text: '获取用户信息',
@@ -107,34 +107,34 @@ class AppMain {
   }
 
   getResourceRealUrl(fileID) {
-    const { resoureMap } = this.globalData;
-    let targetFileUrl = resoureMap.get(fileID);
+    const { resoureMap } = this.globalData
+    const targetFileUrl = resoureMap.get(fileID)
     return new Promise((resolve, reject) => {
       if (targetFileUrl) {
-        resolve(targetFileUrl);
+        resolve(targetFileUrl)
       }
       typeof wx != 'undefined' && wx.cloud.getTempFileURL({
         fileList: [fileID],
         success: res => {
           if (res.errMsg = 'cloud.getTempFileURL:ok') {
-            let targetFile = res.fileList[0]
+            const targetFile = res.fileList[0]
             if (targetFile.tempFileURL) {
-              resoureMap.set(fileID, res.fileList[0].tempFileURL);
-              resolve(res.fileList[0].tempFileURL);
+              resoureMap.set(fileID, res.fileList[0].tempFileURL)
+              resolve(res.fileList[0].tempFileURL)
             } else {
-              reject('Image Not Found');
+              reject('Image Not Found')
             }
           } else {
-            reject(res.errMsg);
+            reject(res.errMsg)
           }
-        }, 
+        },
         fail: err => {
-          console.error();
-          reject(err);
+          console.error()
+          reject(err)
         }
       })
-    });
+    })
   }
 }
 
-export var App = new AppMain();
+export var App = new AppMain()

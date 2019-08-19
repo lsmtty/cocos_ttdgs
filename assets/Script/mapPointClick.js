@@ -13,7 +13,7 @@
 
 import { App } from './utils/App'
 
-const BASE_CONDITION_COUNT = 5;
+const BASE_CONDITION_COUNT = 5
 
 cc.Class({
   extends: cc.Component,
@@ -26,39 +26,39 @@ cc.Class({
 
   onLoad () {
     // 获取数据
-    this.monsterData = this.getData();
+    this.monsterData = this.getData()
 
     // 获取UI上的入口
-    this.entries = this.getEntries();
+    this.entries = this.getEntries()
 
     // 重置入口状态
-    this.cleanEntries();
+    this.cleanEntries()
 
     // 根据条件设置入口状态
-    this.setEntries();
+    this.setEntries()
 
     // 绑定点击事件
     this.entries.forEach((item, index) => {
-      let arrow = item.children[0];
-      let title = item.children[1];
-      let enterBtn = title.children[3];
+      const arrow = item.children[0]
+      const title = item.children[1]
+      const enterBtn = title.children[3]
 
       arrow.on('touchend', () => {
-        this.showTitle(item);
-      });
+        this.showTitle(item)
+      })
       title.on('touchend', () => {
-        this.showArrow(item);
-      });
+        this.showArrow(item)
+      })
       enterBtn.on('touchend', e => {
-        e.stopPropagation();
+        e.stopPropagation()
         // alert(`点击进入场景${index}`)
         App.ttdgsLoadScene('catchmonster', { sceneId: index + 1 })
-      });
-    });
+      })
+    })
   },
 
   setEntries () {
-    let scenes = this.monsterData.scenes
+    const scenes = this.monsterData.scenes
     this.showArrow(this.entries[0])
     this.setEntryActive(this.entries[0])
     scenes.forEach((item, index) => {
@@ -79,8 +79,8 @@ cc.Class({
   cleanEntries () {
     this.entries.forEach(item => {
       item.isActive = false
-      let arrow = item.children[0]
-      let title = item.children[1]
+      const arrow = item.children[0]
+      const title = item.children[1]
       arrow.active = false
       title.active = false
       title.opacity = 255
@@ -89,33 +89,33 @@ cc.Class({
   },
 
   getEntries () {
-    let scenes = this.monsterData.scenes
-    let entries = this.node.children.filter(item => (/entry/).test(item._name))
+    const scenes = this.monsterData.scenes
+    const entries = this.node.children.filter(item => (/entry/).test(item._name))
     entries.forEach((item, index) => {
       if (scenes[index]) {
         item.children[1].children[0].getComponent(cc.Label).string = scenes[index].name
-                item.children[1].children[1].getComponent(cc.Label).string = 0
-                item.children[1].children[2].getComponent(cc.Label).string = '/' + scenes[index].monsters.length
-            }
+        item.children[1].children[1].getComponent(cc.Label).string = 0
+        item.children[1].children[2].getComponent(cc.Label).string = '/' + scenes[index].monsters.length
+      }
     })
     return entries
   },
   setEntryActive (entry) {
     entry.isActive = true
-    },
+  },
 
   getData () {
-    let monsterData = cc.sys.localStorage.getItem('monsterData');
-    monsterData = JSON.parse(monsterData || require('./mockData/gameData'));
-    return monsterData.result.data;
+    let monsterData = cc.sys.localStorage.getItem('monsterData')
+    monsterData = JSON.parse(monsterData || require('./mockData/gameData'))
+    return monsterData.result.data
   },
 
   showArrow (entry) {
     this.entries.forEach(item => {
-      let arrow = item.children[0]
-      let title = item.children[1]
+      const arrow = item.children[0]
+      const title = item.children[1]
 
-      let isActive = item.isActive
+      const isActive = item.isActive
 
       if (item != entry) {
         arrow.active = !!isActive
@@ -128,10 +128,10 @@ cc.Class({
   },
   showTitle (entry) {
     this.entries.forEach(item => {
-      let arrow = item.children[0]
-      let title = item.children[1]
+      const arrow = item.children[0]
+      const title = item.children[1]
 
-      let isActive = item.isActive
+      const isActive = item.isActive
 
       if (item != entry) {
         arrow.active = !!isActive
