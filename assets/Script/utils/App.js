@@ -6,7 +6,8 @@ class AppMain {
     this.globalData = {
       appId: '',
       userInfo: {},
-      resoureMap: new Map()
+      resoureMap: new Map(),
+      gameData: {}
     }
   }
 
@@ -21,8 +22,7 @@ class AppMain {
       })
       .catch(() => {
         console.log('login Failed')
-      }
-      )
+      })
   }
 
   // 功能相关

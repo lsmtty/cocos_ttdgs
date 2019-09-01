@@ -80,10 +80,5 @@ cc.Class({
     if (this.monsterParent) {
       this.monsterParent.refreshNew()
     }
-  },
-
-  // called every frame
-  update: function (dt) {
-
   }
 })
