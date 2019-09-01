@@ -20,6 +20,7 @@ cc.Class({
 
   onLoad () {
     this.node.on('touchend', () => {
+      cc.find('Canvas').getComponent('catchmonster').saveMonsterData()
       App.ttdgsLoadScene('handbook', {
         test: 'test'
       })

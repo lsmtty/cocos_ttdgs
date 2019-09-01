@@ -129,6 +129,10 @@ cc.Class({
     this.node.addChild(this.cardParent)
   },
 
+  saveMonsterData() {
+    cc.find('Canvas/background/monsterBox').getComponent('monsterParent').saveMonsterData()
+  },
+
   // 供其他组件调用的公共函数
 
   // 游戏数据封装

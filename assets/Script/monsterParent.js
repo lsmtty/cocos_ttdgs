@@ -28,7 +28,7 @@ cc.Class({
   },
 
   onLoad () {
-    this.refreshNew()
+    this.refreshNew(true)
     const bloodCtx = this.node.getChildByName('bloodParent').getComponent(cc.Graphics)
     bloodCtx.fillColor = new cc.Color(255, 255, 255)
     bloodCtx.roundRect(-105, -17, 210, 34, 17)
@@ -82,13 +82,24 @@ cc.Class({
     bloodNode.runAction(cc.sequence(moveAction, callback))
   },
 
-  refreshNew() {
+  refreshNew(useStorage = false) {
     this.node.active = true
-    this.monsterId = mathUtil.getRandomNum(8)
+    // 使用缓存中的上一个怪物
+
+    let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData')
+    let currentBlood = 100
+
+    if (useStorage && storageLastMonster && storageLastMonster[this.sceneId]) {
+      this.monsterId = storageLastMonster[this.sceneId].monsterId || storageLastMonster[this.sceneId]
+      currentBlood =  storageLastMonster[this.sceneId].currentBlood || 100
+    } else {
+      this.monsterId =  mathUtil.getRandomNum(8)
+    }
     this.monster.monsterId = this.monsterId
     const monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData(this.sceneId, this.monsterId)
     const monsterScript = this.monster.getComponent('monster')
-    monsterScript.fullBlood = monsterScript.currentBlood = monsterData.blood
+    monsterScript.fullBlood = monsterData.blood
+    monsterScript.currentBlood = currentBlood
     monsterScript.refreshNew()
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`)
       .then(url => {
@@ -102,10 +113,27 @@ cc.Class({
 
     // 让弓箭继续可以射击
     this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = true
+
+    // 缓存中保存这个怪兽
+
+    this.saveMonsterData()
   },
   showCard() {
     this.node.stopAllActions()
     const root = cc.find('Canvas')
     root.getComponent('catchmonster').showCard(this.sceneId, this.monsterId)
+  },
+  saveMonsterData() {
+    let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData') 
+    if(!storageLastMonster) {
+      storageLastMonster = {}
+    }
+    const monsterScript = this.monster.getComponent('monster')
+    storageLastMonster[this.sceneId] =  {
+      monsterId: this.monsterId,
+      currentBlood: monsterScript.currentBlood,
+      refreshTime: Date.now()
+    }
+    cc.sys.localStorage.setItem('lastMonsterData', storageLastMonster)
   }
 })

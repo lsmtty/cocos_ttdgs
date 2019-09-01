@@ -18,6 +18,7 @@ cc.Class({
 
   onLoad () {
     this.node.on('touchend', () => {
+      cc.find('Canvas').getComponent('catchmonster').saveMonsterData()
       cc.director.loadScene('map')
     })
     const ctx = this.node.getComponent(cc.Graphics)
