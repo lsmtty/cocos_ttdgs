@@ -1,13 +1,17 @@
 const updateUserInfo = 'updateUserInfo'
 const getUserInfo = 'getUserInfo'
-const getUserData = 'getUserData'
+const getUserGameData = 'getUserGameData'
 const getServerTime = 'getServerTime'
 const login = 'login'
+const sendMonster = 'sendMonster'
+const receiveMonster = 'receiveMonster'
 
 export default {
   updateUserInfo,
-  getUserData,
+  getUserGameData,
   getUserInfo,
   getServerTime,
+  sendMonster,
+  receiveMonster,
   login
 }

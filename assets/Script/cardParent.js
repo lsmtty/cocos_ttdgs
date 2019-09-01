@@ -1,5 +1,6 @@
 import { App } from '../Script/utils/App'
 import constant from '../Script/utils/constant'
+import request from './utils/request'
 
 cc.Class({
   extends: cc.Component,
@@ -89,8 +90,14 @@ cc.Class({
   handleSend(e) {
     const cardRoot = e.target.parent.parent
     const { monsterData } = e.target.parent.parent
-    const { name } = monsterData
-    Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
+    console.log(monsterData);
+    const { name, sceneId, monsterId } = monsterData
+    request.sendMonster({
+      monsterId,
+      sceneId
+    }).then(() => {
+      Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
+    });
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   sendToFriend(e) {
@@ -98,6 +105,9 @@ cc.Class({
     const { monsterData } = e.target.parent.parent
     const { name } = monsterData
     cardRoot.parent.active = false
+    // request.sendMonster().then(() => {
+    //   Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
+    // });
     Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
   },
   refreshMonster() {

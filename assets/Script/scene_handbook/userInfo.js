@@ -1,5 +1,6 @@
 
 import request from '../utils/request'
+import { App } from '../utils/App'
 
 cc.Class({
   extends: cc.Component,
@@ -34,8 +35,8 @@ cc.Class({
       fra.spriteFrame = sframe
     })
     let ownerCount = 0
-    const gameData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))
-    const { scenes } = gameData.result.data
+    const gameData = App.getGameData()
+    const { scenes } = gameData
     scenes.forEach(scene => {
       const { monsters } = scene
       monsters.forEach(monster => {

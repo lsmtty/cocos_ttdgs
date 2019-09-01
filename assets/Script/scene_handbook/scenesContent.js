@@ -16,8 +16,8 @@ cc.Class({
   },
 
   onLoad () {
-    const monsterData = JSON.parse(cc.sys.localStorage.getItem('monsterData'))
-    const { scenes } = monsterData.result.data
+    const monsterData = App.getGameData()
+    const { scenes } = monsterData
     scenes.forEach((scene, index) => {
       this.createScene(scene, index)
     })

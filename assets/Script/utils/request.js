@@ -22,8 +22,12 @@ const getUserInfo = () => {
   return solveRequest(api.getUserInfo)
 }
 
-const getUserData = () => {
-  return solveRequest(api.getUserData)
+const sendMonster = (data) => {
+  return solveRequest(api.sendMonster, data);
+}
+
+const getUserGameData = () => {
+  return solveRequest(api.getUserGameData)
 }
 
 const solveRequest = (url, data = {}) => {
@@ -51,5 +55,6 @@ export default {
   solveRequest,
   login: wxLogin,
   getUserInfo,
-  getUserData
+  getUserGameData,
+  sendMonster
 }

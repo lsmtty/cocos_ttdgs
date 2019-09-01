@@ -1,28 +1,62 @@
 // 唯一的游戏控制主类,以后整理到根目录，根目录的情景js分别
 import request from './request'
+import { setInterval } from 'timers';
+import constant from './constant'
 
 class AppMain {
   constructor() {
     this.globalData = {
       appId: '',
+      gameData: {}, // 云端请求gameData
       userInfo: {},
       resoureMap: new Map()
     }
+    this.setGameData = this.setGameData.bind(this)
+    this.getGameData = this.getGameData.bind(this)
   }
 
+  setGameData = (gameData) => {
+    this.globalData.gameData = gameData
+  }
+
+  getGameData = () => {
+    return this.globalData.gameData
+  }
+
+  /**
+   * 负责获取用户个人信息 和 游戏数据
+   */
   login() {
+    // 使用缓存数据 避免数据开始未同步时出错
+    let gameData = cc.sys.localStorage.getItem('gameData')
+    if (!gameData || (constant.isDebug && constant.needRefreshStorage)) {
+      gameData = require('../mockData/gameData')
+      cc.sys.localStorage.setItem('monsterData', JSON.stringify(gameData))
+    } else {
+      gameData = JSON.parse(gameData)
+    }
+    this.setGameData(gameData.result.data)
+
+    // 
     request.login()
       .then(() => {
         console.log('login Success')
         request.getUserInfo().then(data => {
-          console.log('userData', data)
+          console.log('userInfo', data)
           this.globalData.userInfo = data
         }).catch(this.showUserInfoButton)
+
+        request.getUserGameData().then(data => {
+          console.log('userGameData', data)
+          this.setGameData(data)
+        }).catch(() => {
+          console.log('获取用户数据失败');
+        })
       })
       .catch(() => {
         console.log('login Failed')
       }
-      )
+    )
   }
 
   // 功能相关

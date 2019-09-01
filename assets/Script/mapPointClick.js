@@ -26,7 +26,7 @@ cc.Class({
 
   onLoad () {
     // 获取数据
-    this.monsterData = this.getData()
+    this.monsterData = App.getGameData()
 
     // 获取UI上的入口
     this.entries = this.getEntries()
@@ -102,12 +102,6 @@ cc.Class({
   },
   setEntryActive (entry) {
     entry.isActive = true
-  },
-
-  getData () {
-    let monsterData = cc.sys.localStorage.getItem('monsterData')
-    monsterData = JSON.parse(monsterData || require('./mockData/gameData'))
-    return monsterData.result.data
   },
 
   showArrow (entry) {

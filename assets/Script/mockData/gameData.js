@@ -1,3 +1,4 @@
+// 线上需要拆分成两份数据
 const gameData = {
   result: {
     data: {

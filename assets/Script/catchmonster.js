@@ -37,7 +37,6 @@ cc.Class({
     this.serverTimeGap = 0
 
     App.login()
-    this.initGameData()
     this.initSceneData()
   },
 
@@ -65,7 +64,8 @@ cc.Class({
     this.refreshMask.getComponent('refreshMask').show()
   },
   saveMonster(sceneId, monsterId) {
-    const { scenes } = this.gameData.result.data
+    // todo 保存到云端， 并更新本地
+    const { scenes } = App.getGameData()
     let targetScene = {}
     scenes.forEach(scene => {
       if (scene.id === `scene${sceneId}`) {
@@ -77,10 +77,9 @@ cc.Class({
         monster.own++
       }
     })
-    cc.sys.localStorage.setItem('monsterData', JSON.stringify(this.gameData))
   },
   getMonsterData(sceneId, monsterId) {
-    const { scenes } = this.gameData.result.data
+    const { scenes } = App.getGameData()
     let targetScene = {}
     scenes.forEach(scene => {
       if (scene.id === `scene${sceneId}`) {
@@ -101,16 +100,6 @@ cc.Class({
       sceneId,
       monsterId
     }
-  },
-  initGameData() {
-    let gameData = cc.sys.localStorage.getItem('gameData')
-    if (!gameData || (constant.isDebug && constant.needRefreshStorage)) {
-      gameData = require('./mockData/gameData')
-      cc.sys.localStorage.setItem('monsterData', JSON.stringify(gameData))
-    } else {
-      gameData = JSON.parse(gameData)
-    }
-    this.gameData = gameData
   },
   initSceneData() {
     const { sceneId } = App.getSceneParams('catchmonster') || { sceneId: '1' }
@@ -138,11 +127,10 @@ cc.Class({
   // 游戏数据封装
 
   _setGameData(newGameData) {
-    this.gameData = newGameData
-    cc.sys.localStorage.setItem('gameData', JSON.stringify(this.gameData))
+    App.setGameData(newGameData)
   },
 
   _getGameData() {
-    return this.gameData
+    return App.getGameData()
   }
 })

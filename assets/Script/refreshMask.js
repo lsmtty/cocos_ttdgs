@@ -66,12 +66,12 @@ cc.Class({
 
   refreshByRabbit() {
     const gameData = this.root._getGameData()
-    let { rabbits } = gameData.result.data.tools
+    let { rabbits } = gameData.tools
     if (rabbits) {
       this.refresh()
     }
     rabbits--
-    gameData.result.data.tools.rabbits = rabbits
+    gameData.tools.rabbits = rabbits
     this.root._setGameData(gameData)
   },
   refresh() {
@@ -83,7 +83,7 @@ cc.Class({
     const gameData = this.root._getGameData()
     const refToolCount = this.refreshTool.getChildByName('refToolCount')
     const refToolCountLable = refToolCount.getChildByName('refCountLabel')
-    const { rabbits } = gameData.result.data.tools
+    const { rabbits } = gameData.tools
     const ctx = refToolCount.getComponent(cc.Graphics)
     ctx.fillColor = new cc.Color(255, 89, 0, 255)
     ctx.circle(15, 15, 15)
