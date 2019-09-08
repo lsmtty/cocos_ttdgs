@@ -96,7 +96,13 @@ cc.Class({
     }
   },
   initSceneData() {
-    const { sceneId } = App.getSceneParams('catchmonster') || { sceneId: '1' }
+    let sceneId = '1'
+    if (App.getSceneParams('catchmonster') && App.getSceneParams('catchmonster')['sceneId']) {
+      sceneId = App.getSceneParams('catchmonster').sceneId
+    } else if (cc.sys.localStorage.getItem('lastSceneId')) {
+      sceneId = cc.sys.localStorage.getItem('lastSceneId')
+    }
+    cc.sys.localStorage.setItem('lastSceneId', sceneId);
     this.monsterParent.getComponent('monsterParent').sceneId = sceneId
     const bgLoadUrl = `background/bg_scene${sceneId}`
     const showLoadUrl = `background_shadow/shadow_scene${sceneId}`

@@ -93,8 +93,13 @@ cc.Class({
     let currentBlood = 100
 
     if (useStorage && storageLastMonster && storageLastMonster[this.sceneId]) {
-      this.monsterId = storageLastMonster[this.sceneId].monsterId || storageLastMonster[this.sceneId]
-      currentBlood =  storageLastMonster[this.sceneId].currentBlood || 100
+      // 大于24 小时就更新
+      if((App.getRealTime() - storageLastMonster[this.sceneId].refreshTime) <  24 * 60 * 60 * 100) {
+        this.monsterId = storageLastMonster[this.sceneId].monsterId || storageLastMonster[this.sceneId]
+        currentBlood =  storageLastMonster[this.sceneId].currentBlood || 100
+      } else {
+        this.monsterId =  mathUtil.getRandomNum(8)
+      }
     } else {
       this.monsterId =  mathUtil.getRandomNum(8)
     }
@@ -135,7 +140,7 @@ cc.Class({
     storageLastMonster[this.sceneId] =  {
       monsterId: this.monsterId,
       currentBlood: monsterScript.currentBlood,
-      refreshTime: Date.now()
+      refreshTime: App.getRealTime()
     }
     cc.sys.localStorage.setItem('lastMonsterData', storageLastMonster)
   }

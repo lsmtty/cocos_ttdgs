@@ -66,11 +66,25 @@ exports.main = async (event, context) => {
 
   } else {
     // 创建新的用户记录, 同时返回原始游戏数据
-    
+    let newRecord = {
+      scenes: gameSceneData,
+      tools: {"rabbit": 100}
+    }
+    await db.collection('user_data').add({
+      // data 是将要被插入到 score 集合的 JSON 对象
+      data: {
+        _id: docId,
+        _openid: event.userInfo.openId,
+        scenes: [],
+        tools: {"rabbit": 100},
+        updateTime: 1,
+      }
+    })
+
     return {
       success: true,
       data: {
-        ...gameRecord,
+        ...newRecord,
         serverTime: Date.now()
       }
     }
