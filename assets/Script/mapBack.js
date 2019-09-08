@@ -23,9 +23,5 @@ cc.Class({
 
   goBack() {
     cc.director.loadScene('catchmonster')
-  },
-
-  start () {
-
   }
 })

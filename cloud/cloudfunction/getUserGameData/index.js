@@ -31,22 +31,22 @@ exports.main = async (event, context) => {
     const userResult = await db.collection('user_data').doc(docId).get()
     userRecord = userResult.data
   } catch (err) {
-    // 用户第一次上传分数
+    // 有用户数据
   }
-  let userFinalSceneData = gameRecord.scenes
+  const { scenes: gameSceneData } = gameRecord
 
   if (userRecord) {
-    let log = '';
     // 返回用户记录
-    let userSceneData = userRecord.scenes
+    let { scenes: userSceneData } = userRecord
     userSceneData.forEach(userSceneItem => {
-      userFinalSceneData.forEach(sceneItem => {
+      gameSceneData.forEach(sceneItem => {
         if (userSceneItem.id == sceneItem.id) {
           let monsterMap = new Map()
           userSceneItem.monsters.forEach((monsterItem) => {
             monsterMap.set(monsterItem.id, monsterItem.own);
           })
-          sceneItem.forEach((monsterItem) => {
+
+          sceneItem.monsters.forEach((monsterItem) => {
             if (monsterMap.has(monsterItem.id)) {
               monsterItem.own = monsterMap.get(monsterItem.id)
             }
@@ -55,16 +55,24 @@ exports.main = async (event, context) => {
       })
     })
     
-    userRecord.scenes = userFinalSceneData
-    userRecord.log = log
+    userRecord.scenes = gameSceneData
     return {
-      data: userRecord
+      success: true,
+      data: {
+        ...userRecord,
+        serverTime: Date.now()
+      }
     }
 
   } else {
     // 创建新的用户记录, 同时返回原始游戏数据
+    
     return {
-      data: gameRecord
+      success: true,
+      data: {
+        ...gameRecord,
+        serverTime: Date.now()
+      }
     }
   }
 }
