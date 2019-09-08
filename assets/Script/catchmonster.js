@@ -33,18 +33,8 @@ cc.Class({
   },
 
   init() {
-    this.serverTime = Date.now()
-    this.serverTimeGap = 0
-
     App.login()
     this.initSceneData()
-  },
-
-  adjustTime() {
-    request.getServerTime((res) => {
-      this.serverTime = res
-      this.serverTimeGap = this.serverTime - Date.now() // 默认服务器时间大于本地时间
-    })
   },
 
   catchedMonster() {
