@@ -1,12 +1,4 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+import { App } from '../Script/utils/App'
 
 cc.Class({
   extends: cc.Component,
@@ -43,11 +35,11 @@ cc.Class({
     const label = this.refreshLabel.getComponent(cc.Label)
     this.showRefreshToolCount()
     const showRefreshTime = function() {
-      if ((Date.now() + this.serverTimeGap) % (3600 * 1000) < 1500) {
+      if (App.getRealTime() % (3600 * 1000) < 1500) {
         this.refresh()
         return
       }
-      const date = Date.now() + this.serverTimeGap
+      const date = App.getRealTime()
       const overTime = 3600 * 1000 - date % (3600 * 1000)
       const minutes = parseInt((overTime % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = parseInt((overTime % (1000 * 60)) / 1000)
@@ -83,11 +75,11 @@ cc.Class({
     const gameData = this.root._getGameData()
     const refToolCount = this.refreshTool.getChildByName('refToolCount')
     const refToolCountLable = refToolCount.getChildByName('refCountLabel')
-    const { rabbits } = gameData.tools
+    const { rabbit } = gameData.tools
     const ctx = refToolCount.getComponent(cc.Graphics)
     ctx.fillColor = new cc.Color(255, 89, 0, 255)
     ctx.circle(15, 15, 15)
     ctx.fill()
-    refToolCountLable.getComponent(cc.Label).string = rabbits
+    refToolCountLable.getComponent(cc.Label).string = rabbit
   }
 })

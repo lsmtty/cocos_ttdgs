@@ -5,3 +5,10 @@ gulp.task('copy',  function() {
     .pipe(gulp.dest('build/wechatgame'))
 });
  
+/**
+ * 拷贝测试过后build中的的云函数到cloud
+ */
+gulp.task('copy-func', function () {
+  return gulp.src('build/wechatgame/cloudfunction')
+    .pipe(gulp.dest('cloud/cloudfunction'))
+});

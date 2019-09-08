@@ -52,6 +52,9 @@ cc.Class({
     this.stopRun()
     // 🏹停止射击
     this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = false
+    // 记录捕捉了怪兽
+    const root = cc.find('Canvas')
+    root.getComponent('catchmonster').saveMonster(this.sceneId, this.monsterId)
   },
 
   // 停止走动

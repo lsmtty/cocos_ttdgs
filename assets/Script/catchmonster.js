@@ -1,6 +1,6 @@
 // 抓捕怪兽 主场景
 import constant from './utils/constant'
-import { App } from './utils/app'
+import { App } from './utils/App'
 import request from './utils/request'
 import { resolve } from 'path'
 
@@ -65,17 +65,21 @@ cc.Class({
   },
   saveMonster(sceneId, monsterId) {
     // todo 保存到云端， 并更新本地
-    const { scenes } = App.getGameData()
-    let targetScene = {}
-    scenes.forEach(scene => {
-      if (scene.id === `scene${sceneId}`) {
-        targetScene = scene
-      }
-    })
-    targetScene.monsters.forEach(monster => {
-      if (monster.id == `s${sceneId}_monster${monsterId}`) {
-        monster.own++
-      }
+    request.catchMonster({
+      sceneId, monsterId
+    }).then((data) => {
+      const { scenes } = App.getGameData()
+      let targetScene = {}
+      scenes.forEach(scene => {
+        if (scene.id === `scene${sceneId}`) {
+          targetScene = scene
+        }
+      })
+      targetScene.monsters.forEach(monster => {
+        if (monster.id == `s${sceneId}_monster${monsterId}`) {
+          monster.own++
+        }
+      })
     })
   },
   getMonsterData(sceneId, monsterId) {

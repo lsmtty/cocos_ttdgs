@@ -9,7 +9,9 @@ class AppMain {
       appId: '',
       gameData: {}, // 云端请求gameData
       userInfo: {},
-      resoureMap: new Map()
+      resoureMap: new Map(),
+      serverTime: 0,
+      serverTimeGap: 0
     }
     this.setGameData = this.setGameData.bind(this)
     this.getGameData = this.getGameData.bind(this)
@@ -17,10 +19,20 @@ class AppMain {
 
   setGameData = (gameData) => {
     this.globalData.gameData = gameData
+    cc.sys.localStorage.setItem('monsterData', JSON.stringify(gameData))
   }
 
   getGameData = () => {
     return this.globalData.gameData
+  }
+
+  setServerTime = (serverTime) => {
+    this.globalData.serverTime = serverTime;
+    this.globalData.serverTimeGap = Date.now() - serverTime;
+  }
+
+  getRealTime = () => {
+    return Date.now() - this.globalData.serverTimeGap
   }
 
   /**
