@@ -1,16 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-//
-//  [getData] - [getEntries] - [setEntry] - []
-//                    |_ [bind event]
-
 import { App } from './utils/App'
 
 const BASE_CONDITION_COUNT = 5
@@ -93,7 +80,7 @@ cc.Class({
     const entries = this.node.children.filter(item => (/entry/).test(item._name))
     entries.forEach((item, index) => {
       if (scenes[index]) {
-        item.children[1].children[0].getComponent(cc.Label).string = scenes[index].name
+        item.children[1].children[0].getComponent(cc.Label).string = scenes[index].scene_name
         item.children[1].children[1].getComponent(cc.Label).string = 0
         item.children[1].children[2].getComponent(cc.Label).string = '/' + scenes[index].monsters.length
       }

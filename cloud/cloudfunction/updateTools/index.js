@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
   if (userRecord) {
     let toolName = event.toolsName
     let changeCount = event.toolsCount // 正为 加 ，负为减少
-    let { scenes: userTools } = userRecord
+    let { tools: userTools } = userRecord
 
     if (userTools[toolName]) {
       if (changeCount >= 0) {

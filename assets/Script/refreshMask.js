@@ -1,5 +1,5 @@
 import { App } from '../Script/utils/App'
-import request from '../Script/utils/App'
+import request from '../Script/utils/request'
 
 cc.Class({
   extends: cc.Component,

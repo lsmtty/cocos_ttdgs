@@ -74,16 +74,5 @@ cc.Class({
 
   catchedMonster() {
     this.node.getChildByName('monsterBox')
-  },
-
-  getANewMonster() {
-    if (this.monsterParent) {
-      this.monsterParent.refreshNew()
-    }
-  },
-
-  // called every frame
-  update: function (dt) {
-
   }
 })

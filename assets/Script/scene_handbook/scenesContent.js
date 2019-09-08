@@ -25,7 +25,7 @@ cc.Class({
 
   createScene(sceneData, index) {
     const scene = cc.instantiate(this.sceneItem)
-    const { name, monsters, id } = sceneData
+    const { scene_name: name , monsters, id } = sceneData
     // 将新增的节点添加到 Canvas 节点下面
     this.node.addChild(scene)
     scene.setAnchorPoint(0, 1)
