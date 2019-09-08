@@ -58,12 +58,12 @@ cc.Class({
 
   refreshByRabbit() {
     const gameData = this.root._getGameData()
-    let { rabbits } = gameData.tools
-    if (rabbits) {
+    let { rabbit } = gameData.tools
+    if (rabbit) {
       this.refresh()
     }
-    rabbits--
-    gameData.tools.rabbits = rabbits
+    rabbit--
+    gameData.tools.rabbits = rabbit
     this.root._setGameData(gameData)
   },
   refresh() {

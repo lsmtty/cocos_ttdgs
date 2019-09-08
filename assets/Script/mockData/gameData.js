@@ -4,7 +4,7 @@ const gameData = {
     data: {
       _id: 'game_data',
       tools: {
-        rabbits: 99
+        rabbit: 99
       },
       scenes: [
         {

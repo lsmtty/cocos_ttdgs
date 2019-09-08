@@ -24,7 +24,7 @@ exports.main = async (event, context) => {
     let hasScene = false
 
     userScenes.forEach(sceneItem => {
-      if (sceneItem.id == sceneId) {
+      if (sceneItem.id == `scene${sceneId}`) {
         hasScene = true
         let hasMonster = false
         sceneItem.monsters.forEach(monsterItem => {
@@ -43,7 +43,7 @@ exports.main = async (event, context) => {
     });
     if (!hasScene) {
       userScenes.push({
-        id: sceneId,
+        id: `scene${sceneId}`,
         monsters:[{
           id: `s${sceneId}_monster${monsterId}`,
           own: 1

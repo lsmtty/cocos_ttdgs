@@ -52,7 +52,6 @@ const solveRequest = (url, data = {}) => {
 }
 
 export default {
-  getServerTime,
   updateUserInfo,
   solveRequest,
   login: wxLogin,
