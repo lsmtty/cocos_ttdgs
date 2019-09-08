@@ -24,11 +24,19 @@ const getUserGameData = () => {
 }
 
 /**
- * 
+ * 捕获一个怪兽
  * @param {data} { sceneId, monsterId} 
  */
 const catchMonster = (data) => {
   return solveRequest(api.catchMonster, data);
+}
+
+/**
+ * 更新消耗道具
+ * @param {data} { 消耗品名称, 数量}  例子: { 'rabbit', - 1}
+ */
+const updateTools = (data) => {
+  return solveRequest(api.updateTools, data);
 }
 
 const solveRequest = (url, data = {}) => {
@@ -58,5 +66,6 @@ export default {
   getUserInfo,
   getUserGameData,
   catchMonster,
-  sendMonster
+  sendMonster,
+  updateTools
 }

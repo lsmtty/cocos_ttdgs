@@ -1,4 +1,5 @@
 import { App } from '../Script/utils/App'
+import request from '../Script/utils/App'
 
 cc.Class({
   extends: cc.Component,
@@ -62,9 +63,11 @@ cc.Class({
     if (rabbit) {
       this.refresh()
     }
-    rabbit--
-    gameData.tools.rabbits = rabbit
-    this.root._setGameData(gameData)
+    request.updateTools({ toolsName: 'rabbit',  toolsCount: -1}).then(() => {
+      rabbit--
+      gameData.tools.rabbit = rabbit
+      this.root._setGameData(gameData)
+    })
   },
   refresh() {
     if (this.timer) clearInterval(this.timer)
