@@ -16,6 +16,10 @@ cc.Class({
       default: null,
       type: cc.AudioClip
     },
+    lagongAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
     shootInterval: {
       default: 500,
       type: cc.Integer
@@ -33,6 +37,7 @@ cc.Class({
     this.node.on('touchmove', (e) => {
       this.rowRotate(e)
       this.arrowStretch(e)
+      this.node.getComponent(cc.AudioSource).play()
     })
     this.node.on('touchend', (e) => {
       this.shootArrow(e)

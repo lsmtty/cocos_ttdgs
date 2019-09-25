@@ -23,6 +23,10 @@ cc.Class({
     cardPrefab: {
       default: null,
       type: cc.Prefab
+    },
+    shareCardPrefab: {
+      default: null,
+      type: cc.Prefab
     }
   },
 
@@ -35,6 +39,7 @@ cc.Class({
   init() {
     App.login()
     this.initSceneData()
+    this.initShareData()
   },
 
   catchedMonster() {
@@ -46,6 +51,12 @@ cc.Class({
   },
 
   showCard(sceneId, monsterId) {
+    const root = cc.find('Canvas')
+    const monsterData = root.getComponent('catchmonster').getMonsterData(sceneId, monsterId)
+    this.cardParent.getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
+  },
+
+  showSharedCard(sceneId, monsterId, senderId) {
     const root = cc.find('Canvas')
     const monsterData = root.getComponent('catchmonster').getMonsterData(sceneId, monsterId)
     this.cardParent.getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
@@ -116,6 +127,25 @@ cc.Class({
     card.setPosition(cc.v2(-291, -387))
     this.cardParent = card
     this.node.addChild(this.cardParent)
+    // senderId=o4_IJ41rSf9ipugKulGmgMe49KaU&sceneId=1&monsterId=1
+  },
+
+  initShareData() {
+    if (wx) {
+      let launchOptions = wx.getLaunchOptionsSync()
+      App.setLaunchOptions(launchOptions);
+      const { scene, query } = launchOptions;
+      if (scene == 1036) {
+        if (query.senderId) {
+          const { sceneId, monsterId, senderId } = query;
+          const card = cc.instantiate(this.shareCardPrefab)
+          card.setPosition(cc.v2(-381, -667))
+          let monsterData = this.getMonsterData(sceneId, monsterId);
+          card.getComponent('cardMask2').showCard(monsterData, senderId);
+          this.node.addChild(card);
+        }
+      }
+    } 
   },
 
   saveMonsterData() {

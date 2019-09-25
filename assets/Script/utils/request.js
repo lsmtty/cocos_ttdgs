@@ -47,10 +47,10 @@ const solveRequest = (url, data = {}) => {
       // 传递给云函数的参数
       data
     }).then(res => {
-      if (data.serverTime) {
-        App.setServerTime(serverTime);
-      }
       if (res.errMsg == 'cloud.callFunction:ok' && (res.result && res.result.success)) {
+        if (res.result.data && res.result.data.serverTime) {
+          App.setServerTime(res.result.data.serverTime);
+        }
         resolve(res.result.data)
       } else {
         reject(res)

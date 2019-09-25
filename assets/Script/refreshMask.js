@@ -48,7 +48,7 @@ cc.Class({
     }
     showRefreshTime.call(this)
     this.timer = setInterval(() => {
-      showRefreshTime.call(this)
+      this.node && this.node.active && showRefreshTime.call(this)
     }, 1000)
   },
 

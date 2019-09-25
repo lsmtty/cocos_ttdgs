@@ -1,20 +1,27 @@
 // 唯一的游戏控制主类,以后整理到根目录，根目录的情景js分别
 import request from './request'
-import { setInterval } from 'timers';
 import constant from './constant'
 
 class AppMain {
   constructor() {
     this.globalData = {
       appId: '',
+      openId: '',
       gameData: {}, // 云端请求gameData
       userInfo: {},
       resoureMap: new Map(),
       serverTime: 0,
+      launchOptions: {},
       serverTimeGap: 0
     }
     this.setGameData = this.setGameData.bind(this)
     this.getGameData = this.getGameData.bind(this)
+    this.setServerTime = this.setServerTime.bind(this)
+    this.getRealTime = this.getRealTime.bind(this)
+    this.getOpenId = this.getOpenId.bind(this)
+    this.getUserInfo = this.getUserInfo.bind(this)
+    this.setLaunchOptions = this.setLaunchOptions.bind(this)
+    this.getLaunchOptions = this.getLaunchOptions.bind(this)
   }
 
   setGameData = (gameData) => {
@@ -24,6 +31,22 @@ class AppMain {
 
   getGameData = () => {
     return this.globalData.gameData
+  }
+
+  getOpenId = () => {
+    return this.globalData.openId
+  }
+
+  getUserInfo = () => {
+    return this.globalData.userInfo;
+  }
+
+  setLaunchOptions = () => {
+    return this.globalData.launchOptions;
+  }
+
+  getLaunchOptions = (launchOptions) => {
+    this.globalData.launchOptions = launchOptions;
   }
 
   setServerTime = (serverTime) => {
@@ -51,8 +74,9 @@ class AppMain {
 
     // 
     request.login()
-      .then(() => {
+      .then((res) => {
         console.log('login Success')
+        this.globalData.openId = res.openid;
         request.getUserInfo().then(data => {
           console.log('userInfo', data)
           this.globalData.userInfo = data
@@ -158,6 +182,7 @@ class AppMain {
     return new Promise((resolve, reject) => {
       if (targetFileUrl) {
         resolve(targetFileUrl)
+        return;
       }
       typeof wx != 'undefined' && wx.cloud.getTempFileURL({
         fileList: [fileID],
@@ -183,4 +208,4 @@ class AppMain {
   }
 }
 
-export var App = new AppMain()
+export const App = new AppMain()

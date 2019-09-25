@@ -7,7 +7,12 @@ const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const docId = `${event.userInfo.openId}`
+  let docId = ''
+  if (event.openId) {
+    docId = `${event.openId}`
+  } else {
+    docId = `${event.userInfo.openId}`
+  }
   let userInfo
 
   try {

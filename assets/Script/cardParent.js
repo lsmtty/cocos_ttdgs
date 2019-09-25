@@ -90,25 +90,48 @@ cc.Class({
   handleSend(e) {
     const cardRoot = e.target.parent.parent
     const { monsterData } = e.target.parent.parent
-    console.log(monsterData);
     const { name, sceneId, monsterId } = monsterData
-    request.sendMonster({
-      monsterId,
-      sceneId
-    }).then(() => {
-      Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
-    });
+    if (wx) {
+      let openId = App.getOpenId();
+      const { nickName } = App.getUserInfo();
+      request.sendMonster({
+        monsterId,
+        sceneId
+      })
+      App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
+      .then(url => {
+        wx.shareAppMessage({
+          title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+          imageUrl: url,    //转发图片
+          query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
+        })
+      })
+    }
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   sendToFriend(e) {
-    const cardRoot = e.target.parent.parent
-    const { monsterData } = e.target.parent.parent
-    const { name } = monsterData
-    cardRoot.parent.active = false
-    // request.sendMonster().then(() => {
-    //   Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
-    // });
-    Toast.makeText(`送出一个${name}`, Toast.LENGTH_SHORT).show()
+    const cardRoot = e.target.parent.parent;
+    const { monsterData } = e.target.parent.parent;
+    const { name } = monsterData;
+    cardRoot.parent.active = false;
+    
+    if (wx) {
+      let openId = App.getOpenId();
+      const { nickName } = App.getUserInfo();
+      request.sendMonster({
+        monsterId,
+        sceneId
+      })
+      
+      App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
+      .then(url => {
+        wx.shareAppMessage({
+          title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+          imageUrl: url,    //转发图片
+          query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
+        })
+      })
+    }
   },
   refreshMonster() {
     this.node.parent.active = false

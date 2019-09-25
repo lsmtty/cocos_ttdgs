@@ -37,6 +37,7 @@ cc.Class({
       this.currentBlood = this.currentBlood - arrow.attack
       this.node.parent.getComponent('monsterParent').hurt(arrow.attack)
       this.drawBlood(this.currentBlood / this.fullblood)
+      this.node.getComponent(cc.AudioSource).play()
       if (this.currentBlood <= 0 && !this.showNet) {
         this.onCatched()
         this.showNet = true
