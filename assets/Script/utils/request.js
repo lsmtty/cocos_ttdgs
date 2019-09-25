@@ -11,12 +11,16 @@ const updateUserInfo = (data) => {
   return solveRequest(api.updateUserInfo, data)
 }
 
-const getUserInfo = () => {
-  return solveRequest(api.getUserInfo)
+const getUserInfo = (data) => {
+  return solveRequest(api.getUserInfo, data)
 }
 
 const sendMonster = (data) => {
   return solveRequest(api.sendMonster, data);
+}
+
+const receiveMonster = (data) => {
+  return solveRequest(api.receiveMonster, data);
 }
 
 const getUserGameData = () => {
@@ -67,5 +71,6 @@ export default {
   getUserGameData,
   catchMonster,
   sendMonster,
+  receiveMonster,
   updateTools
 }

@@ -19,6 +19,10 @@ cc.Class({
       type: cc.Node,
       default: null
     },
+    userImg: {
+      type: cc.Node,
+      default: null
+    }
   },
 
   onLoad () {
@@ -33,12 +37,19 @@ cc.Class({
     // ctx.fill()
   },
   handleReceive(e) {
-    // const cardRoot = e.target.parent.parent
-    // const { monsterData } = cardRoot
+    const cardRoot = e.target.parent.parent
+    const { monsterData, senderId } = cardRoot
     // const { name, sceneId, monsterId } = monsterData
     // Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
     // cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
     // cardRoot.getComponent('cardParent').refreshMonster()
+    request.receiveMonster({
+      openId: senderId,
+      sceneId: monsterData.sceneId,
+      monsterId: monsterData.monsterId
+    }).then(() => {
+      cardRoot.active = false
+    });
   },
    /**
      * 展示收藏卡片
@@ -46,12 +57,30 @@ cc.Class({
      * @param {string} sender openId
      */
   showCard(monsterData, senderId) {
+    let _this = this
     this.node.active = true
     this.node.monsterData = monsterData
+    this.node.senderId = senderId
+    console.log('here', monsterData, senderId, request.getUserInfo);
     request.getUserInfo({
       openId: senderId
     }).then(res => {
-
+      console.log(res);
+      _this.card.getChildByName('senderText').getComponent(cc.Label).string = `${res.nickName}送你一只`
+      _this.card.getChildByName('monsterName').getComponent(cc.Label).string = monsterData.name
+      App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`)
+      .then(url => {
+        cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+          const fra = _this.card.getChildByName('monster').getComponent(cc.Sprite)
+          const sframe = new cc.SpriteFrame(texture)
+          fra.spriteFrame = sframe
+        })
+      })
+      cc.loader.load(res.avatarUrl + '?aa=aa.jpg', (err, texture) => {
+        const fra = _this.userImg.getComponent(cc.Sprite)
+        const sframe = new cc.SpriteFrame(texture)
+        fra.spriteFrame = sframe
+      })
     });
   }
 })
