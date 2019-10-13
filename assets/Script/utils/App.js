@@ -5,6 +5,7 @@ import constant from './constant'
 class AppMain {
   constructor() {
     this.globalData = {
+      isEnter: true,
       appId: '',
       openId: '',
       gameData: {}, // 云端请求gameData
@@ -14,6 +15,8 @@ class AppMain {
       launchOptions: {},
       serverTimeGap: 0
     }
+    this.setIsEnter = this.setIsEnter.bind(this)
+    this.getIsEnter = this.getIsEnter.bind(this)
     this.setGameData = this.setGameData.bind(this)
     this.getGameData = this.getGameData.bind(this)
     this.setServerTime = this.setServerTime.bind(this)
@@ -23,6 +26,14 @@ class AppMain {
     this.setLaunchOptions = this.setLaunchOptions.bind(this)
     this.getLaunchOptions = this.getLaunchOptions.bind(this)
   }
+
+  setIsEnter(value) {
+    this.globalData.isEnter = value
+  }
+
+  getIsEnter() {
+    return this.globalData.isEnter
+  } 
 
   setGameData = (gameData) => {
     this.globalData.gameData = gameData
@@ -205,6 +216,21 @@ class AppMain {
         }
       })
     })
+  }
+
+  throttle(func, wait) {
+    var context, args;
+    var previous = 0;
+
+    return function() {
+        var now = +new Date();
+        context = this;
+        args = arguments;
+        if (now - previous > wait) {
+            func.apply(context, args);
+            previous = now;
+        }
+    }
   }
 }
 

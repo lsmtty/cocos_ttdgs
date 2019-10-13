@@ -1,5 +1,6 @@
 // 弓箭整体父级
 import mathUtil from './utils/mathUtil'
+import { App } from '../Script/utils/App'
 cc.Class({
   extends: cc.Component,
 
@@ -34,11 +35,18 @@ cc.Class({
     this.arrow = null
     this.arrowCreateTime = null
     this.createArrow()
-    this.node.on('touchmove', (e) => {
+    // this.node.on('touchmove', App.debounce((e) => {
+    //   console.log('touchmove')
+    //   this.rowRotate(e)
+    //   this.arrowStretch(e)
+    //   // this.node.getComponent(cc.AudioSource).play()
+    // }, 50))
+    this.node.on('touchmove', App.throttle(e => {
+      console.log('touchmove')
       this.rowRotate(e)
       this.arrowStretch(e)
-      this.node.getComponent(cc.AudioSource).play()
-    })
+      // this.node.getComponent(cc.AudioSource).play()
+    }, 50))
     this.node.on('touchend', (e) => {
       this.shootArrow(e)
     }, this)
@@ -64,8 +72,7 @@ cc.Class({
     const { _prevPoint, _startPoint } = e.touch
     if (_prevPoint.x != _startPoint.x || _prevPoint.y != _startPoint.y) {
       const r = mathUtil.getRotation({ x: _prevPoint.x, y: _prevPoint.y }, { x: _startPoint.x, y: _startPoint.y })
-      const rotation = cc.rotateTo(0.05, r - 90)
-      this.node.runAction(rotation)
+      this.node.rotation = r - 90
     }
   },
   arrowStretch(e) {

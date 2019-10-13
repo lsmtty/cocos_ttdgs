@@ -112,9 +112,7 @@ cc.Class({
   sendToFriend(e) {
     const cardRoot = e.target.parent.parent;
     const { monsterData } = e.target.parent.parent;
-    const { name } = monsterData;
-    cardRoot.parent.active = false;
-    
+    const { name, monsterId, sceneId } = monsterData;
     if (wx) {
       let openId = App.getOpenId();
       const { nickName } = App.getUserInfo();
@@ -130,6 +128,7 @@ cc.Class({
           imageUrl: url,    //转发图片
           query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
         })
+        cardRoot.parent.active = false;
       })
     }
   },

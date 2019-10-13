@@ -39,17 +39,16 @@ cc.Class({
   handleReceive(e) {
     const cardRoot = e.target.parent.parent
     const { monsterData, senderId } = cardRoot
-    // const { name, sceneId, monsterId } = monsterData
-    // Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
-    // cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
-    // cardRoot.getComponent('cardParent').refreshMonster()
     request.receiveMonster({
       openId: senderId,
       sceneId: monsterData.sceneId,
       monsterId: monsterData.monsterId
     }).then(() => {
+      console.log('接收成功');
       cardRoot.active = false
-    });
+    }).catch(() => {
+      console.log('接收失败');
+    })
   },
    /**
      * 展示收藏卡片

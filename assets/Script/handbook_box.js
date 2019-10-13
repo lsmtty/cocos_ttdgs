@@ -31,11 +31,5 @@ cc.Class({
     ctx.fill()
     ctx.roundRect(0, 0, 174, 94, 47)
     ctx.fill()
-  },
-
-  start () {
-
   }
-
-  // update (dt) {},
 })
