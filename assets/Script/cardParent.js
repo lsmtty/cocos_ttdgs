@@ -98,10 +98,18 @@ cc.Class({
         monsterId,
         sceneId
       })
+      const gameData = App.getGameData()
+      let { rabbit } = gameData.tools
+      request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
+        rabbit++
+        gameData.tools.rabbit = rabbit
+        this.root._setGameData(gameData)
+      })
       App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
       .then(url => {
         wx.shareAppMessage({
           title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+          imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
           imageUrl: url,    //转发图片
           query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
         })
@@ -120,12 +128,19 @@ cc.Class({
         monsterId,
         sceneId
       })
-      
+      const gameData = App.getGameData()
+      let { rabbit } = gameData.tools
+      request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
+        rabbit++
+        gameData.tools.rabbit = rabbit
+        this.root._setGameData(gameData)
+      })
       App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
       .then(url => {
         wx.shareAppMessage({
           title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
           imageUrl: url,    //转发图片
+          imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
           query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
         })
         cardRoot.parent.active = false;
@@ -135,5 +150,8 @@ cc.Class({
   refreshMonster() {
     this.node.parent.active = false
     cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
+  },
+  addRabbit() {
+    
   }
 })

@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.40271270614692656,
-      "y": 0.40271270614692656,
+      "x": 0.435275281648062,
+      "y": 0.435275281648062,
       "z": 1
     },
     "_quat": {
@@ -11489,6 +11489,7 @@
     "_enabled": true,
     "entries": [],
     "monsterData": [],
+    "BASE_CONDITION_COUNT": 5,
     "_id": "ebXwjjaaNETb6CaibsCNdw"
   }
 ]
