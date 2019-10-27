@@ -105,6 +105,9 @@ cc.Class({
     }
     this.monster.monsterId = this.monsterId
     const monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData(this.sceneId, this.monsterId)
+    if (!monsterData) {
+      return;
+    }
     const monsterScript = this.monster.getComponent('monster')
     monsterScript.fullBlood = monsterData.blood
     monsterScript.currentBlood = currentBlood

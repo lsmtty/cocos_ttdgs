@@ -96,11 +96,15 @@ cc.Class({
     })
     let targetMonster = {}
     const targetId = `s${sceneId}_monster${monsterId}`
-    targetScene.monsters.forEach(monster => {
-      if (monster.id == targetId) {
-        targetMonster = monster
-      }
-    })
+     if (targetScene && targetMonster.monsters &&  targetMonster.monsters.length) {
+      targetScene.monsters.forEach(monster => {
+        if (monster.id == targetId) {
+          targetMonster = monster
+        }
+      })
+     } else {
+       return false;
+     }
     return {
       blood: targetMonster.life,
       name: targetMonster.name,

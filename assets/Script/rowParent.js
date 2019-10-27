@@ -78,7 +78,8 @@ cc.Class({
   arrowStretch(e) {
     const { _prevPoint, _startPoint } = e.touch
     if (!this.arrow) return
-    let moveLength = Math.sqrt(Math.pow(_prevPoint.x - _startPoint.x, 2) + Math.pow(_prevPoint.y - _startPoint.y, 2))
+    let moveLength = Math.sqrt(Math.pow(_prevPoint.x
+       - _startPoint.x, 2) + Math.pow(_prevPoint.y - _startPoint.y, 2))
     moveLength = moveLength < 100 ? moveLength : 100
     this.arrow && this.arrow.setPosition(cc.v2(0, -73 - moveLength / 2))
     this.row.getComponent('row').drawLines(-60 - moveLength / 2)
