@@ -96,7 +96,7 @@ cc.Class({
     })
     let targetMonster = {}
     const targetId = `s${sceneId}_monster${monsterId}`
-     if (targetScene && targetMonster.monsters &&  targetMonster.monsters.length) {
+     if (targetScene && targetScene.monsters && targetScene.monsters.length) {
       targetScene.monsters.forEach(monster => {
         if (monster.id == targetId) {
           targetMonster = monster
