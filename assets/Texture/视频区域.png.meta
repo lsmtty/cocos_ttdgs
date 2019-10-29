@@ -1,15 +1,15 @@
 {
   "ver": "2.2.0",
-  "uuid": "da95a35f-f784-420d-a7b0-4289794c57c7",
+  "uuid": "daf3b3bb-cf9e-4ec3-a80b-5b727503ed69",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "shadow_scene1": {
+    "视频区域": {
       "ver": "1.0.3",
-      "uuid": "8a8c124f-cadd-4919-872c-5cc814d7b9e3",
-      "rawTextureUuid": "da95a35f-f784-420d-a7b0-4289794c57c7",
+      "uuid": "6a179c5b-842f-43d4-aead-8283007b19d5",
+      "rawTextureUuid": "daf3b3bb-cf9e-4ec3-a80b-5b727503ed69",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -18,9 +18,9 @@
       "trimX": 0,
       "trimY": 0,
       "width": 750,
-      "height": 681,
+      "height": 1060,
       "rawWidth": 750,
-      "rawHeight": 681,
+      "rawHeight": 1060,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

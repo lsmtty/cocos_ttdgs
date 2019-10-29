@@ -34,13 +34,13 @@ cc.Class({
         this.showTitle(item)
       })
       title.on('touchend', () => {
-        this.showArrow(item)
-      })
-      enterBtn.on('touchend', e => {
-        e.stopPropagation()
-        // alert(`点击进入场景${index}`)
+        //this.showArrow(item)
         App.ttdgsLoadScene('catchmonster', { sceneId: index + 1 })
       })
+      // enterBtn.on('touchend', e => {
+      //   e.stopPropagation()
+      //   App.ttdgsLoadScene('catchmonster', { sceneId: index + 1 })
+      // })
     })
   },
 

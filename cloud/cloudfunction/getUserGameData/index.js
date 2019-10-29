@@ -68,7 +68,7 @@ exports.main = async (event, context) => {
     // 创建新的用户记录, 同时返回原始游戏数据
     let newRecord = {
       scenes: gameSceneData,
-      tools: {"rabbit": 100}
+      tools: {"rabbit": 10}
     }
     await db.collection('user_data').add({
       // data 是将要被插入到 score 集合的 JSON 对象
@@ -76,7 +76,7 @@ exports.main = async (event, context) => {
         _id: docId,
         _openid: event.userInfo.openId,
         scenes: [],
-        tools: {"rabbit": 100},
+        tools: {"rabbit": 30},
         updateTime: 1,
       }
     })

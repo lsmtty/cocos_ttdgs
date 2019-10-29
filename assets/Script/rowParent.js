@@ -22,7 +22,7 @@ cc.Class({
       type: cc.AudioSource
     },
     shootInterval: {
-      default: 500,
+      default: 200,
       type: cc.Integer
     },
     validShoot: {

@@ -13,8 +13,6 @@ cc.Class({
     }
   },
 
-  // LIFE-CYCLE CALLBACKS:
-
   onLoad () {
     this.isShooting = false
     cc.director.getCollisionManager().enabled = true
