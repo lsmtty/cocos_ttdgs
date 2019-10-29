@@ -14,12 +14,17 @@ cc.Class({
         type: cc.Label
     },
     progressCount: 0,
-    initSceneCount: 2
+    initSceneCount: 3,
+    isLoad: false
   },
 
   onLoad () {
     App.adjustScreen(this.node)
     App.login()
+    this.initProgressParent()
+    this.loadRemoteAssets()
+  },
+  initProgressParent() {
     cc.Camera.main.backgroundColor = new cc.Color().fromHEX('#0C413E')
     const progressDraw = this.progress.getComponent(cc.Graphics)
     progressDraw.fillColor = new cc.Color(255, 255, 255)
@@ -28,19 +33,21 @@ cc.Class({
     progressDraw.fillColor = new cc.Color().fromHEX('#6d2a08')
     progressDraw.roundRect(-250, -20, 500, 40, 20)
     progressDraw.fill()
-    this.loadRemoteAssets()
   },
 
   drawProgress(progress) {
-    const percent = progress / (this.initSceneCount * 2 *  8)
-    const progressDraw = this.progress.getChildByName('progressContent').getComponent(cc.Graphics)
-    progressDraw.fillColor = new cc.Color().fromHEX('#FFEB1F')
-    progressDraw.roundRect(-250, -20, 500 * percent, 40, 20)
-    progressDraw.fill()
+    if (!this.isLoad) {
+        const percent = progress / (this.initSceneCount * 2 *  8)
+        const progressDraw = this.progress.getChildByName('progressContent').getComponent(cc.Graphics)
+        progressDraw.fillColor = new cc.Color().fromHEX('#FFEB1F')
+        progressDraw.roundRect(-250, -20, 500 * percent, 40, 20)
+        progressDraw.fill()
 
-    this.progressNumber.string = Math.ceil(percent * 100) + '%'
-    if (progress >= this.initSceneCount * 8) {
-        cc.director.loadScene('catchmonster')
+        this.progressNumber.string = Math.ceil(percent * 100) + '%'
+        if (progress >= this.initSceneCount * 8) {
+            this.isLoad = true
+            cc.director.loadScene('catchmonster')
+        }
     }
   },
     /**

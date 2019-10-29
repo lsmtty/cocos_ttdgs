@@ -37,7 +37,6 @@ cc.Class({
   },
 
   init() {
-    App.login()
     this.initSceneData()
     if (App.getIsEnter()) {
       this.initShareData()
@@ -122,13 +121,19 @@ cc.Class({
     }
     cc.sys.localStorage.setItem('lastSceneId', sceneId);
     this.monsterParent.getComponent('monsterParent').sceneId = sceneId
-    const bgLoadUrl = `background/bg_scene${sceneId}`
-    const showLoadUrl = `background_shadow/shadow_scene${sceneId}`
-    cc.loader.loadRes(bgLoadUrl, cc.SpriteFrame, (err, spriteFrame) => {
-      cc.find('Canvas/background').getComponent(cc.Sprite).spriteFrame = spriteFrame
+    App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c-1257970977/images/maps/background/bg_scene${sceneId}.jpg`)
+    .then(url => {
+      cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+        const sframe = new cc.SpriteFrame(texture)
+        cc.find('Canvas/background').getComponent(cc.Sprite).spriteFrame = sframe
+      })
     })
-    cc.loader.loadRes(showLoadUrl, cc.SpriteFrame, (err, spriteFrame) => {
-      cc.find('Canvas/background/bg_shadow').getComponent(cc.Sprite).spriteFrame = spriteFrame
+    App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c-1257970977/images/maps/background_shadow/shadow_scene${sceneId}.png`)
+    .then(url => {
+      cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+        const sframe = new cc.SpriteFrame(texture)
+        cc.find('Canvas/background/bg_shadow').getComponent(cc.Sprite).spriteFrame = sframe
+      })
     })
     const card = cc.instantiate(this.cardPrefab)
     card.setPosition(cc.v2(-291, -387))

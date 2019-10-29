@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.40271270614692656,
-      "y": 0.40271270614692656,
+      "x": 0.3409950961587377,
+      "y": 0.3409950961587377,
       "z": 1
     },
     "_quat": {
@@ -415,8 +415,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 374,
-      "height": 34
+      "width": 352,
+      "height": 32
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -463,8 +463,8 @@
     "_useOriginalSize": false,
     "_string": "轻轻小快乐，慢慢去捕捉",
     "_N$string": "轻轻小快乐，慢慢去捕捉",
-    "_fontSize": 34,
-    "_lineHeight": 34,
+    "_fontSize": 32,
+    "_lineHeight": 32,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
