@@ -1,5 +1,5 @@
-import { App } from '../utils/App'
-import constant from '../utils/constant'
+import { App } from '../../../utils/App'
+import constant from '../../../utils/constant'
 
 cc.Class({
   extends: cc.Component,

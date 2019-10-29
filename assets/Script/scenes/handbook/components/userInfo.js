@@ -1,6 +1,6 @@
 
-import request from '../utils/request'
-import { App } from '../utils/App'
+import request from '../../../utils/request'
+import { App } from '../../../utils/App'
 
 cc.Class({
   extends: cc.Component,

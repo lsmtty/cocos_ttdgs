@@ -1,5 +1,5 @@
-import { App } from '../utils/App'
-import constant from '../utils/constant'
+import { App } from '../../utils/App'
+import constant from '../../utils/constant'
 
 cc.Class({
   extends: cc.Component,
@@ -14,7 +14,7 @@ cc.Class({
         type: cc.Label
     },
     progressCount: 0,
-    initSceneCount: 3,
+    initSceneCount: 1,
     isLoad: false
   },
 
@@ -44,7 +44,7 @@ cc.Class({
         progressDraw.fill()
 
         this.progressNumber.string = Math.ceil(percent * 100) + '%'
-        if (progress >= this.initSceneCount * 8) {
+        if (progress >= this.initSceneCount * 8 * 2) {
             this.isLoad = true
             cc.director.loadScene('catchmonster')
         }
@@ -52,7 +52,6 @@ cc.Class({
   },
     /**
      * 加载远程资源
-     * wx.env.USER_DATA_PATH： 这个是小游戏在手机上的临时目录
      **/
     loadRemoteAssets () {
         const self = this

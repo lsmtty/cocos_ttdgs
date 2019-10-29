@@ -56,8 +56,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 45,
-      "y": 0,
+      "x": 561,
+      "y": 45,
       "z": 0
     },
     "_scale": {
@@ -422,7 +422,7 @@
     "_id": ""
   },
   {
-    "__type__": "810336NjNxFaLzxZEZgj6fE",
+    "__type__": "49ca8OM/CNA8I1EG+U2Sn+W",
     "_name": "",
     "_objFlags": 0,
     "node": {
