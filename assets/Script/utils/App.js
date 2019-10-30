@@ -13,7 +13,8 @@ class AppMain {
       resoureMap: new Map(),
       serverTime: 0,
       launchOptions: {},
-      serverTimeGap: 0
+      serverTimeGap: 0,
+      initScene: '1'
     }
     this.setIsEnter = this.setIsEnter.bind(this)
     this.getIsEnter = this.getIsEnter.bind(this)
@@ -23,6 +24,8 @@ class AppMain {
     this.getRealTime = this.getRealTime.bind(this)
     this.getOpenId = this.getOpenId.bind(this)
     this.getUserInfo = this.getUserInfo.bind(this)
+    this.setInitScene = this.setInitScene.bind(this)
+    this.getInitScene = this.getInitScene.bind(this)
     this.setLaunchOptions = this.setLaunchOptions.bind(this)
     this.getLaunchOptions = this.getLaunchOptions.bind(this)
   }
@@ -33,7 +36,15 @@ class AppMain {
 
   getIsEnter() {
     return this.globalData.isEnter
-  } 
+  }
+  
+  getInitScene() {
+    return this.globalData.initScene
+  }
+
+  setInitScene(sceneId) {
+    this.globalData.initScene = sceneId
+  }
 
   setGameData = (gameData) => {
     this.globalData.gameData = gameData
@@ -164,27 +175,6 @@ class AppMain {
         }).then(() => { button.hide() }).catch(() => { button.show() })
       }
     })
-  }
-
-  // 进入情景
-  ttdgsLoadScene(sceneName, params) {
-    const tempNode = new cc.Node()
-    tempNode.name = sceneName
-    tempNode.paramsData = params
-    cc.game.addPersistRootNode(tempNode)
-    cc.director.loadScene(sceneName)
-  }
-
-  // 进入情景
-  getSceneParams(sceneName) {
-    const tempNode = cc.find(sceneName)
-    if (tempNode) {
-      const targetData = tempNode.paramsData
-      cc.game.removePersistRootNode(tempNode)
-      return targetData
-    } else {
-      return null
-    }
   }
 
   getResourceRealUrl(fileID) {

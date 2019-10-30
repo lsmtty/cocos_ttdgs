@@ -114,8 +114,8 @@ cc.Class({
   },
   initSceneData() {
     let sceneId = '1'
-    if (App.getSceneParams('catchmonster') && App.getSceneParams('catchmonster')['sceneId']) {
-      sceneId = App.getSceneParams('catchmonster').sceneId
+    if (App.getInitScene()) {
+      sceneId = App.getInitScene()
     } else if (cc.sys.localStorage.getItem('lastSceneId')) {
       sceneId = cc.sys.localStorage.getItem('lastSceneId')
     }

@@ -34,13 +34,13 @@ cc.Class({
         this.showTitle(item)
       })
       title.on('touchend', () => {
-        //this.showArrow(item)
-        App.ttdgsLoadScene('catchmonster', { sceneId: index + 1 })
+        this.showArrow(item)
       })
-      // enterBtn.on('touchend', e => {
-      //   e.stopPropagation()
-      //   App.ttdgsLoadScene('catchmonster', { sceneId: index + 1 })
-      // })
+      enterBtn.on('touchend', e => {
+        e.stopPropagation()
+        App.setInitScene(index + 1)
+        cc.director.loadScene('catchmonster')
+      })
     })
   },
 
