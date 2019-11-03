@@ -27,13 +27,35 @@ cc.Class({
     shareCardPrefab: {
       default: null,
       type: cc.Prefab
+    },
+    CardCommonPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
+    mapBtn: {
+      default: null,
+      type: cc.Node
+    },
+    handBookBtn: {
+      default: null,
+      type: cc.Node
     }
   },
 
   // use this for initialization
   onLoad: function () {
+    cc.macro.ENABLE_TRANSPARENT_CANVAS = true // 开启透明通道
+    cc.macro.ENABLE_CULLING = true
     App.adjustScreen(this.node)
     this.init()
+    this.mapBtn.on('touchend', () => {
+      cc.find('Canvas').getComponent('catchmonster').saveMonsterData()
+      cc.director.loadScene('map')
+    })
+    this.handBookBtn.on('touchend', () => {
+      cc.find('Canvas').getComponent('catchmonster').saveMonsterData()
+      cc.director.loadScene('handbook')
+    })
   },
 
   init() {
@@ -42,6 +64,18 @@ cc.Class({
       this.initShareData()
       App.setIsEnter(false)
     }
+
+    this.testShowRadish()  // 
+  },
+
+  testShowRadish() {
+    const card = cc.instantiate(this.CardCommonPrefab)
+    card.zIndex = 100
+    card.setPosition(cc.v2(-375, -667))
+    this.node.addChild(card)
+    var script = card.getComponent('cardParent3_box')
+    script.btnText = '我要个长btn',
+    script.isBigBtn = true
   },
 
   catchedMonster() {
@@ -142,14 +176,14 @@ cc.Class({
   },
 
   initShareData() {
-    if (wx) {
+    if (typeof wx != 'undefined') {
       let launchOptions = wx.getLaunchOptionsSync()
       App.setLaunchOptions(launchOptions);
       const { scene, query } = launchOptions;
       if (query.senderId) {
         const { sceneId, monsterId, senderId } = query;
         const card = cc.instantiate(this.shareCardPrefab)
-        card.setPosition(cc.v2(-381, -667))
+        card.setPosition(cc.v2(-375, -667))
         let monsterData = this.getMonsterData(sceneId, monsterId);
         card.getComponent('cardMask2').showCard(monsterData, senderId);
         this.node.addChild(card);

@@ -64,8 +64,6 @@ cc.Class({
   },
 
   hurt(damage) {
-    const bleedingAnim = this.blooding.getComponent(cc.Animation)
-    bleedingAnim.play('blooding')
     const bloodNode = new cc.Node('blood node')
     const bloodLabel = bloodNode.addComponent(cc.Label)
     const outline = bloodNode.addComponent(cc.LabelOutline)

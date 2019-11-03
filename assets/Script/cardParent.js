@@ -91,7 +91,7 @@ cc.Class({
     const cardRoot = e.target.parent.parent
     const { monsterData } = e.target.parent.parent
     const { name, sceneId, monsterId } = monsterData
-    if (wx) {
+    if (typeof wx != 'undefined') {
       let openId = App.getOpenId();
       const { nickName } = App.getUserInfo();
       request.sendMonster({
@@ -107,12 +107,14 @@ cc.Class({
       })
       App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
       .then(url => {
-        wx && wx.shareAppMessage({
-          title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
-          imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
-          imageUrl: url,    //转发图片
-          query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
-        })
+        if (typeof wx != 'undefined') {
+          wx.shareAppMessage({
+            title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+            imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
+            imageUrl: url,    //转发图片
+            query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
+          })
+        }
       })
     }
     cardRoot.getComponent('cardParent').refreshMonster()
@@ -121,7 +123,7 @@ cc.Class({
     const cardRoot = e.target.parent.parent;
     const { monsterData } = e.target.parent.parent;
     const { name, monsterId, sceneId } = monsterData;
-    if (wx) {
+    if (typeof wx != 'undefined') {
       let openId = App.getOpenId();
       const { nickName } = App.getUserInfo();
       request.sendMonster({
@@ -137,12 +139,14 @@ cc.Class({
       })
       App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
       .then(url => {
-        wx && wx.shareAppMessage({
-          title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
-          imageUrl: url,    //转发图片
-          imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
-          query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
-        })
+        if (typeof wx != 'undefined') {
+          wx.shareAppMessage({
+            title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+            imageUrl: url,    //转发图片
+            imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
+            query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
+          })
+        }
         cardRoot.parent.active = false;
       })
     }
