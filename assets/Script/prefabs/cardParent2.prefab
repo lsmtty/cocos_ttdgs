@@ -33,7 +33,7 @@
     "_prefab": {
       "__id__": 33
     },
-    "_opacity": 255,
+    "_opacity": 20,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -96,7 +96,7 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 212,
+    "_opacity": 21,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -258,8 +258,8 @@
       "z": 0,
       "w": 1
     },
-    "_skewX": 0,
-    "_skewY": 0,
+    "_skewX": 0.2,
+    "_skewY": 0.2,
     "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""

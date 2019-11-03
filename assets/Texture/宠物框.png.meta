@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "c1cc23de-2d87-4b49-aae0-02c1314851c8",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "宠物框": {
+      "ver": "1.0.3",
+      "uuid": "b5656dfd-13a1-4730-a82d-04d152577e78",
+      "rawTextureUuid": "c1cc23de-2d87-4b49-aae0-02c1314851c8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": -0.5,
+      "trimX": 0,
+      "trimY": 1,
+      "width": 161,
+      "height": 160,
+      "rawWidth": 162,
+      "rawHeight": 161,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

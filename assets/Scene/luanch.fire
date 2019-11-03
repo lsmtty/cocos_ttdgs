@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.42969921289355323,
+      "y": 0.42969921289355323,
       "z": 1
     },
     "_quat": {
@@ -426,7 +426,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -569,
+      "y": -566,
       "z": 0
     },
     "_scale": {
@@ -513,7 +513,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -627,
+      "y": -618,
       "z": 0
     },
     "_scale": {
@@ -606,7 +606,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -500,
+      "y": -495,
       "z": 0
     },
     "_scale": {
@@ -777,8 +777,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22.25,
-      "height": 40
+      "width": 21.13,
+      "height": 38
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -788,7 +788,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -503,
+      "y": -497,
       "z": 0
     },
     "_scale": {
@@ -825,8 +825,8 @@
     "_useOriginalSize": false,
     "_string": "0",
     "_N$string": "0",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 38,
+    "_lineHeight": 38,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

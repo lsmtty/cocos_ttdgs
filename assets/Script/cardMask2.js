@@ -33,7 +33,7 @@ cc.Class({
     const ctx = this.cardBg.getComponent(cc.Graphics)
     this.cardBg.opacity = 153;
     // ctx.fillColor = new cc.Color().fromHEX('#000000')
-    // ctx.rect(-325, -667, 750, 1334)
+    // ctx.rect(0, 0, 750, 1334)
     // ctx.fill()
   },
   handleReceive(e) {
@@ -58,6 +58,8 @@ cc.Class({
   showCard(monsterData, senderId) {
     let _this = this
     this.node.active = true
+    const beLarge = cc.scaleTo(0.8, 1, 1)
+    this.card.runAction(beLarge);
     this.node.monsterData = monsterData
     this.node.senderId = senderId
     console.log('here', monsterData, senderId, request.getUserInfo);
