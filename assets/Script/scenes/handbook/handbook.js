@@ -1,4 +1,4 @@
-import { App } from '../utils/App'
+import { App } from '../../utils/App'
 
 cc.Class({
   extends: cc.Component,

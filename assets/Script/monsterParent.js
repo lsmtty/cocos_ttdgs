@@ -20,10 +20,6 @@ cc.Class({
     blood: {
       default: null,
       type: cc.Node
-    },
-    blooding: {
-      default: null,
-      type: cc.Node
     }
   },
 

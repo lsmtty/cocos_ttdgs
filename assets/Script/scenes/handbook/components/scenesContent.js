@@ -1,5 +1,5 @@
-import { App } from '../utils/App'
-import constant from '../utils/constant'
+import { App } from '../../../utils/App'
+import constant from '../../../utils/constant'
 
 cc.Class({
   extends: cc.Component,
@@ -18,7 +18,7 @@ cc.Class({
   onLoad () {
     const monsterData = App.getGameData()
     const { scenes } = monsterData
-    scenes.forEach((scene, index) => {
+    Array.isArray(scenes) && scenes.length && scenes.forEach((scene, index) => {
       this.createScene(scene, index)
     })
   },

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "577f6513-2eb4-4046-b6ef-4db98e1c606a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "怪物手册背景图": {
+      "ver": "1.0.3",
+      "uuid": "ac3552ab-3f8a-4f40-9e2b-ea9a8e4a3446",
+      "rawTextureUuid": "577f6513-2eb4-4046-b6ef-4db98e1c606a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 793,
+      "height": 1466,
+      "rawWidth": 793,
+      "rawHeight": 1466,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

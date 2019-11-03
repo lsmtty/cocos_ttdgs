@@ -107,7 +107,7 @@ cc.Class({
       })
       App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
       .then(url => {
-        wx.shareAppMessage({
+        wx && wx.shareAppMessage({
           title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
           imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
           imageUrl: url,    //转发图片
@@ -137,7 +137,7 @@ cc.Class({
       })
       App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
       .then(url => {
-        wx.shareAppMessage({
+        wx && wx.shareAppMessage({
           title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
           imageUrl: url,    //转发图片
           imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',

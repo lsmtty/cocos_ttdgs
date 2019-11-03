@@ -21,9 +21,7 @@ cc.Class({
   onLoad () {
     this.node.on('touchend', () => {
       cc.find('Canvas').getComponent('catchmonster').saveMonsterData()
-      App.ttdgsLoadScene('handbook', {
-        test: 'test'
-      })
+      cc.director.loadScene('handbook')
     })
     const ctx = this.node.getComponent(cc.Graphics)
     ctx.fillColor = new cc.Color(108, 80, 59, 252)
