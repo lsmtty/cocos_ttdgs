@@ -65,7 +65,7 @@ cc.Class({
       App.setIsEnter(false)
     }
 
-    this.testShowRadish()  // 
+    // this.testShowRadish()
   },
 
   testShowRadish() {
@@ -74,8 +74,9 @@ cc.Class({
     card.setPosition(cc.v2(-375, -667))
     this.node.addChild(card)
     var script = card.getComponent('cardParent3_box')
-    script.btnText = '我要个长btn',
+    script.btnText = '我要个长btn'
     script.isBigBtn = true
+    const cardContain = cc.instantiate('../../')
   },
 
   catchedMonster() {

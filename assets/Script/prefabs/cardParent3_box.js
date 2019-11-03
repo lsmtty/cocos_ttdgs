@@ -1,7 +1,7 @@
 // card mask 重构 以后会替换 cardMask
-import { App } from '../Script/utils/App'
-import constant from '../Script/utils/constant'
-import request from './utils/request'
+import { App } from '../utils/App'
+import constant from '../utils/constant'
+import request from '../utils/request'
 
 cc.Class({
   extends: cc.Component,
