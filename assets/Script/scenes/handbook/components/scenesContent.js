@@ -19,7 +19,9 @@ cc.Class({
     const monsterData = App.getGameData()
     const { scenes } = monsterData
     Array.isArray(scenes) && scenes.length && scenes.forEach((scene, index) => {
-      this.createScene(scene, index)
+      if (index <= 4) {
+        this.createScene(scene, index);
+      }
     })
   },
 

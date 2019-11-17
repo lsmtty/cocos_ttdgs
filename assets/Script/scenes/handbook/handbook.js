@@ -7,10 +7,27 @@ cc.Class({
     cardPrefab: {
       default: null,
       type: cc.Prefab
+    },
+    secretBtn: {
+      default: null,
+      type: cc.Node
+    },
+    mask: {
+      type: cc.Node,
+      default: null
+    },
+    cardClose: {
+      type: cc.Node,
+      default: null
+    },
+    confirmDialog: {
+      type: cc.Node,
+      default: null
     }
   },
 
   onLoad () {
+    let _this = this
     App.adjustScreen(this.node)
     cc.Camera.main.backgroundColor = new cc.Color(89, 81, 78)
     const returnBtn = cc.find('Canvas/background/返回按钮@2x')
@@ -19,6 +36,13 @@ cc.Class({
     card.setPosition(cc.v2(-291, -387))
     this.cardParent = card
     this.node.addChild(this.cardParent)
+    this.mask.active = false;
+    this.secretBtn.on('touchend', () => {
+      _this.mask.active = true
+    })
+    this.cardClose.on('touchend', () => {
+      _this.mask.active = false
+    })
   },
 
   showCard(monsterData) {

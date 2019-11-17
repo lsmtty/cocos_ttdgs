@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "a1b3ddac-e6ce-4cec-9daf-76a13491a71c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "游戏秘密@2x": {
+      "ver": "1.0.3",
+      "uuid": "5abbac7f-66ed-4d48-a109-4bc39cfb0d62",
+      "rawTextureUuid": "a1b3ddac-e6ce-4cec-9daf-76a13491a71c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 100,
+      "height": 100,
+      "rawWidth": 100,
+      "rawHeight": 100,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

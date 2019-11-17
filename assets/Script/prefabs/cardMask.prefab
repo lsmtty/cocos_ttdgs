@@ -1513,6 +1513,9 @@
     "onSendToFriendButton": {
       "__id__": 34
     },
+    "confirmDialog": {
+      "__uuid__": "ffbb9b20-e2e3-4250-81d5-8bacb3ea0d1f"
+    },
     "_id": ""
   },
   {
