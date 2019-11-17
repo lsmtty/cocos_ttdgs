@@ -16,9 +16,32 @@ cc.Class({
     bowLeftWidth: 200,
     ballWrapPositionY: 520,
     ballWrapPositionX: -20,
+    arrowPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
+    shootAudio: {
+      default: null,
+      type: cc.AudioClip
+    },
+    lagongAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
+    shootInterval: {
+      default: 200,
+      type: cc.Integer
+    },
+    validShoot: {
+      default: false,
+      type: cc.Boolean
+    }
   },
 
   onLoad () {
+    this.arrow = null
+    this.createArrow()
+
     let touchPoint;
     let bowLeft = this.bowLeft = this.node.getChildByName("bowLeft")
     let bowRight = this.bowRight = this.node.getChildByName("bowRight")
@@ -28,6 +51,8 @@ cc.Class({
 
     let wrap = this.wrap = cc.find("ballWrap/wrap", this.node)
     let ball = this.ball = cc.find("ballWrap/ball", this.node)
+
+    this.rightHand = cc.find("rightHand", this.node)
 
     this.node.on('touchstart', e => {
       touchPoint = e.getLocation()
@@ -40,11 +65,12 @@ cc.Class({
       this.setbow(deltaX, deltaY)
     })
     this.node.on('touchend', e => {
-      this.shoot()
+      this.shoot(e)
     })
     this.node.on('touchcancel', e => {
-      this.shoot()
+      this.shoot(e)
     })
+
   },
 
   setbow (x, y) {
@@ -79,31 +105,64 @@ cc.Class({
     this.ballWrap.y = ballWrapY
     this.ballWrap.x = moveX
 
+    this.rightHand.y = ballWrapY
+    this.rightHand.x = moveX
+
     // 球的角度
-    let ballRotation = -Math.atan(moveX / ballWrapY) / Math.PI * 180 * 1.5
+    let ballRotation = -Math.atan((moveX + 10) / ballWrapY) / Math.PI * 180 * 1.5
     this.ballWrap.rotation = ballRotation
+    this.arrow && (this.arrow.rotation = ballRotation > 10 || ballRotation < -10 ? ballRotation * 2 : ballRotation)
+    this.arrow && (this.arrow.setPosition(cc.v2(moveX, ballWrapY)))
   },
 
-  shoot () {
-    this.ball.opacity = 0
-    this.wrap.opacity = 255
-    this.resetbow()
-    setTimeout(e => {
-      this.setbow(0,60)
-    }, 40)
-    setTimeout(e => {
+  shoot (e) {
+    //
+    const { _prevPoint, _startPoint } = e.touch
+    const moveLength = Math.sqrt(Math.pow(_prevPoint.x - _startPoint.x, 2) + Math.pow(_prevPoint.y - _startPoint.y, 2))
+    if (this.arrow && this.validShoot) {
+      // if (moveLength < 50) { // 拉动距离太小恢复位置
+      //   this.replaceArrow()
+      //   this.resetbow()
+      //   return
+      // }
+      // UI
+      this.ball.opacity = 0
+      this.wrap.opacity = 255
+      this.rightHand.opacity = 0
       this.resetbow()
-    }, 80)
-    setTimeout(e => {
-      this.setbow(0,30)
-    }, 120)
-    setTimeout(e => {
+      setTimeout(e => {
+        this.setbow(0,60)
+      }, 40)
+      setTimeout(e => {
+        this.resetbow()
+      }, 80)
+      setTimeout(e => {
+        this.setbow(0,30)
+      }, 120)
+      setTimeout(e => {
+        this.resetbow()
+      }, 160)
+      // setTimeout(e => {
+      // }, 400)
+
+      this.arrow.opacity = 255
+      // FUNC
+      this.playShootAudio()
+      this.arrow.getComponent('arrow').shooting()
+      this.arrow = null
+      const timer = setTimeout(() => {
+        this.wrap.opacity = 0
+        this.ball.opacity = 255
+        this.createArrow()
+        this.rightHand.y = this.ballWrapPositionY
+        this.rightHand.x = this.ballWrapPositionX
+        this.rightHand.opacity = 255
+        clearTimeout(timer)
+      }, this.shootInterval)
+    } else {
       this.resetbow()
-    }, 160)
-    setTimeout(e => {
-      this.wrap.opacity = 0
-      this.ball.opacity = 255
-    }, 400)
+    }
+
   },
 
   resetbow () {
@@ -118,9 +177,25 @@ cc.Class({
     this.ballWrap.x = this.ballWrapPositionX
     this.ballWrap.rotation = 0
   },
-
-  start () {
-
+  // 旧逻辑
+  createArrow() {
+    const newArrow = cc.instantiate(this.arrowPrefab)
+    // 将新增的节点添加到 Canvas 节点下面
+    this.node.addChild(newArrow)
+    this.arrow = newArrow
+    newArrow.setAnchorPoint(0.5, 0)
+    newArrow.setScale(0.5, 0.5)
+    newArrow.y = this.ballWrapPositionY
+    newArrow.x = this.ballWrapPositionX
+    newArrow.rotation = 0
+    newArrow.opacity = 0
+  },
+  playShootAudio: function() {
+    cc.audioEngine.playEffect(this.shootAudio, false)
+  },
+  replaceArrow() {
+    this.arrow.setPosition(cc.v2(this.ballWrapPositionX, this.ballWrapPositionY))
+    this.arrow.rotation = 0
   },
 
   // update (dt) {},

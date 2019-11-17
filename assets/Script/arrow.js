@@ -47,7 +47,7 @@ cc.Class({
   },
   shooting() {
     this.isShooting = true
-    const beSmall = cc.scaleBy(0.8, 0.33, 0.33)
+    const beSmall = cc.scaleBy(0.95, 0.6, 0.6)
     this.node.runAction(beSmall)
   }
 })
