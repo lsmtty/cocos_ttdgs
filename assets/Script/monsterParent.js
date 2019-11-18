@@ -32,6 +32,7 @@ cc.Class({
     bloodCtx.fillColor = new cc.Color().fromHEX('#d8d8d8')
     bloodCtx.roundRect(-100, -12, 200, 24, 12)
     bloodCtx.fill()
+    this.blooding = cc.find("blooding", this.node)
   },
 
   randomRun() {
@@ -135,7 +136,7 @@ cc.Class({
     root.getComponent('catchmonster').showCard(this.sceneId, this.monsterId)
   },
   saveMonsterData() {
-    let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData') 
+    let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData')
     if(!storageLastMonster) {
       storageLastMonster = {}
     }
