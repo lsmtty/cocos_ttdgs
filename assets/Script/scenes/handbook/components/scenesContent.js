@@ -19,7 +19,9 @@ cc.Class({
     const monsterData = App.getGameData()
     const { scenes } = monsterData
     Array.isArray(scenes) && scenes.length && scenes.forEach((scene, index) => {
-      this.createScene(scene, index)
+      if (index <= 4) {
+        this.createScene(scene, index);
+      }
     })
   },
 
@@ -49,10 +51,6 @@ cc.Class({
       const monsterScript = monster.getComponent('monsterItem')
       monsterScript.sceneId = sceneId
       monsterScript.monsterData = item
-      const ctx = monster.getComponent(cc.Graphics)
-      ctx.fillColor = new cc.Color().fromHEX('#FFFFFF')
-      ctx.roundRect(0, 0, 150, 150, 20)
-      ctx.fill()
 
       sceneMonster.addChild(monster)
       const monsterImg = monster.getChildByName('MonsterImg')

@@ -31,7 +31,9 @@ cc.Class({
   },
   drawBackground() {
     const ctx = this.cardBg.getComponent(cc.Graphics)
-    this.cardBg.opacity = 153;
+    this.cardBg.opacity = 153
+    this.cascadeOpacity = false
+    this.cardBg.on('touchend', () => { return false })
     // ctx.fillColor = new cc.Color().fromHEX('#000000')
     // ctx.rect(0, 0, 750, 1334)
     // ctx.fill()

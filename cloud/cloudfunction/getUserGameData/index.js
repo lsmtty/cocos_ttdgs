@@ -76,7 +76,7 @@ exports.main = async (event, context) => {
         _id: docId,
         _openid: event.userInfo.openId,
         scenes: [],
-        tools: {"rabbit": 30},
+        tools: {"rabbit": 5},
         updateTime: 1,
       }
     })

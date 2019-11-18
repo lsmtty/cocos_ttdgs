@@ -20,10 +20,6 @@ cc.Class({
   },
 
   onLoad () {
-    const ctx = this.refreshButton.getComponent(cc.Graphics)
-    ctx.fillColor = new cc.Color(242, 48, 111, 255)
-    ctx.roundRect(0, 0, 284, 90, 45)
-    ctx.fill()
     this.refreshButton.on('touchend', () => {
       this.refreshByRabbit()
     })
@@ -41,10 +37,16 @@ cc.Class({
         return
       }
       const date = App.getRealTime()
+      var nextHours = new Date(date).getHours()
+      if (nextHours == 23) {
+        nextHours = 0
+      } else {
+        nextHours += 1
+      }
       const overTime = 3600 * 1000 - date % (3600 * 1000)
       const minutes = parseInt((overTime % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = parseInt((overTime % (1000 * 60)) / 1000)
-      label.string = `${minutes}分${seconds}秒后会有新怪物出现喔！！！`
+      label.string = `距离下次${nextHours}点 还有${minutes}分${seconds}秒`
     }
     showRefreshTime.call(this)
     this.timer = setInterval(() => {

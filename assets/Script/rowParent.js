@@ -22,7 +22,7 @@ cc.Class({
       type: cc.AudioSource
     },
     shootInterval: {
-      default: 200,
+      default: 50,
       type: cc.Integer
     },
     validShoot: {
@@ -96,10 +96,9 @@ cc.Class({
       this.arrow.getComponent('arrow').shooting()
       this.row.getComponent('row').drawLines(-60)
       this.arrow = null
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         this.createArrow()
-        clearTimeout(timer)
-      }, this.shootInterval)
+      }, 200)
     }
   },
   replaceArrow() {
