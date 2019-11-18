@@ -52,7 +52,7 @@ cc.Class({
   monsterCatched() {
     this.stopRun()
     // 🏹停止射击
-    this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = false
+    //this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = false
     // 记录捕捉了怪兽
     // const root = cc.find('Canvas')
     // root.getComponent('catchmonster').saveMonster(this.sceneId, this.monsterId)
@@ -82,6 +82,7 @@ cc.Class({
     }, this)
     bloodNode.runAction(fadeAction)
     bloodNode.runAction(cc.sequence(moveAction, callback))
+    this.blooding = cc.find("blooding", this.node)
   },
 
   refreshNew(useStorage = false) {
@@ -122,7 +123,7 @@ cc.Class({
     this.randomRun()
 
     // 让弓箭继续可以射击
-    this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = true
+    // this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = true
 
     // 缓存中保存这个怪兽
 
