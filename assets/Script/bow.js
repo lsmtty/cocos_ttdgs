@@ -7,6 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+import mathUtil from './utils/mathUtil'
 
 cc.Class({
   extends: cc.Component,
@@ -62,7 +63,7 @@ cc.Class({
     this.node.on('touchmove', e => {
       let deltaX = e.getLocation().x - touchPoint.x
       let deltaY = e.getLocation().y - touchPoint.y
-      this.setbow(deltaX, deltaY)
+      this.setbow(deltaX, deltaY, e)
     })
     this.node.on('touchend', e => {
       this.shoot(e)
@@ -73,7 +74,7 @@ cc.Class({
 
   },
 
-  setbow (x, y) {
+  setbow (x, y, e) {
     let deltaX = x
     let deltaY = y
     //范围控制
@@ -111,7 +112,8 @@ cc.Class({
     // 球的角度
     let ballRotation = -Math.atan((moveX + 10) / ballWrapY) / Math.PI * 180 * 1.5
     this.ballWrap.rotation = ballRotation
-    this.arrow && (this.arrow.rotation = ballRotation > 10 || ballRotation < -10 ? ballRotation * 2 : ballRotation)
+    // this.arrow && (this.arrow.rotation = ballRotation > 10 || ballRotation < -10 ? ballRotation * 2 : ballRotation)
+    this.rowRotate(e)
     this.arrow && (this.arrow.setPosition(cc.v2(moveX, ballWrapY)))
   },
 
@@ -178,6 +180,16 @@ cc.Class({
     this.ballWrap.rotation = 0
   },
   // 旧逻辑
+  rowRotate(e) {
+    if (!e) {return false;}
+    const { _prevPoint, _startPoint } = e.touch
+    console.log('rowRotate')
+    if (_prevPoint.x != _startPoint.x || _prevPoint.y != _startPoint.y) {
+      const r = mathUtil.getRotation({ x: _prevPoint.x, y: _prevPoint.y }, { x: _startPoint.x, y: _startPoint.y })
+      this.arrow && (this.arrow.rotation = r - 90) && (this.ballWrap.rotation = r - 90)
+      console.log(r - 90)
+    }
+  },
   createArrow() {
     const newArrow = cc.instantiate(this.arrowPrefab)
     // 将新增的节点添加到 Canvas 节点下面
