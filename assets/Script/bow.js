@@ -112,8 +112,8 @@ cc.Class({
     // 球的角度
     let ballRotation = -Math.atan((moveX + 10) / ballWrapY) / Math.PI * 180 * 1.5
     this.ballWrap.rotation = ballRotation
-    // this.arrow && (this.arrow.rotation = ballRotation > 10 || ballRotation < -10 ? ballRotation * 2 : ballRotation)
     this.rowRotate(e)
+    // this.arrow && (this.arrow.rotation = ballRotation > 10 || ballRotation < -10 ? ballRotation * 2 : ballRotation)
     this.arrow && (this.arrow.setPosition(cc.v2(moveX, ballWrapY)))
   },
 

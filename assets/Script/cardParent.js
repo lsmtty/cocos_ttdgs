@@ -32,20 +32,45 @@ cc.Class({
     onSendToFriendButton: {
       type: cc.Node,
       default: null
-    }
+    },
+    confirmDialog: {
+      type: cc.Prefab,
+      default: null
+    },
+    isCatchMonster: true
   },
 
   onLoad () {
+    let _this = this
     this.drawBackground()
     this.root = cc.find('Canvas')
     if (this.root.getComponent('catchmonster')) { // 判断是捕捉页
       this.handbookControlBox.active = false
     } else {
+      this.isCatchMonster = false
       this.catchControlBox.active = false
     }
-    this.onCatchSendBtn.on('touchend', this.handleSend)
+    this.onCatchSendBtn.on('touchend', () => {
+      _this.confirmDialog.active = true
+      let confirmScript =  _this.confirmDialog.getComponent('confirmDialog')
+      confirmScript.confirm = _this.handleSend.bind(_this)
+      confirmScript.cancel = () => {
+        this.node.parent.active = false
+      }
+    })
     this.onCatchSaveBtn.on('touchend', this.handleSave)
-    this.onSendToFriendButton.on('touchend', this.sendToFriend)
+    this.onSendToFriendButton.on('touchend', () => {
+      _this.confirmDialog.active = true
+      let confirmScript = _this.confirmDialog.getComponent('confirmDialog')
+      confirmScript.confirm = _this.sendToFriend.bind(_this)
+      confirmScript.cancel = () => {
+        this.node.parent.active = false
+      }
+    })
+    this.confirmDialog = cc.instantiate(this.confirmDialog)
+    this.confirmDialog.setPosition(cc.v2(-375, -667))
+    this.root.addChild(this.confirmDialog)
+    this.confirmDialog.active = false
   },
 
   drawBackground() {
@@ -88,10 +113,10 @@ cc.Class({
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   handleSend(e) {
-    const cardRoot = e.target.parent.parent
-    const { monsterData } = e.target.parent.parent
+    let _this = this
+    const { monsterData } = _this.node;
     const { name, sceneId, monsterId } = monsterData
-    if (wx) {
+    if (typeof wx != 'undefined') {
       let openId = App.getOpenId();
       const { nickName } = App.getUserInfo();
       request.sendMonster({
@@ -103,25 +128,27 @@ cc.Class({
       request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
         rabbit++
         gameData.tools.rabbit = rabbit
-        this.root._setGameData(gameData)
+        App.setGameData(gameData)
       })
       App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
       .then(url => {
-        wx && wx.shareAppMessage({
-          title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
-          imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
-          imageUrl: url,    //转发图片
-          query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
-        })
+        if (typeof wx != 'undefined') {
+          wx.shareAppMessage({
+            title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+            imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
+            imageUrl: url,    //转发图片
+            query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
+          })
+        }
       })
     }
-    cardRoot.getComponent('cardParent').refreshMonster()
+    _this.node.getComponent('cardParent').refreshMonster()
   },
   sendToFriend(e) {
-    const cardRoot = e.target.parent.parent;
-    const { monsterData } = e.target.parent.parent;
+    let _this = this
+    const { monsterData } = _this.node;
     const { name, monsterId, sceneId } = monsterData;
-    if (wx) {
+    if (typeof wx != 'undefined') {
       let openId = App.getOpenId();
       const { nickName } = App.getUserInfo();
       request.sendMonster({
@@ -133,25 +160,24 @@ cc.Class({
       request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
         rabbit++
         gameData.tools.rabbit = rabbit
-        this.root._setGameData(gameData)
+        App.setGameData(gameData)
       })
       App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
       .then(url => {
-        wx && wx.shareAppMessage({
-          title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
-          imageUrl: url,    //转发图片
-          imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
-          query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
-        })
-        cardRoot.parent.active = false;
+        if (typeof wx != 'undefined') {
+          wx.shareAppMessage({
+            title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+            imageUrl: url,    //转发图片
+            imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
+            query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
+          })
+        }
       })
     }
+    _this.node.parent.active = false;
   },
   refreshMonster() {
     this.node.parent.active = false
     cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
-  },
-  addRabbit() {
-    
   }
 })

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "8cdeadde-bd2e-42e9-b195-c0607d4d4fbe",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "地图": {
+      "ver": "1.0.3",
+      "uuid": "9821387a-625a-4f76-94a3-86ec9fa63b84",
+      "rawTextureUuid": "8cdeadde-bd2e-42e9-b195-c0607d4d4fbe",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 166,
+      "height": 99,
+      "rawWidth": 166,
+      "rawHeight": 99,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
