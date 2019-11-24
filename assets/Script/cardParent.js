@@ -55,7 +55,7 @@ cc.Class({
       let confirmScript =  _this.confirmDialog.getComponent('confirmDialog')
       confirmScript.confirm = _this.handleSend.bind(_this)
       confirmScript.cancel = () => {
-        this.node.parent.active = false
+        this.node.parent.parent.active = false
       }
     })
     this.onCatchSaveBtn.on('touchend', this.handleSave)
@@ -64,13 +64,14 @@ cc.Class({
       let confirmScript = _this.confirmDialog.getComponent('confirmDialog')
       confirmScript.confirm = _this.sendToFriend.bind(_this)
       confirmScript.cancel = () => {
-        this.node.parent.active = false
+        this.node.parent.parent.active = false
       }
     })
     this.confirmDialog = cc.instantiate(this.confirmDialog)
     this.confirmDialog.setPosition(cc.v2(-375, -667))
     this.root.addChild(this.confirmDialog)
     this.confirmDialog.active = false
+    this.node.parent.parent.getChildByName('close').on('touchend', this.handleClose)
   },
 
   drawBackground() {
@@ -85,7 +86,7 @@ cc.Class({
      * @param {Object} monsterData
      */
   showCard(monsterData) {
-    this.node.parent.active = true
+    this.node.parent.parent.active = true
     this.node.monsterData = monsterData
     const labelName = this.node.getChildByName('monster_name').getComponent(cc.Label)
     const labelOwn = this.node.getChildByName('monster_own').getComponent(cc.Label)
@@ -174,10 +175,20 @@ cc.Class({
         }
       })
     }
-    _this.node.parent.active = false;
+    _this.node.parent.parent.active = false;
   },
   refreshMonster() {
-    this.node.parent.active = false
+    this.node.parent.parent.active = false
     cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
+  },
+  handleClose() {
+    if (this.isCatchMonster) {
+      const { monsterData } = this.node;
+      const { name, sceneId, monsterId } = monsterData
+      Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
+      cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
+      cardRoot.getComponent('cardParent').refreshMonster()
+    }
+    this.node.parent.parent.active = false
   }
 })

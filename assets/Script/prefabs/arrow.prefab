@@ -218,7 +218,7 @@
     },
     "_enabled": true,
     "speed": 600,
-    "attack": 5,
+    "attack": 50,
     "_id": ""
   },
   {

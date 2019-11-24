@@ -42,7 +42,6 @@ cc.Class({
     }
   },
 
-  // use this for initialization
   onLoad: function () {
     cc.macro.ENABLE_TRANSPARENT_CANVAS = true // 开启透明通道
     cc.macro.ENABLE_CULLING = true
@@ -64,7 +63,6 @@ cc.Class({
       this.initShareData()
       App.setIsEnter(false)
     }
-
     // this.testShowRadish()
   },
 
@@ -90,13 +88,17 @@ cc.Class({
   showCard(sceneId, monsterId) {
     const root = cc.find('Canvas')
     const monsterData = root.getComponent('catchmonster').getMonsterData(sceneId, monsterId)
-    this.cardParent.getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
+    this.cardParent.getChildByName('cardMask').getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
+    // 暂时清除缓存项目
+    let lastMonsterData = cc.sys.localStorage.getItem('lastMonsterData')
+    lastMonsterData[sceneId].isFreshing = true
+    cc.sys.localStorage.setItem('lastMonsterData', lastMonsterData)
   },
 
   showSharedCard(sceneId, monsterId, senderId) {
     const root = cc.find('Canvas')
     const monsterData = root.getComponent('catchmonster').getMonsterData(sceneId, monsterId)
-    this.cardParent.getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
+    this.cardParent.getChildByName('cardMask').getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
   },
   showRefreshInterval() {
     this.refreshMask.getComponent('refreshMask').show()
@@ -171,8 +173,9 @@ cc.Class({
       })
     })
     const card = cc.instantiate(this.cardPrefab)
-    card.setPosition(cc.v2(-291, -387))
+    card.setPosition(cc.v2(-375, -667))
     this.cardParent = card
+    card.active = false
     this.node.addChild(this.cardParent)
   },
 

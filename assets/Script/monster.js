@@ -8,11 +8,11 @@ cc.Class({
       type: cc.Integer
     },
     fullblood: {
-      default: 100,
+      default: 0,
       type: cc.Integer
     },
     currentBlood: {
-      default: 100,
+      default: 0,
       type: cc.Integer
     }
   },
@@ -38,9 +38,11 @@ cc.Class({
       this.node.parent.getComponent('monsterParent').hurt(arrow.attack)
       this.drawBlood(this.currentBlood / this.fullblood)
       this.node.getComponent(cc.AudioSource).play()
-      if (this.currentBlood <= 0 && !this.showNet) {
+      if (this.currentBlood <= 0) {
         this.onCatched()
-        this.showNet = true
+        if (!this.showNet) {
+          this.showNet = true
+        }
       }
     }
   },

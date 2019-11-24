@@ -33,8 +33,9 @@ cc.Class({
     const returnBtn = cc.find('Canvas/background/返回按钮@2x')
     returnBtn.on('touchend', this.goback)
     const card = cc.instantiate(this.cardPrefab)
-    card.setPosition(cc.v2(-291, -387))
+    card.setPosition(cc.v2(-375, -667))
     this.cardParent = card
+    card.active = false
     this.node.addChild(this.cardParent)
     this.mask.active = false;
     this.secretBtn.on('touchend', () => {
@@ -46,7 +47,7 @@ cc.Class({
   },
 
   showCard(monsterData) {
-    this.cardParent.getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
+    this.cardParent.getChildByName('cardMask').getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
   },
 
   goback() {

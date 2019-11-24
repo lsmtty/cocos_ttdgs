@@ -36,15 +36,15 @@ cc.Class({
   },
 
   randomRun() {
-    var originMoveSpeed = 90
+    let originMoveSpeed = 90
     const monsterScript = this.monster.getComponent('monster')
     const { fullBlood, currentBlood }  = monsterScript
     // originMoveSpeed *= 1 / (currentBlood / fullBlood )
-    var timer = 0.5
+    let timer = 0.5
     const minX = Math.max(50 + originMoveSpeed, this.node.x - originMoveSpeed)
     const maxX = Math.min(750 - 50 - originMoveSpeed, this.node.x + originMoveSpeed)
-    const minY = Math.max(672, this.node.y - originMoveSpeed)
-    const maxY = Math.min(672 + 300, this.node.y + originMoveSpeed)
+    const minY = Math.max(750, this.node.y - originMoveSpeed)
+    const maxY = Math.min(750 + 300, this.node.y + originMoveSpeed)
     const moveAction = cc.moveTo(timer * currentBlood / fullBlood, cc.v2(mathUtil.getRandom(minX, maxX), mathUtil.getRandom(minY, maxY)))
     const callback = cc.callFunc(this.randomRun, this)
     this.node.runAction(cc.sequence(moveAction, callback))
@@ -52,11 +52,6 @@ cc.Class({
 
   monsterCatched() {
     this.stopRun()
-    // 🏹停止射击
-    //this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = false
-    // 记录捕捉了怪兽
-    // const root = cc.find('Canvas')
-    // root.getComponent('catchmonster').saveMonster(this.sceneId, this.monsterId)
   },
 
   // 停止走动
@@ -95,9 +90,15 @@ cc.Class({
 
     if (useStorage && storageLastMonster && storageLastMonster[this.sceneId]) {
       // 大于24 小时就更新
-      if((App.getRealTime() - storageLastMonster[this.sceneId].refreshTime) <  24 * 60 * 60 * 100) {
-        this.monsterId = storageLastMonster[this.sceneId].monsterId || storageLastMonster[this.sceneId]
-        currentBlood =  storageLastMonster[this.sceneId].currentBlood || 100
+      const { isFreshing = false, refreshTime, monsterId, currentBlood: lastCurrentBlood } = storageLastMonster[this.sceneId]
+      if (isFreshing) {
+        cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
+        this.node.active = false
+        return;
+      }
+      if((App.getRealTime() - refreshTime) <  24 * 60 * 60 * 100) {
+        this.monsterId = monsterId || 1
+        currentBlood =  lastCurrentBlood || 100
       } else {
         this.monsterId =  mathUtil.getRandomNum(8)
       }
@@ -144,7 +145,8 @@ cc.Class({
     storageLastMonster[this.sceneId] =  {
       monsterId: this.monsterId,
       currentBlood: monsterScript.currentBlood,
-      refreshTime: App.getRealTime()
+      refreshTime: App.getRealTime(),
+      isFreshing: monsterScript.currentBlood <= 0
     }
     cc.sys.localStorage.setItem('lastMonsterData', storageLastMonster)
   }

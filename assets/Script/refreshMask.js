@@ -28,9 +28,9 @@ cc.Class({
   },
 
   show() {
-    this.node.active = true
     const label = this.refreshLabel.getComponent(cc.Label)
     this.showRefreshToolCount()
+    this.node.active = true
     const showRefreshTime = function() {
       if (App.getRealTime() % (3600 * 1000) < 1500) {
         this.refresh()
@@ -77,7 +77,7 @@ cc.Class({
     this.node.active = false
   },
   showRefreshToolCount() {
-    const gameData = this.root._getGameData()
+    const gameData = App.getGameData()
     const refToolCount = this.refreshTool.getChildByName('refToolCount')
     const refToolCountLable = refToolCount.getChildByName('refCountLabel')
     const { rabbit } = gameData.tools
