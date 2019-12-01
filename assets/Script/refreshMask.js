@@ -32,10 +32,10 @@ cc.Class({
     this.showRefreshToolCount()
     this.node.active = true
     const showRefreshTime = function() {
-      if (App.getRealTime() % (3600 * 1000) < 1500) {
-        this.refresh()
-        return
-      }
+      // if (App.getRealTime() % (3600 * 1000) < 1500) {
+      //   this.refresh()
+      //   return
+      // } // 交由主页面控制到时刷新
       const date = App.getRealTime()
       var nextHours = new Date(date).getHours()
       if (nextHours == 23) {
@@ -73,7 +73,7 @@ cc.Class({
   },
   refresh() {
     if (this.timer) clearInterval(this.timer)
-    this.root.getANewMonster()
+    this.root.getANewMonster('refresh')
     this.node.active = false
   },
   showRefreshToolCount() {

@@ -71,7 +71,7 @@ cc.Class({
     this.confirmDialog.setPosition(cc.v2(-375, -667))
     this.root.addChild(this.confirmDialog)
     this.confirmDialog.active = false
-    this.node.parent.parent.getChildByName('close').on('touchend', this.handleClose)
+    this.node.parent.parent.getChildByName('close').on('touchend', this.handleClose.bind(this))
   },
 
   drawBackground() {

@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.40271270614692656,
-      "y": 0.40271270614692656,
+      "x": 0.42969921289355323,
+      "y": 0.42969921289355323,
       "z": 1
     },
     "_quat": {
@@ -1075,7 +1075,7 @@
   {
     "__type__": "cc.Node",
     "_name": "UserImgParent",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 16
     },
@@ -1416,7 +1416,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 750,
-      "height": 6970
+      "height": 1020
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1484,7 +1484,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 750,
-      "height": 6970
+      "height": 1040
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",

@@ -14,6 +14,7 @@ cc.Class({
     properties: {
         confirm: () => {},
         cancel: () => {},
+        title: '确定送出一只小橘猫吗?',
         maskBg: {
             type: cc.Node,
             default: null

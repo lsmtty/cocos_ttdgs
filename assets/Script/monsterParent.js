@@ -24,7 +24,8 @@ cc.Class({
   },
 
   onLoad () {
-    this.refreshNew(true)
+    console.log('onload')
+    this.refreshNew('load')
     const bloodCtx = this.node.getChildByName('bloodParent').getComponent(cc.Graphics)
     bloodCtx.fillColor = new cc.Color(255, 255, 255)
     bloodCtx.roundRect(-105, -17, 210, 34, 17)
@@ -81,38 +82,111 @@ cc.Class({
     this.blooding = cc.find("blooding", this.node)
   },
 
-  refreshNew(useStorage = false) {
+  /**
+   * 刷新类型 
+   * @param {string} type  load:初始化 time： 到时刷新 refresh: 手动刷新 default: 不刷新，载入缓存
+   */
+  // refreshNew(useStorage = false) {
+  //   this.node.active = true
+  //   // 使用缓存中的上一个怪物
+
+  //   let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData')
+  //   let currentBlood = 100
+
+  //   if (useStorage && storageLastMonster && storageLastMonster[this.sceneId]) {
+  //     // 大于24 小时就更新
+  //     const { isFreshing = false, refreshTime, monsterId, currentBlood: lastCurrentBlood } = storageLastMonster[this.sceneId]
+  //     if (isFreshing) {
+  //       setTimeout(() => {
+  //         cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
+  //       }, 0);
+  //       this.node.active = false
+  //       return;
+  //     }
+  //     if((App.getRealTime() - refreshTime) <  60 * 60 * 1000) {
+  //       this.monsterId = monsterId || 1 // 给了默认的id和 血量 此处可能有bug 
+  //       currentBlood =  lastCurrentBlood || 100
+  //     } else {
+  //       this.monsterId =  mathUtil.getRandomNum(8)
+  //     }
+  //   } else {
+  //     this.monsterId =  mathUtil.getRandomNum(8)
+  //   }
+  //   this.monster.monsterId = this.monsterId
+  //   const monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData(this.sceneId, this.monsterId)
+  //   const monsterScript = this.monster.getComponent('monster')
+  //   monsterScript.fullBlood = monsterData.blood
+  //   monsterScript.currentBlood = currentBlood
+  //   monsterScript.refreshNew()
+  //   App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`)
+  //     .then(url => {
+  //       cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+  //         const fra = this.monster.getComponent(cc.Sprite)
+  //         const sframe = new cc.SpriteFrame(texture)
+  //         fra.spriteFrame = sframe
+  //       })
+  //     })
+  //   this.randomRun()
+  //   this.saveMonsterData()
+  // },
+
+  // /**
+  //  * 刷新类型 
+  //  * @param {string} type  load:初始化 time： 到时刷新 refresh: 手动刷新 default: 不刷新，载入缓存
+  //  */
+  refreshNew(type = false) {
     this.node.active = true
-    // 使用缓存中的上一个怪物
+    // 考虑点 初始化： 血量和 id
 
+    // 读取缓存
+    let saveDataType = 'clear'
     let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData')
-    let currentBlood = 100
-
-    if (useStorage && storageLastMonster && storageLastMonster[this.sceneId]) {
-      // 大于24 小时就更新
-      const { isFreshing = false, refreshTime, monsterId, currentBlood: lastCurrentBlood } = storageLastMonster[this.sceneId]
-      if (isFreshing) {
-        cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
-        this.node.active = false
-        return;
-      }
-      if((App.getRealTime() - refreshTime) <  24 * 60 * 60 * 100) {
-        this.monsterId = monsterId || 1
-        currentBlood =  lastCurrentBlood || 100
-      } else {
+    let monsterBlood = 100
+    let storageMonster = {}
+    if (storageLastMonster && storageLastMonster[this.sceneId]) {
+      storageMonster = storageLastMonster[this.sceneId]
+    }
+    switch(type = 'default') {
+      
+      case 'time': {
         this.monsterId =  mathUtil.getRandomNum(8)
+        monsterBlood = 100
+        break;
       }
-    } else {
-      this.monsterId =  mathUtil.getRandomNum(8)
+      case 'refresh': {
+        // 清除所有怪物的缓存
+        this.monsterId =  mathUtil.getRandomNum(8)
+        monsterBlood = 100
+        saveDataType = 'no'
+        break
+      }
+      case 'load':
+      case 'default':
+      default: {
+        let realTime = App.getRealTime()
+        let lastHour = realTime -  realTime % (60 * 60 * 1000) // 上一个整点的时间
+        if (storageMonster.refreshTime && storageMonster.refreshTime >= lastHour) { // 这个整点刚刷新的，载入缓存
+          saveDataType = 'no'
+          this.monsterId = storageMonster.monsterId
+          monsterBlood = storageLastMonster.currentBlood
+          if (monsterBlood <= 0) {
+            setTimeout(() => {
+              cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
+            }, 0);
+            this.node.active = false
+          }
+        } else {
+          this.monsterId =  mathUtil.getRandomNum(8)
+          monsterBlood = 100
+        }
+        break
+      }
     }
     this.monster.monsterId = this.monsterId
     const monsterData = cc.find('Canvas').getComponent('catchmonster').getMonsterData(this.sceneId, this.monsterId)
-    if (!monsterData) {
-      return;
-    }
     const monsterScript = this.monster.getComponent('monster')
     monsterScript.fullBlood = monsterData.blood
-    monsterScript.currentBlood = currentBlood
+    monsterScript.currentBlood = monsterBlood
     monsterScript.refreshNew()
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`)
       .then(url => {
@@ -123,30 +197,28 @@ cc.Class({
         })
       })
     this.randomRun()
-
-    // 让弓箭继续可以射击
-    // this.node.parent.getChildByName('弓箭按钮@2x').getComponent('rowParent').validShoot = true
-
-    // 缓存中保存这个怪兽
-
-    this.saveMonsterData()
+    this.saveMonsterData(saveDataType)
   },
+
   showCard() {
     this.node.stopAllActions()
     const root = cc.find('Canvas')
     root.getComponent('catchmonster').showCard(this.sceneId, this.monsterId)
   },
-  saveMonsterData() {
+  /**
+   * 
+   * @param {string} type clear: 清除所有其他场景缓存 no: 只更新当前场景
+   */
+  saveMonsterData(type) {
     let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData')
-    if(!storageLastMonster) {
+    if(!storageLastMonster || type == 'clear') {
       storageLastMonster = {}
     }
     const monsterScript = this.monster.getComponent('monster')
     storageLastMonster[this.sceneId] =  {
       monsterId: this.monsterId,
       currentBlood: monsterScript.currentBlood,
-      refreshTime: App.getRealTime(),
-      isFreshing: monsterScript.currentBlood <= 0
+      refreshTime: App.getRealTime()
     }
     cc.sys.localStorage.setItem('lastMonsterData', storageLastMonster)
   }

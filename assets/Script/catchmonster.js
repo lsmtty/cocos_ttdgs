@@ -58,12 +58,20 @@ cc.Class({
   },
 
   init() {
+    let _this = this
     this.initSceneData()
-    if (App.getIsEnter()) {
-      this.initShareData()
-      App.setIsEnter(false)
-    }
+    // 暂时注释掉获取分享怪兽的弹框
+    // if (App.getIsEnter()) {
+    //   this.initShareData()
+    //   App.setIsEnter(false)
+    // }
     // this.testShowRadish()
+    setInterval(() => {
+      if (App.getRealTime() % (3600 * 1000) < 1500) {
+        _this.getANewMonster('time')
+        this.refreshMask.getComponent('refreshMask').hide()
+      }
+    }, 1000); 
   },
 
   testShowRadish() {
@@ -81,8 +89,8 @@ cc.Class({
     this.node.getChildByName('monsterBox')
   },
 
-  getANewMonster() {
-    cc.find('Canvas/background/monsterBox').getComponent('monsterParent').refreshNew()
+  getANewMonster(type = 'time') {
+    cc.find('Canvas/background/monsterBox').getComponent('monsterParent').refreshNew(type)
   },
 
   showCard(sceneId, monsterId) {
@@ -210,5 +218,10 @@ cc.Class({
 
   _getGameData() {
     return App.getGameData()
+  },
+
+  // 整点刷怪
+  _refreshByTime() {
+    // 刷新当前关卡怪，清除所有其他关卡怪的缓存
   }
 })

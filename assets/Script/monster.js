@@ -110,6 +110,9 @@ cc.Class({
   refreshNew() {
     if (this.progressBar) {
       this.progressBar.active = true
+      if (this.currentBlood < 0 || this.fullblood < 0) {
+        console.warn('currentBlood:' + this.currentBlood, 'fullblood:' + this.fullblood)
+      }
       this.drawBlood(this.currentBlood / this.fullblood)
     }
   }
