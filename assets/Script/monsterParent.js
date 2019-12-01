@@ -130,11 +130,11 @@ cc.Class({
   //   this.saveMonsterData()
   // },
 
-  // /**
-  //  * 刷新类型 
-  //  * @param {string} type  load:初始化 time： 到时刷新 refresh: 手动刷新 default: 不刷新，载入缓存
-  //  */
-  refreshNew(type = false) {
+  /**
+   * 刷新类型 
+   * @param {string} type  load:初始化 time： 到时刷新 refresh: 手动刷新 storage: 不刷新，载入缓存
+   */
+  refreshNew(type = 'load') {
     this.node.active = true
     // 考虑点 初始化： 血量和 id
 
@@ -143,11 +143,16 @@ cc.Class({
     let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData')
     let monsterBlood = 100
     let storageMonster = {}
+    if (type == 'load') {
+      this.sceneId = cc.sys.localStorage.getItem('lastSceneId') || '1' 
+    }
     if (storageLastMonster && storageLastMonster[this.sceneId]) {
       storageMonster = storageLastMonster[this.sceneId]
     }
-    switch(type = 'default') {
-      
+    this.monsterId = '1'
+    monsterBlood = 100
+    // type = 'time'
+    switch(type) {
       case 'time': {
         this.monsterId =  mathUtil.getRandomNum(8)
         monsterBlood = 100
@@ -158,18 +163,18 @@ cc.Class({
         this.monsterId =  mathUtil.getRandomNum(8)
         monsterBlood = 100
         saveDataType = 'no'
-        break
+        break;
       }
-      case 'load':
-      case 'default':
+      case 'load': 
+      case 'storage':
       default: {
         let realTime = App.getRealTime()
         let lastHour = realTime -  realTime % (60 * 60 * 1000) // 上一个整点的时间
-        if (storageMonster.refreshTime && storageMonster.refreshTime >= lastHour) { // 这个整点刚刷新的，载入缓存
+        if (storageMonster &&  storageMonster.refreshTime && storageMonster.refreshTime >= lastHour) { // 这个整点刚刷新的，载入缓存
           saveDataType = 'no'
           this.monsterId = storageMonster.monsterId
-          monsterBlood = storageLastMonster.currentBlood
-          if (monsterBlood <= 0) {
+          monsterBlood = storageMonster.currentBlood
+          if (monsterBlood != undefined && monsterBlood <= 0) {
             setTimeout(() => {
               cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
             }, 0);
@@ -179,7 +184,7 @@ cc.Class({
           this.monsterId =  mathUtil.getRandomNum(8)
           monsterBlood = 100
         }
-        break
+        break;
       }
     }
     this.monster.monsterId = this.monsterId
@@ -187,6 +192,7 @@ cc.Class({
     const monsterScript = this.monster.getComponent('monster')
     monsterScript.fullBlood = monsterData.blood
     monsterScript.currentBlood = monsterBlood
+    console.log(monsterData, storageMonster)
     monsterScript.refreshNew()
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`)
       .then(url => {

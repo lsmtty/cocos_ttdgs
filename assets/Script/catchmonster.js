@@ -158,13 +158,7 @@ cc.Class({
     }
   },
   initSceneData() {
-    let sceneId = '1'
-    if (App.getInitScene()) {
-      sceneId = App.getInitScene()
-    } else if (cc.sys.localStorage.getItem('lastSceneId')) {
-      sceneId = cc.sys.localStorage.getItem('lastSceneId')
-    }
-    cc.sys.localStorage.setItem('lastSceneId', sceneId);
+    let sceneId = cc.sys.localStorage.getItem('lastSceneId') || '1' 
     this.monsterParent.getComponent('monsterParent').sceneId = sceneId
     App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c-1257970977/images/maps/background/bg_scene${sceneId}.jpg`)
     .then(url => {

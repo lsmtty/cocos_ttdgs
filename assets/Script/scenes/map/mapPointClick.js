@@ -38,7 +38,7 @@ cc.Class({
       })
       enterBtn.on('touchend', e => {
         e.stopPropagation()
-        App.setInitScene(index + 1)
+        cc.sys.localStorage.setItem('lastSceneId', '' + (index + 1))
         cc.director.loadScene('catchmonster')
       })
     })

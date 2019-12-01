@@ -13,8 +13,7 @@ class AppMain {
       resoureMap: new Map(),
       serverTime: 0,
       launchOptions: {},
-      serverTimeGap: 0,
-      initScene: '1'
+      serverTimeGap: 0
     }
     this.setIsEnter = this.setIsEnter.bind(this)
     this.getIsEnter = this.getIsEnter.bind(this)
@@ -24,8 +23,6 @@ class AppMain {
     this.getRealTime = this.getRealTime.bind(this)
     this.getOpenId = this.getOpenId.bind(this)
     this.getUserInfo = this.getUserInfo.bind(this)
-    this.setInitScene = this.setInitScene.bind(this)
-    this.getInitScene = this.getInitScene.bind(this)
     this.setLaunchOptions = this.setLaunchOptions.bind(this)
     this.getLaunchOptions = this.getLaunchOptions.bind(this)
   }
@@ -36,14 +33,6 @@ class AppMain {
 
   getIsEnter() {
     return this.globalData.isEnter
-  }
-  
-  getInitScene() {
-    return this.globalData.initScene
-  }
-
-  setInitScene(sceneId) {
-    this.globalData.initScene = sceneId
   }
 
   setGameData = (gameData) => {
