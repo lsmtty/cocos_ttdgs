@@ -99,7 +99,7 @@ cc.Class({
     this.cardParent.getChildByName('cardMask').getChildByName('cardParent').getComponent('cardParent').showCard(monsterData)
     // 暂时清除缓存项目
     let lastMonsterData = cc.sys.localStorage.getItem('lastMonsterData')
-    lastMonsterData[sceneId].isFreshing = true
+    lastMonsterData[sceneId].currentBlood = 0
     cc.sys.localStorage.setItem('lastMonsterData', lastMonsterData)
   },
 

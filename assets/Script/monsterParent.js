@@ -169,9 +169,10 @@ cc.Class({
       case 'storage':
       default: {
         let realTime = App.getRealTime()
+        saveDataType = 'no'
         let lastHour = realTime -  realTime % (60 * 60 * 1000) // 上一个整点的时间
-        if (storageMonster &&  storageMonster.refreshTime && storageMonster.refreshTime >= lastHour) { // 这个整点刚刷新的，载入缓存
-          saveDataType = 'no'
+        if (storageMonster && storageMonster.refreshTime && storageMonster.refreshTime >= lastHour) { // 这个整点刚刷新的，载入缓存
+          
           this.monsterId = storageMonster.monsterId
           monsterBlood = storageMonster.currentBlood
           if (monsterBlood != undefined && monsterBlood <= 0) {
@@ -215,7 +216,7 @@ cc.Class({
    * 
    * @param {string} type clear: 清除所有其他场景缓存 no: 只更新当前场景
    */
-  saveMonsterData(type) {
+  saveMonsterData(type = 'no') {
     let storageLastMonster = cc.sys.localStorage.getItem('lastMonsterData')
     if(!storageLastMonster || type == 'clear') {
       storageLastMonster = {}

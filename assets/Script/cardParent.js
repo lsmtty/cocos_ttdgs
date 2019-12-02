@@ -186,8 +186,9 @@ cc.Class({
       const { monsterData } = this.node;
       const { name, sceneId, monsterId } = monsterData
       Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
-      cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
-      cardRoot.getComponent('cardParent').refreshMonster()
+      let catchmonster = cc.find('Canvas').getComponent('catchmonster')
+      catchmonster.saveMonster(sceneId, monsterId)
+      catchmonster.showRefreshInterval()
     }
     this.node.parent.parent.active = false
   }
