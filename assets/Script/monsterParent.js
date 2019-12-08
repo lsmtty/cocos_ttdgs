@@ -40,13 +40,14 @@ cc.Class({
     let originMoveSpeed = 90
     const monsterScript = this.monster.getComponent('monster')
     const { fullBlood, currentBlood }  = monsterScript
-    // originMoveSpeed *= 1 / (currentBlood / fullBlood )
+    // originMoveSpeed = originMoveSpeed * (1 + 4 * ((currentBlood - fullBlood) / fullBlood ))
     let timer = 0.5
     const minX = Math.max(50 + originMoveSpeed, this.node.x - originMoveSpeed)
     const maxX = Math.min(750 - 50 - originMoveSpeed, this.node.x + originMoveSpeed)
-    const minY = Math.max(750, this.node.y - originMoveSpeed)
-    const maxY = Math.min(750 + 300, this.node.y + originMoveSpeed)
+    const minY = Math.max(750 + 300, this.node.y - originMoveSpeed)
+    const maxY = Math.min(750 + 600, this.node.y + originMoveSpeed)
     const moveAction = cc.moveTo(timer * currentBlood / fullBlood, cc.v2(mathUtil.getRandom(minX, maxX), mathUtil.getRandom(minY, maxY)))
+    // const moveAction = cc.moveTo(timer, cc.v2(mathUtil.getRandom(minX, maxX), mathUtil.getRandom(minY, maxY)))
     const callback = cc.callFunc(this.randomRun, this)
     this.node.runAction(cc.sequence(moveAction, callback))
   },

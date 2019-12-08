@@ -13,7 +13,8 @@ class AppMain {
       resoureMap: new Map(),
       serverTime: 0,
       launchOptions: {},
-      serverTimeGap: 0
+      serverTimeGap: 0,
+      getedDayRabbit: false  // 是否登录领取了萝卜
     }
     this.setIsEnter = this.setIsEnter.bind(this)
     this.getIsEnter = this.getIsEnter.bind(this)
@@ -33,6 +34,15 @@ class AppMain {
 
   getIsEnter() {
     return this.globalData.isEnter
+  }
+
+  setLoginGetRabbitStatus(status) {
+    this.globalData.getedDayRabbit = status
+  }
+
+  getLoginGetRabbitStatus() {
+    console.log('here', this.globalData.getedDayRabbit)
+    return this.globalData.getedDayRabbit;
   }
 
   setGameData = (gameData) => {
@@ -82,7 +92,13 @@ class AppMain {
       gameData = JSON.parse(gameData)
     }
     this.setGameData(gameData.result.data)
-
+    
+    let lastGetRabbitDate = cc.sys.localStorage.getItem('lastGetRabbitDate');
+    if (lastGetRabbitDate && lastGetRabbitDate == new Date().getDate()) {
+      this.globalData.getedDayRabbit = true
+    } else {
+      this.globalData.getedDayRabbit = false
+    }
     // 
     request.login()
       .then((res) => {

@@ -2,7 +2,6 @@
 import constant from './utils/constant'
 import { App } from './utils/App'
 import request from './utils/request'
-import { resolve } from 'path'
 
 cc.Class({
   extends: cc.Component,
@@ -65,7 +64,9 @@ cc.Class({
     //   this.initShareData()
     //   App.setIsEnter(false)
     // }
-    // this.testShowRadish()
+    if(!App.getLoginGetRabbitStatus()) {
+      this.showRadish()
+    }
     setInterval(() => {
       if (App.getRealTime() % (3600 * 1000) < 1500) {
         _this.getANewMonster('time')
@@ -74,15 +75,19 @@ cc.Class({
     }, 1000); 
   },
 
-  testShowRadish() {
+  showRadish() {
     const card = cc.instantiate(this.CardCommonPrefab)
-    card.zIndex = 100
     card.setPosition(cc.v2(-375, -667))
     this.node.addChild(card)
-    var script = card.getComponent('cardParent3_box')
-    script.btnText = '我要个长btn'
-    script.isBigBtn = true
-    const cardContain = cc.instantiate('../../')
+    // let script = card.getComponent('cardParent3_box')
+    // script.handleBtnClick = function() {
+    //   request.updateTools({ toolsName: 'rabbit',  toolsCount: 3}).then(() => {
+    //     let gameData = App.getGameData()
+    //     gameData.tools.rabbit += 3
+    //     App.setGameData(gameData)
+    //     script.close()
+    //   })
+    // }
   },
 
   catchedMonster() {

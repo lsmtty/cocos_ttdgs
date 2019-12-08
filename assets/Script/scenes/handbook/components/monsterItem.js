@@ -14,11 +14,11 @@ cc.Class({
   },
 
   onLoad () {
-    this.node.on('touchend', this.showCard)
+    // this.node.on('touchend', this.showCard)
   },
 
   showCard(e) {
-    const data = e.target.getComponent('monsterItem')
+    const data = e.target.parent.getComponent('monsterItem')
     const { sceneId, monsterData } = data
     monsterData.sceneId = sceneId.split('scene')[1]
     monsterData.monsterId = monsterData.id.split('monster')[1]
