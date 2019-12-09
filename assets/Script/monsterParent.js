@@ -44,8 +44,8 @@ cc.Class({
     let timer = 0.5
     const minX = Math.max(50 + originMoveSpeed, this.node.x - originMoveSpeed)
     const maxX = Math.min(750 - 50 - originMoveSpeed, this.node.x + originMoveSpeed)
-    const minY = Math.max(750 + 300, this.node.y - originMoveSpeed)
-    const maxY = Math.min(750 + 600, this.node.y + originMoveSpeed)
+    const minY = Math.max(750 + 100, this.node.y - originMoveSpeed)
+    const maxY = Math.min(750 + 400, this.node.y + originMoveSpeed)
     const moveAction = cc.moveTo(timer * currentBlood / fullBlood, cc.v2(mathUtil.getRandom(minX, maxX), mathUtil.getRandom(minY, maxY)))
     // const moveAction = cc.moveTo(timer, cc.v2(mathUtil.getRandom(minX, maxX), mathUtil.getRandom(minY, maxY)))
     const callback = cc.callFunc(this.randomRun, this)
