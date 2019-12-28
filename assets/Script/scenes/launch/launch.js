@@ -39,8 +39,8 @@ cc.Class({
     if (!this.isLoad) {
         const percent = progress / (this.initSceneCount * 2 *  8)
         const progressDraw = this.progress.getChildByName('progressContent').getComponent(cc.Graphics)
-        progressDraw.fillColor = new cc.Color().fromHEX('#ff552e')
-        progressDraw.roundRect(-250, -20, 500 * percent, 40, 20)
+        progressDraw.fillColor = new cc.Color().fromHEX('#FFCA0')
+        progressDraw.roundRect(-245, -20, 495 * percent, 40, 20)
         progressDraw.fill()
 
         this.progressNumber.string = Math.ceil(percent * 100) + '%'

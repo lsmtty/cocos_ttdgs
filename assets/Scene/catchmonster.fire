@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3409950961587379,
-      "y": 0.3409950961587379,
+      "x": 0.6365957646176911,
+      "y": 0.6365957646176911,
       "z": 1
     },
     "_quat": {
@@ -377,7 +377,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -381,
-      "y": -667,
+      "y": -873,
       "z": 0
     },
     "_scale": {
@@ -441,7 +441,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": 0,
+    "_bottom": -206,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -3973,9 +3973,9 @@
     },
     "_volume": 1,
     "_mute": false,
-    "_loop": false,
+    "_loop": true,
     "playOnLoad": true,
-    "preload": false,
+    "preload": true,
     "_id": "bd5+S68kZLgbOEvVWWleLX"
   }
 ]
