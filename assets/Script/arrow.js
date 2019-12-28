@@ -40,7 +40,7 @@ cc.Class({
       this.node.x += this.speed * dt * Math.sin(this.node.rotation * Math.PI / 180)
       this.node.y += this.speed * dt * Math.cos(Math.abs(this.node.rotation) * Math.PI / 180)
       // 移动超出屏幕后应该被销毁
-      if (Math.abs(this.node.x) > 500 || this.node.y > 1000) {
+      if (Math.abs(this.node.x) > 500 || this.node.y > 1700) {
         cc.Object.prototype.destroy.call(this.node)
       }
     }
