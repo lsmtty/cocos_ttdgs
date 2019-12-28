@@ -52,8 +52,10 @@ cc.Class({
 
   goback() {
     cc.director.loadScene('catchmonster')
+    return false
   },
   showSecretMask(e) {
     cc.find('Canvas').getComponent('handbook').mask.active = true
+    return false
   }
 })
