@@ -54,7 +54,7 @@ cc.Class({
     ctx.fill()
 
     ctx.fillColor = new cc.Color().fromHEX('#ff5555')
-    ctx.roundRect(-100, -12, 200 * percent, 24, 12)
+    ctx.roundRect(-100, -12, 200 * (percent <= 0 ? 0 : percent), 24, 12)
     ctx.fill()
   },
 
