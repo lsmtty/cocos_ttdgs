@@ -54,23 +54,22 @@ cc.Class({
      * 加载远程资源
      **/
     loadRemoteAssets () {
-        const self = this
         const that = this
+        // 优化 并发控制 每次最多10个请求
+        let resourceUrl = []
         for (var i = 1; i <= this.initSceneCount;i++) {
             for(var j = 1; j <= 8;j++) {
-                App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${i}/s${i}_monster${j}.png`)
-                .then(url => {
-                    cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
-                       that.drawProgress(++that.progressCount) 
-                    })
-                })
-                App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${i}/s${i}_monster${j}_shadow.png`)
-                .then(url => {
-                    cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
-                       that.drawProgress(++that.progressCount) 
-                    })
-                })
+                resourceUrl.push(`${constant.rootWxCloudPath}monsters/scene${i}/s${i}_monster${j}.png`);
+                resourceUrl.push(`${constant.rootWxCloudPath}monsters/scene${i}/s${i}_monster${j}_shadow.png`);
             }
-        } 
+        }
+        App.getResourceRealUrlArray(resourceUrl).then((fileList) => {
+            Array.isArray(fileList) && fileList.forEach((fileItem) => {
+                const { tempFileURL: url } = fileItem
+                cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
+                    that.drawProgress(++that.progressCount) 
+                })
+            });
+        });
     }
 })

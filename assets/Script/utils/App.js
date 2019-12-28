@@ -182,6 +182,46 @@ class AppMain {
     })
   }
 
+  getResourceRealUrlArray(fileIdArrays) {
+    const { resoureMap } = this.globalData
+    let targetFileUrlArrays = []
+    let requestIds = [];
+    if(Array.isArray(fileIdArrays)) {
+      fileIdArrays.forEach(fileIDItem => {
+        if(resoureMap.has(fileIDItem)) {
+          targetFileUrlArrays.push(resoureMap.get(fileIDItem));
+        } else {
+          requestIds.push(fileIDItem);
+        }
+      });
+      console.log('______');
+      console.log(targetFileUrlArrays, requestIds);
+      return new Promise((resolve, reject) => {
+        typeof wx != 'undefined' && wx.cloud.getTempFileURL({
+          fileList: requestIds,
+          success: res => {
+            if (res.errMsg = 'cloud.getTempFileURL:ok') {
+              const { fileList } = res
+              fileList.forEach((fileItem) => {
+                const { fileID, tempFileURL } = fileItem;
+                resoureMap.set(fileID, tempFileURL);
+                targetFileUrlArrays.push(tempFileURL);
+              });
+              resolve(fileList);
+            } else {
+              reject(res.errMsg)
+            }
+          },
+          fail: err => {
+            reject(err)
+          }
+        })
+      })
+    } else {
+      Promise.resolve(targetFileUrlArrays);
+    }
+  }
+
   getResourceRealUrl(fileID) {
     const { resoureMap } = this.globalData
     const targetFileUrl = resoureMap.get(fileID)
