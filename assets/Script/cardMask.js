@@ -10,7 +10,7 @@ cc.Class({
   },
 
   onLoad () {
-    this.drawBackground()
+    // this.drawBackground()
     this.node.active = false
   },
   drawBackground() {

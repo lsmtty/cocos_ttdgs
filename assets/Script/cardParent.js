@@ -42,7 +42,7 @@ cc.Class({
 
   onLoad () {
     let _this = this
-    this.drawBackground()
+    // this.drawBackground()
     this.root = cc.find('Canvas')
     if (this.root.getComponent('catchmonster')) { // 判断是捕捉页
       this.handbookControlBox.active = false
