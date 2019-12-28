@@ -1,15 +1,15 @@
 {
   "ver": "2.2.0",
-  "uuid": "8e46e3ed-6fd2-4bf7-8299-132a7fd69edc",
+  "uuid": "e088b896-0be3-4ec4-950a-6971594cdb7c",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "狩猎地图@2x": {
+    "微信图片_20191215182759": {
       "ver": "1.0.3",
-      "uuid": "27cb21a2-9876-46a9-ab06-92b3ef5b876d",
-      "rawTextureUuid": "8e46e3ed-6fd2-4bf7-8299-132a7fd69edc",
+      "uuid": "1933b418-b5ac-4fc4-b662-2abef35f5915",
+      "rawTextureUuid": "e088b896-0be3-4ec4-950a-6971594cdb7c",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

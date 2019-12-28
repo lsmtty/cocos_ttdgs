@@ -169,14 +169,14 @@ cc.Class({
     .then(url => {
       cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
         const sframe = new cc.SpriteFrame(texture)
-        cc.find('Canvas/background').getComponent(cc.Sprite).spriteFrame = sframe
+        cc.find('Canvas/bg').getComponent(cc.Sprite).spriteFrame = sframe
       })
     })
     App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c-1257970977/images/maps/background_shadow/shadow_scene${sceneId}.png`)
     .then(url => {
       cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
         const sframe = new cc.SpriteFrame(texture)
-        cc.find('Canvas/background/bg_shadow').getComponent(cc.Sprite).spriteFrame = sframe
+        cc.find('Canvas/bg_shadow').getComponent(cc.Sprite).spriteFrame = sframe
       })
     })
     const card = cc.instantiate(this.cardPrefab)

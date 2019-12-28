@@ -114,67 +114,78 @@ cc.Class({
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   handleSend(e) {
-    let _this = this
-    const { monsterData } = _this.node;
-    const { name, sceneId, monsterId } = monsterData
-    if (typeof wx != 'undefined') {
-      let openId = App.getOpenId();
-      const { nickName } = App.getUserInfo();
-      request.sendMonster({
-        monsterId,
-        sceneId
-      })
-      const gameData = App.getGameData()
-      let { rabbit } = gameData.tools
-      request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
-        rabbit++
-        gameData.tools.rabbit = rabbit
-        App.setGameData(gameData)
-      })
-      App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
-      .then(url => {
-        if (typeof wx != 'undefined') {
-          wx.shareAppMessage({
-            title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
-            imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
-            imageUrl: url,    //转发图片
-            query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
-          })
-        }
-      })
-    }
+    wx && wx.showModal({
+      showCancel: false,
+      content: '该功能暂未开放',
+      success: () => {} 
+    });
+    // let _this = this
+    // const { monsterData } = _this.node;
+    // const { name, sceneId, monsterId } = monsterData
+    // if (typeof wx != 'undefined') {
+    //   let openId = App.getOpenId();
+    //   const { nickName } = App.getUserInfo();
+    //   request.sendMonster({
+    //     monsterId,
+    //     sceneId
+    //   })
+    //   const gameData = App.getGameData()
+    //   let { rabbit } = gameData.tools
+    //   request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
+    //     rabbit++
+    //     gameData.tools.rabbit = rabbit
+    //     App.setGameData(gameData)
+    //   })
+    //   App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
+    //   .then(url => {
+    //     if (typeof wx != 'undefined') {
+    //       wx.shareAppMessage({
+    //         title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+    //         imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
+    //         imageUrl: url,    //转发图片
+    //         query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
+    //       })
+    //     }
+    //   })
+    // }
     _this.node.getComponent('cardParent').refreshMonster()
   },
   sendToFriend(e) {
-    let _this = this
-    const { monsterData } = _this.node;
-    const { name, monsterId, sceneId } = monsterData;
-    if (typeof wx != 'undefined') {
-      let openId = App.getOpenId();
-      const { nickName } = App.getUserInfo();
-      request.sendMonster({
-        monsterId,
-        sceneId
-      })
-      const gameData = App.getGameData()
-      let { rabbit } = gameData.tools
-      request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
-        rabbit++
-        gameData.tools.rabbit = rabbit
-        App.setGameData(gameData)
-      })
-      App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
-      .then(url => {
-        if (typeof wx != 'undefined') {
-          wx.shareAppMessage({
-            title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
-            imageUrl: url,    //转发图片
-            imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
-            query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
-          })
-        }
-      })
-    }
+    wx && wx.showModal({
+      showCancel: false,
+      content: '该功能暂未开放',
+      success: () => {} 
+    });
+    return;
+    // let _this = this
+    // const { monsterData } = _this.node;
+    // const { name, monsterId, sceneId } = monsterData;
+    // if (typeof wx != 'undefined') {
+    //   let openId = App.getOpenId();
+    //   const { nickName } = App.getUserInfo();
+    //   request.sendMonster({
+    //     monsterId,
+    //     sceneId
+    //   })
+    //   const gameData = App.getGameData()
+    //   let { rabbit } = gameData.tools
+    //   request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
+    //     rabbit++
+    //     gameData.tools.rabbit = rabbit
+    //     App.setGameData(gameData)
+    //   })
+    //   App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
+    //   .then(url => {
+    //     if (typeof wx != 'undefined') {
+    //       wx.shareAppMessage({
+    //         title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+    //         imageUrl: url,    //转发图片
+    //         imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
+    //         query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
+    //       })
+    //     }
+    //   })
+    // }
     _this.node.parent.parent.active = false;
   },
   refreshMonster() {
