@@ -29,7 +29,7 @@ cc.Class({
   onLoad () {
     let _this = this
     App.adjustScreen(this.node)
-    cc.Camera.main.backgroundColor = new cc.Color(89, 81, 78)
+    cc.Camera.main.backgroundColor = new cc.Color(0, 0, 0)
     const returnBtn = cc.find('Canvas/background/返回按钮@2x')
     returnBtn.on('touchend', this.goback)
     const card = cc.instantiate(this.cardPrefab)

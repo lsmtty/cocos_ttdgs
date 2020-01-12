@@ -2,6 +2,7 @@ const login = 'login'
 const updateUserInfo = 'updateUserInfo'
 const getUserInfo = 'getUserInfo'
 const getUserGameData = 'getUserGameData'
+const sendMonster = 'sendMonster'
 const catchMonster = 'catchMonster'
 const receiveMonster = 'receiveMonster'
 const updateTools = 'updateTools'
@@ -13,6 +14,7 @@ export default {
   getUserGameData,
   getUserInfo,
   catchMonster,
+  sendMonster,
   receiveMonster,
   login,
   updateTools,
