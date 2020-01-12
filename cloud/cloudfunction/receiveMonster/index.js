@@ -86,7 +86,7 @@ exports.main = async (event, context) => {
             monster.own++
           }
         })
-        let receiveUpdate = await db.collection('user_data').doc(docId).update({
+        let receiveUpdate = db.collection('user_data').doc(docId).update({
           data: {
             scenes: user_scenes,
             log
