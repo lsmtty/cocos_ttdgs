@@ -39,8 +39,8 @@ cc.Class({
       this.drawBlood(this.currentBlood / this.fullblood)
       this.node.getComponent(cc.AudioSource).play()
       if (this.currentBlood <= 0) {
-        this.onCatched()
         if (!this.showNet) {
+          this.onCatched()
           this.showNet = true
         }
       }

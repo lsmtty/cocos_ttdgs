@@ -109,83 +109,69 @@ cc.Class({
     const cardRoot = e.target.parent.parent
     const { monsterData } = cardRoot
     const { name, sceneId, monsterId } = monsterData
-    Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
+    wx && wx.showToast({
+      title: `保存一个${name}`,
+      icon: 'success',
+      duration: 3000
+    })
     cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
     cardRoot.getComponent('cardParent').refreshMonster()
   },
   handleSend(e) {
-    wx && wx.showModal({
-      showCancel: false,
-      content: '该功能暂未开放',
-      success: () => {} 
-    });
-    // let _this = this
-    // const { monsterData } = _this.node;
-    // const { name, sceneId, monsterId } = monsterData
-    // if (typeof wx != 'undefined') {
-    //   let openId = App.getOpenId();
-    //   const { nickName } = App.getUserInfo();
-    //   request.sendMonster({
-    //     monsterId,
-    //     sceneId
-    //   })
-    //   const gameData = App.getGameData()
-    //   let { rabbit } = gameData.tools
-    //   request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
-    //     rabbit++
-    //     gameData.tools.rabbit = rabbit
-    //     App.setGameData(gameData)
-    //   })
-    //   App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
-    //   .then(url => {
-    //     if (typeof wx != 'undefined') {
-    //       wx.shareAppMessage({
-    //         title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
-    //         imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
-    //         imageUrl: url,    //转发图片
-    //         query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
-    //       })
-    //     }
-    //   })
-    // }
+    let _this = this
+    const { monsterData } = _this.node;
+    const { name, sceneId, monsterId } = monsterData
+    if (typeof wx != 'undefined') {
+      let openId = App.getOpenId();
+      const { nickName } = App.getUserInfo();
+      request.getShareId({monsterId, sceneId, openId}).then(data => {
+        let { shareId } = data
+        const gameData = App.getGameData()
+        let { rabbit } = gameData.tools
+        App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
+        .then(url => {
+          if (typeof wx != 'undefined') {
+            wx.shareAppMessage({
+              title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+              imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
+              imageUrl: url,    //转发图片
+              query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}&shareId=${shareId}`
+            })
+          }
+        })
+      }).catch(() => {
+
+      })
+      
+    }
     _this.node.getComponent('cardParent').refreshMonster()
   },
   sendToFriend(e) {
-    wx && wx.showModal({
-      showCancel: false,
-      content: '该功能暂未开放',
-      success: () => {} 
-    });
-    return;
-    // let _this = this
-    // const { monsterData } = _this.node;
-    // const { name, monsterId, sceneId } = monsterData;
-    // if (typeof wx != 'undefined') {
-    //   let openId = App.getOpenId();
-    //   const { nickName } = App.getUserInfo();
-    //   request.sendMonster({
-    //     monsterId,
-    //     sceneId
-    //   })
-    //   const gameData = App.getGameData()
-    //   let { rabbit } = gameData.tools
-    //   request.updateTools({ toolsName: 'rabbit',  toolsCount: 1}).then(() => {
-    //     rabbit++
-    //     gameData.tools.rabbit = rabbit
-    //     App.setGameData(gameData)
-    //   })
-    //   App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
-    //   .then(url => {
-    //     if (typeof wx != 'undefined') {
-    //       wx.shareAppMessage({
-    //         title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
-    //         imageUrl: url,    //转发图片
-    //         imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
-    //         query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}`
-    //       })
-    //     }
-    //   })
-    // }
+    let _this = this
+    const { monsterData } = _this.node;
+    const { name, monsterId, sceneId } = monsterData;
+    if (typeof wx != 'undefined') {
+      let openId = App.getOpenId();
+      const { nickName } = App.getUserInfo();
+      request.getShareId({monsterId, sceneId, openId}).then((data) => {
+        let { shareId } = data
+        const gameData = App.getGameData()
+        let { rabbit } = gameData.tools
+        App.getResourceRealUrl(`cloud://ttdgs-test-c6724c.7474-ttdgs-test-c6724c/images/common/share1.png`)
+        .then(url => {
+          if (typeof wx != 'undefined') {
+            wx.shareAppMessage({
+              title: `${nickName}给你送来一个${name},快来领取吧~`, //转发标题
+              imageUrl: url,    //转发图片
+              imageUrlId: 'GLGHCXgaQpikpE4SDNRm7w',
+              query: `senderId=${openId}&sceneId=${sceneId}&monsterId=${monsterId}&shareId=${shareId}`
+            })
+          }
+        })
+      }).catch(() => {
+        
+      });
+    }
     _this.node.parent.parent.active = false;
   },
   refreshMonster() {
@@ -196,7 +182,11 @@ cc.Class({
     if (this.isCatchMonster) {
       const { monsterData } = this.node;
       const { name, sceneId, monsterId } = monsterData
-      Toast.makeText(`保存一个${name}`, Toast.LENGTH_SHORT).show()
+      wx && wx.showToast({
+        title: `保存一个${name}`,
+        icon: 'success',
+        duration: 3000
+      })
       let catchmonster = cc.find('Canvas').getComponent('catchmonster')
       catchmonster.saveMonster(sceneId, monsterId)
       catchmonster.showRefreshInterval()

@@ -15,10 +15,6 @@ const getUserInfo = (data) => {
   return solveRequest(api.getUserInfo, data)
 }
 
-const sendMonster = (data) => {
-  return solveRequest(api.sendMonster, data);
-}
-
 const receiveMonster = (data) => {
   return solveRequest(api.receiveMonster, data);
 }
@@ -41,6 +37,14 @@ const catchMonster = (data) => {
  */
 const updateTools = (data) => {
   return solveRequest(api.updateTools, data);
+}
+
+const getShareId = (data) => {
+  return solveRequest(api.getShareId, data)
+}
+
+const getShareStatus = (data) => {
+  return solveRequest(api.getShareStatus, data)
 }
 
 const solveRequest = (url, data = {}) => {
@@ -70,7 +74,6 @@ export default {
   getUserInfo,
   getUserGameData,
   catchMonster,
-  sendMonster,
   receiveMonster,
   updateTools
 }

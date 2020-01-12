@@ -60,10 +60,10 @@ cc.Class({
     let _this = this
     this.initSceneData()
     // 暂时注释掉获取分享怪兽的弹框
-    // if (App.getIsEnter()) {
-    //   this.initShareData()
-    //   App.setIsEnter(false)
-    // }
+    if (App.getIsEnter()) {
+      this.initShareData()
+      App.setIsEnter(false)
+    }
     if(!App.getLoginGetRabbitStatus()) {
       this.showRadish()
     }
@@ -189,15 +189,23 @@ cc.Class({
   initShareData() {
     if (typeof wx != 'undefined') {
       let launchOptions = wx.getLaunchOptionsSync()
-      App.setLaunchOptions(launchOptions);
-      const { scene, query } = launchOptions;
-      if (query.senderId) {
-        const { sceneId, monsterId, senderId } = query;
-        const card = cc.instantiate(this.shareCardPrefab)
-        card.setPosition(cc.v2(-375, -667))
-        let monsterData = this.getMonsterData(sceneId, monsterId);
-        card.getComponent('cardMask2').showCard(monsterData, senderId);
-        this.node.addChild(card);
+      App.setLaunchOptions(launchOptions)
+      const { scene, query } = launchOptions
+      if (query.senderId && query.shareId) {
+        const { sceneId, monsterId, senderId, shareId } = query
+        request.getShareStatus({sceneId, shareId}).then(() => {
+          const card = cc.instantiate(this.shareCardPrefab)
+          card.setPosition(cc.v2(-375, -667))
+          let monsterData = this.getMonsterData(sceneId, monsterId);
+          card.getComponent('cardMask2').showCard(monsterData, senderId, shareId)
+          this.node.addChild(card);
+        }).catch(() => {
+          wx && wx.showToast({
+            title: '怪兽已被领取',
+            icon: 'none',
+            duration: 3000
+          })
+        });
         // senderId=o4_IJ41rSf9ipugKulGmgMe49KaU&sceneId=1&monsterId=1
       }
     } 

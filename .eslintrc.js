@@ -60,7 +60,6 @@ module.exports = {
     },
     globals: {
         wx: true,
-        Toast: true,
         cc: true
     }
   }
