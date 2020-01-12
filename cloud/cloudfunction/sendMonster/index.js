@@ -29,8 +29,11 @@ exports.main = async (event, context) => {
   const docId = `${event.userInfo.openId}-data`
   let monsterId = event.monsterId
   let sceneId = event.sceneId
+  let now = (new Date).getTime()
+  let shareId = `${event.userInfo.openId}_${monsterId}_${now}`
   let return_data = {
-    success: false
+    success: false,
+    data: 'init'
   }
   let user_data = await db.collection('user_data').doc(docId).get()
   if (user_data.errCode) {
@@ -53,9 +56,17 @@ exports.main = async (event, context) => {
     if (monster.id == `s${sceneId}_monster${monsterId}` && monster.own) {
       hasMonster = true
       return_data.success = true
+      return_data.data = 'hasMonster'
     }
   })
   if (hasMonster) {
+    return_data.shareId = shareId
+    let addShareId = await db.collection('share_data').add({
+      data: {
+        _id: shareId,
+        shareId: shareId
+      }
+    })
     let log = user_data.data.log || []
     log.push({
       type: 'SEND_MONSTER',
@@ -67,6 +78,8 @@ exports.main = async (event, context) => {
         log
       }
     })
+  } else {
+    return_data.data = '!has Monster'
   }
   return return_data
 }

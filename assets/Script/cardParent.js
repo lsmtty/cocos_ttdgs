@@ -110,7 +110,7 @@ cc.Class({
     const { monsterData } = cardRoot
     const { name, sceneId, monsterId } = monsterData
     wx && wx.showToast({
-      title: `保存一个${name}`,
+      title: `捕获${name}`,
       icon: 'success',
       duration: 3000
     })
@@ -124,7 +124,7 @@ cc.Class({
     if (typeof wx != 'undefined') {
       let openId = App.getOpenId();
       const { nickName } = App.getUserInfo();
-      request.getShareId({monsterId, sceneId, openId}).then(data => {
+      request.sendMonster({monsterId, sceneId, openId}).then(data => {
         let { shareId } = data
         const gameData = App.getGameData()
         let { rabbit } = gameData.tools
@@ -153,7 +153,7 @@ cc.Class({
     if (typeof wx != 'undefined') {
       let openId = App.getOpenId();
       const { nickName } = App.getUserInfo();
-      request.getShareId({monsterId, sceneId, openId}).then((data) => {
+      request.sendMonster({monsterId, sceneId, openId}).then((data) => {
         let { shareId } = data
         const gameData = App.getGameData()
         let { rabbit } = gameData.tools
@@ -183,7 +183,7 @@ cc.Class({
       const { monsterData } = this.node;
       const { name, sceneId, monsterId } = monsterData
       wx && wx.showToast({
-        title: `保存一个${name}`,
+        title: `捕获${name}`,
         icon: 'success',
         duration: 3000
       })

@@ -193,7 +193,7 @@ cc.Class({
       const { scene, query } = launchOptions
       if (query.senderId && query.shareId) {
         const { sceneId, monsterId, senderId, shareId } = query
-        request.getShareStatus({sceneId, shareId}).then(() => {
+        request.getShareId({sceneId, shareId}).then(() => {
           const card = cc.instantiate(this.shareCardPrefab)
           card.setPosition(cc.v2(-375, -667))
           let monsterData = this.getMonsterData(sceneId, monsterId);
