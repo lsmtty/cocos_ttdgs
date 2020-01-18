@@ -65,7 +65,7 @@ exports.main = async (event, context) => {
       data: {
         scenes
       },
-      success () {
+      async success () {
         // receive
         let log = user_data.data.log || []
         log.push({
@@ -86,15 +86,15 @@ exports.main = async (event, context) => {
             monster.own++
           }
         })
-        let receiveUpdate = db.collection('user_data').doc(docId).update({
+        let receiveUpdate = await db.collection('user_data').doc(docId).update({
           data: {
             scenes: user_scenes,
             log
           }
         })
         return_data.success = true
+        return return_data
       }
     })
   }
-  return return_data
 }

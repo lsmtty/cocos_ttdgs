@@ -206,7 +206,7 @@ cc.Class({
             duration: 3000
           })
         });
-        // senderId=o4_IJ41rSf9ipugKulGmgMe49KaU&sceneId=1&monsterId=1
+        // senderId=o4_IJ41rSf9ipugKulGmgMe49KaU&sceneId=1&monsterId=1&shareId=o4_IJ41rSf9ipugKulGmgMe49KaU_1_1578822865754
       }
     } 
   },

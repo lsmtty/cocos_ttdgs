@@ -48,7 +48,11 @@ cc.Class({
       monsterId: monsterData.monsterId
     }).then(() => {
       console.log('接收成功');
-      cardRoot.active = false
+      wx && wx.showToast({
+        title: '获得小怪兽',
+        icon: 'none',
+        duration: 3000
+      })
     }).catch(() => {
       wx && wx.showToast({
         title: '怪兽已被领取',
@@ -56,7 +60,9 @@ cc.Class({
         duration: 3000
       })
       console.log('接收失败');
-    })
+    }).finally(() => {
+      cardRoot.active = false
+    });
   },
    /**
      * 展示收藏卡片

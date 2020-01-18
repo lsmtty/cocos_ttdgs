@@ -60,7 +60,9 @@ exports.main = async (event, context) => {
     }
   })
   if (hasMonster) {
-    return_data.shareId = shareId
+    return_data.data = {
+      shareId
+    }
     let addShareId = await db.collection('share_data').add({
       data: {
         _id: shareId,

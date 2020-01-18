@@ -64,7 +64,6 @@ cc.Class({
       let confirmScript = _this.confirmDialog.getComponent('confirmDialog')
       confirmScript.confirm = _this.sendToFriend.bind(_this)
       confirmScript.cancel = () => {
-        this.node.parent.parent.active = false
       }
     })
     this.confirmDialog = cc.instantiate(this.confirmDialog)
@@ -95,7 +94,6 @@ cc.Class({
     }
     labelName.string = `捕获${monsterData.name}`
     labelOwn.string = `我拥有${monsterData.own}只`
-    console.log(`${constant.rootWxCloudPath}monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`)
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`)
       .then(url => {
         cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {
@@ -109,11 +107,11 @@ cc.Class({
     const cardRoot = e.target.parent.parent
     const { monsterData } = cardRoot
     const { name, sceneId, monsterId } = monsterData
-    wx && wx.showToast({
-      title: `捕获${name}`,
-      icon: 'success',
-      duration: 3000
-    })
+    // wx && wx.showToast({
+    //   title: `捕获${name}`,
+    //   icon: 'success',
+    //   duration: 3000
+    // })
     cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
     cardRoot.getComponent('cardParent').refreshMonster()
   },
@@ -142,7 +140,6 @@ cc.Class({
       }).catch(() => {
 
       })
-      
     }
     _this.node.getComponent('cardParent').refreshMonster()
   },
@@ -183,7 +180,7 @@ cc.Class({
       const { monsterData } = this.node;
       const { name, sceneId, monsterId } = monsterData
       wx && wx.showToast({
-        title: `捕获${name}`,
+        title: `获得${name}`,
         icon: 'success',
         duration: 3000
       })
