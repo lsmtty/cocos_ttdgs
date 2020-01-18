@@ -64,37 +64,45 @@ exports.main = async (event, context) => {
     let senderUpdate = await db.collection('user_data').doc(senderId).update({
       data: {
         scenes
-      },
-      async success () {
-        // receive
-        let log = user_data.data.log || []
-        log.push({
-          type: 'RECEIVE_MONSTER',
-          data: `recerve a monster. scene:${sceneId}, monster:${monsterId}, from: ${senderId}`,
-          time: new Date(),
-        })
-        let user_scenes = user_data.data.scenes
-        let user_targetScene = {}
-        let user_hasMonster = false
-        user_scenes.forEach(scene => {
-          if (scene.id === `scene${sceneId}`) {
-            user_targetScene = scene
-          }
-        })
-        user_targetScene.monsters.forEach(monster => {
-          if (monster.id == `s${sceneId}_monster${monsterId}`) {
-            monster.own++
-          }
-        })
-        let receiveUpdate = await db.collection('user_data').doc(docId).update({
-          data: {
-            scenes: user_scenes,
-            log
-          }
-        })
-        return_data.success = true
-        return return_data
       }
     })
+    let game_data = await db.collection('game_data').doc('game_data').get()
+    GAME_DATA = game_data.data
+    // receive
+    let log = user_data.data.log || []
+    log.push({
+      type: 'RECEIVE_MONSTER',
+      data: `recerve a monster. scene:${sceneId}, monster:${monsterId}, from: ${senderId}`,
+      time: new Date(),
+    })
+    let user_scenes = user_data.data.scenes
+    let user_targetScene = null
+    let user_hasMonster = false
+    user_scenes.forEach(scene => {
+      if (scene.id === `scene${sceneId}`) {
+        user_targetScene = scene
+      }
+    })
+    if (!user_targetScene) {
+      // 不存在
+      user_targetScene = GAME_DATA.scenes[sceneId - 1]
+      user_scenes.push(user_targetScene)
+    }
+    user_targetScene.monsters.forEach(monster => {
+      if (monster.id == `s${sceneId}_monster${monsterId}`) {
+        monster.own++
+      }
+    })
+    let receiveUpdate = await db.collection('user_data').doc(docId).update({
+      data: {
+        scenes: user_scenes,
+        log
+      }
+    })
+    return_data.success = true
+    return return_data
+  } else {
+    return_data.errMsg = '!hasMonster'
+    return return_data
   }
 }
