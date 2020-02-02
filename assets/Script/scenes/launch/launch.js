@@ -96,7 +96,6 @@ cc.Class({
         }).catch(this.showUserInfoButton)
     },
     showPlayButton() {
-        console.log('111111')
         this.launchButton.active = true
         this.launchButton.on('touchend', () => {
             cc.director.loadScene('catchmonster')  
