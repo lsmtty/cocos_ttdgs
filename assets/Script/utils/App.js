@@ -58,6 +58,10 @@ class AppMain {
     return this.globalData.openId
   }
 
+  setUserInfo = (userInfo) => {
+    this.globalData.userInfo = userInfo;
+  }
+
   getUserInfo = () => {
     return this.globalData.userInfo;
   }
@@ -104,10 +108,10 @@ class AppMain {
       .then((res) => {
         console.log('login Success')
         this.globalData.openId = res.openid;
-        request.getUserInfo().then(data => {
-          console.log('userInfo', data)
-          this.globalData.userInfo = data
-        }).catch(this.showUserInfoButton)
+        // request.getUserInfo().then(data => {
+        //   console.log('userInfo', data)
+        //   this.globalData.userInfo = data
+        // })
 
         request.getUserGameData().then(data => {
           console.log('userGameData', data)
@@ -147,39 +151,6 @@ class AppMain {
       _canvas.fitHeight = true
       _canvas.fitWidth = false
     }
-  }
-
-  showUserInfoButton() {
-    if (typeof wx == 'undefined') return
-    const button = wx.createUserInfoButton({
-      type: 'text',
-      text: '获取用户信息',
-      style: {
-        left: 175,
-        top: 76,
-        width: 200,
-        height: 40,
-        lineHeight: 40,
-        backgroundColor: '#ff0000',
-        color: '#ffffff',
-        textAlign: 'center',
-        fontSize: 16,
-        borderRadius: 4
-      }
-    })
-    button.show()
-    button.onTap((res) => {
-      if (res.errMsg == 'getUserInfo:ok') {
-        const { userInfo } = res
-        const { nickName, gender, avatarUrl } = userInfo
-
-        request.updateUserInfo({
-          nickName,
-          gender,
-          avatarUrl
-        }).then(() => { button.hide() }).catch(() => { button.show() })
-      }
-    })
   }
 
   getResourceRealUrlArray(fileIdArrays) {

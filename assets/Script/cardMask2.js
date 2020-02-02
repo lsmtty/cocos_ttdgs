@@ -53,6 +53,7 @@ cc.Class({
         icon: 'none',
         duration: 3000
       })
+      // cardRoot.active = false
     }).catch(() => {
       wx && wx.showToast({
         title: '怪兽已被领取',
@@ -60,8 +61,9 @@ cc.Class({
         duration: 3000
       })
       console.log('接收失败');
+      // cardRoot.active = false
     }).finally(() => {
-      cardRoot.active = false
+      cardRoot.node.active = false
     });
   },
    /**
