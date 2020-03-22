@@ -191,6 +191,8 @@ cc.Class({
       let launchOptions = wx.getLaunchOptionsSync()
       App.setLaunchOptions(launchOptions)
       const { scene, query } = launchOptions
+      console.log('--------')
+      console.log(query)
       if (query.senderId && query.shareId) {
         const { sceneId, monsterId, senderId, shareId } = query
         request.getShareId({sceneId, shareId}).then(() => {
@@ -206,7 +208,7 @@ cc.Class({
             duration: 3000
           })
         });
-        // senderId=o4_IJ41rSf9ipugKulGmgMe49KaU&sceneId=1&monsterId=1&shareId=o4_IJ41rSf9ipugKulGmgMe49KaU_1_1578822865754
+        // senderId=o4_IJ4_ff7krEskbdQnrwJj-dxSw&sceneId=10&monsterId=7&shareId=o4_IJ4_ff7krEskbdQnrwJj-dxSw_6_1580996847466
       }
     } 
   },

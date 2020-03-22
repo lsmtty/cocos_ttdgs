@@ -97,6 +97,11 @@ cc.Class({
     },
     showPlayButton() {
         this.launchButton.active = true
+        const ctx = this.launchButton.getChildByName('bg').getComponent(cc.Graphics)
+        ctx.fillColor = new cc.Color().fromHEX('#0799e3')
+        ctx.roundRect(-165, -50.5, 330, 101, 50)
+        ctx.fill()
+        
         this.launchButton.on('touchend', () => {
             cc.director.loadScene('catchmonster')  
         })
@@ -107,16 +112,16 @@ cc.Class({
           type: 'text',
           text: '开始游戏',
           style: {
-            left: 130,
+            left: 110,
             top: 590,
             width: 170,
-            height: 68.5,
-            lineHeight: 68.5,
-            backgroundColor: '#CB985a',
+            height: 65,
+            lineHeight: 65,
+            backgroundColor: '#0799e3',
             color: '#ffffff',
             textAlign: 'center',
             fontSize: 24,
-            borderRadius: 68.5
+            borderRadius: 65
           }
         })
         button.show()
@@ -124,6 +129,7 @@ cc.Class({
           if (res.errMsg == 'getUserInfo:ok') {
             const { userInfo } = res
             const { nickName, gender, avatarUrl } = userInfo
+            App.setUserInfo(userInfo)
             request.updateUserInfo({
               nickName,
               gender,

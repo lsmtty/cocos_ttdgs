@@ -37,18 +37,24 @@ cc.Class({
       type: cc.Prefab,
       default: null
     },
-    isCatchMonster: true
+    monsterBg: {
+      type: cc.Node,
+      default: null
+    },
+    isCatchMonster: true,
   },
 
   onLoad () {
     let _this = this
     // this.drawBackground()
     this.root = cc.find('Canvas')
+    this.monsterBg.runAction(cc.rotateBy(2, 360).repeatForever());
     if (this.root.getComponent('catchmonster')) { // 判断是捕捉页
       this.handbookControlBox.active = false
     } else {
       this.isCatchMonster = false
       this.catchControlBox.active = false
+      this.monsterBg.active = false
     }
     this.onCatchSendBtn.on('touchend', () => {
       _this.confirmDialog.active = true
@@ -87,6 +93,7 @@ cc.Class({
   showCard(monsterData) {
     this.node.parent.parent.active = true
     this.node.monsterData = monsterData
+    this.node.parent.runAction(cc.scaleTo(0.5, 1))
     const labelName = this.node.getChildByName('monster_name').getComponent(cc.Label)
     const labelOwn = this.node.getChildByName('monster_own').getComponent(cc.Label)
     if (monsterData.own > 0) {
@@ -102,6 +109,13 @@ cc.Class({
           fra.spriteFrame = sframe
         })
       })
+  },
+  hideCard() {
+    const callback = cc.callFunc(this.closeParent, this)
+    this.node.parent.runAction(cc.sequence(cc.scaleTo(0.3, 0.2)), callback);
+  },
+  closeParent() {
+    _this.node.parent.parent.active = false;
   },
   handleSave(e) {
     const cardRoot = e.target.parent.parent
@@ -188,6 +202,6 @@ cc.Class({
       catchmonster.saveMonster(sceneId, monsterId)
       catchmonster.showRefreshInterval()
     }
-    this.node.parent.parent.active = false
+    this.hideCard()
   }
 })

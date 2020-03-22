@@ -13,7 +13,7 @@ exports.main = async (event, context) => {
   } else {
     docId = `${event.userInfo.openId}`
   }
-  let userInfo
+  let userRecord
 
   try {
     const queryResult = await db.collection('user_info').doc(docId).get()
