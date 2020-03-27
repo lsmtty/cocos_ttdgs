@@ -14,6 +14,10 @@ cc.Class({
     currentBlood: {
       default: 0,
       type: cc.Integer
+    },
+    hitAnim: {
+      type: cc.Animation,
+      default: null
     }
   },
 
@@ -38,6 +42,9 @@ cc.Class({
       this.node.parent.getComponent('monsterParent').hurt(arrow.attack)
       this.drawBlood(this.currentBlood / this.fullblood)
       this.node.getComponent(cc.AudioSource).play()
+
+      this.hitAnim.getComponent(cc.Animation).play()
+
       if (this.currentBlood <= 0) {
         if (!this.showNet) {
           this.onCatched()

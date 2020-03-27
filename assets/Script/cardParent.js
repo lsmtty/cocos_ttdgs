@@ -41,7 +41,14 @@ cc.Class({
       type: cc.Node,
       default: null
     },
-    isCatchMonster: true,
+    catchAudio: {
+      default: null,
+      type: cc.AudioClip
+    },
+    caidai: {
+      default: null,
+      type: cc.Animation
+    }
   },
 
   onLoad () {
@@ -52,7 +59,6 @@ cc.Class({
     if (this.root.getComponent('catchmonster')) { // 判断是捕捉页
       this.handbookControlBox.active = false
     } else {
-      this.isCatchMonster = false
       this.catchControlBox.active = false
       this.monsterBg.active = false
     }
@@ -61,7 +67,6 @@ cc.Class({
       let confirmScript =  _this.confirmDialog.getComponent('confirmDialog')
       confirmScript.confirm = _this.handleSend.bind(_this)
       confirmScript.cancel = () => {
-        this.node.parent.parent.active = false
       }
     })
     this.onCatchSaveBtn.on('touchend', this.handleSave)
@@ -92,14 +97,21 @@ cc.Class({
      */
   showCard(monsterData) {
     this.node.parent.parent.active = true
+
     this.node.monsterData = monsterData
+    this.node.parent.setPosition(cc.v2(375, 783))
     this.node.parent.runAction(cc.scaleTo(0.5, 1))
+    let isCatchMonster = this.root.getComponent('catchmonster')
+    if (isCatchMonster) {
+      cc.audioEngine.playEffect(this.catchAudio, false)
+      this.caidai.play()
+    }
     const labelName = this.node.getChildByName('monster_name').getComponent(cc.Label)
     const labelOwn = this.node.getChildByName('monster_own').getComponent(cc.Label)
     if (monsterData.own > 0) {
       this.node.getChildByName('icon_new').active = false
     }
-    labelName.string = `捕获${monsterData.name}`
+    labelName.string = isCatchMonster ? `捕获${monsterData.name}` : `${monsterData.name}`
     labelOwn.string = `我拥有${monsterData.own}只`
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${monsterData.sceneId}/s${monsterData.sceneId}_monster${monsterData.monsterId}.png`)
       .then(url => {
@@ -110,24 +122,16 @@ cc.Class({
         })
       })
   },
-  hideCard() {
-    const callback = cc.callFunc(this.closeParent, this)
-    this.node.parent.runAction(cc.sequence(cc.scaleTo(0.3, 0.2)), callback);
-  },
-  closeParent() {
-    _this.node.parent.parent.active = false;
-  },
   handleSave(e) {
     const cardRoot = e.target.parent.parent
     const { monsterData } = cardRoot
     const { name, sceneId, monsterId } = monsterData
-    // wx && wx.showToast({
-    //   title: `捕获${name}`,
-    //   icon: 'success',
-    //   duration: 3000
-    // })
     cc.find('Canvas').getComponent('catchmonster').saveMonster(sceneId, monsterId)
-    cardRoot.getComponent('cardParent').refreshMonster()
+    const callback = cc.callFunc(() => {
+      cardRoot.getComponent('cardParent').refreshMonster()
+    }, this)
+    cardRoot.runAction(cc.sequence(cc.spawn(cc.moveBy(0.3, cc.v2(0, 0), 50), cc.scaleTo(0.3, 1)), callback))
+    cardRoot.parent.runAction(cc.spawn(cc.moveTo(0.3, cc.v2(100, 200), 50), cc.scaleTo(0.3, 0.2)))
   },
   handleSend(e) {
     let _this = this
@@ -190,7 +194,7 @@ cc.Class({
     cc.find('Canvas').getComponent('catchmonster').showRefreshInterval()
   },
   handleClose() {
-    if (this.isCatchMonster) {
+    if (this.root.getComponent('catchmonster')) {
       const { monsterData } = this.node;
       const { name, sceneId, monsterId } = monsterData
       wx && wx.showToast({
@@ -202,6 +206,6 @@ cc.Class({
       catchmonster.saveMonster(sceneId, monsterId)
       catchmonster.showRefreshInterval()
     }
-    this.hideCard()
+    this.node.parent.parent.active = false
   }
 })
