@@ -43,8 +43,9 @@ cc.Class({
       this.drawBlood(this.currentBlood / this.fullblood)
       this.node.getComponent(cc.AudioSource).play()
 
-      this.hitAnim.getComponent(cc.Animation).play()
-
+      //this.node.getComponent(cc.Animation).play()
+       this.hitAnim.getComponent(cc.Animation).play()
+      
       if (this.currentBlood <= 0) {
         if (!this.showNet) {
           this.onCatched()

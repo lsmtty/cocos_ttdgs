@@ -191,8 +191,6 @@ cc.Class({
       let launchOptions = wx.getLaunchOptionsSync()
       App.setLaunchOptions(launchOptions)
       const { scene, query } = launchOptions
-      console.log('--------')
-      console.log(query)
       if (query.senderId && query.shareId) {
         const { sceneId, monsterId, senderId, shareId } = query
         request.getShareId({sceneId, shareId}).then(() => {

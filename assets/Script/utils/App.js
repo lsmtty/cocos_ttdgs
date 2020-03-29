@@ -41,7 +41,6 @@ class AppMain {
   }
 
   getLoginGetRabbitStatus() {
-    console.log('here', this.globalData.getedDayRabbit)
     return this.globalData.getedDayRabbit;
   }
 
@@ -106,7 +105,6 @@ class AppMain {
     // 
     request.login()
       .then((res) => {
-        console.log('login Success')
         this.globalData.openId = res.openid;
         // request.getUserInfo().then(data => {
         //   console.log('userInfo', data)
@@ -114,7 +112,6 @@ class AppMain {
         // })
 
         request.getUserGameData().then(data => {
-          console.log('userGameData', data)
           this.setGameData(data)
         }).catch(() => {
           console.log('获取用户数据失败');
@@ -165,8 +162,6 @@ class AppMain {
           requestIds.push(fileIDItem);
         }
       });
-      console.log('______');
-      console.log(targetFileUrlArrays, requestIds);
       return new Promise((resolve, reject) => {
         typeof wx != 'undefined' && wx.cloud.getTempFileURL({
           fileList: requestIds,

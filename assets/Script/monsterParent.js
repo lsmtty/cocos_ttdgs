@@ -24,7 +24,6 @@ cc.Class({
   },
 
   onLoad () {
-    console.log('onload')
     this.refreshNew('load')
     const bloodCtx = this.node.getChildByName('bloodParent').getComponent(cc.Graphics)
     bloodCtx.fillColor = new cc.Color(255, 255, 255)
@@ -194,7 +193,6 @@ cc.Class({
     const monsterScript = this.monster.getComponent('monster')
     monsterScript.fullBlood = monsterData.blood
     monsterScript.currentBlood = monsterBlood
-    console.log(monsterData, storageMonster)
     monsterScript.refreshNew()
     App.getResourceRealUrl(`${constant.rootWxCloudPath}monsters/scene${this.sceneId}/s${this.sceneId}_monster${this.monsterId}.png`)
       .then(url => {

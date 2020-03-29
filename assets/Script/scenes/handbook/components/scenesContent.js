@@ -64,7 +64,6 @@ cc.Class({
         countLabel.string = own
       }
       const loadUrl = `monsters/${sceneId}/${monsterId}${own == 0 ? '_shadow' : ''}`
-      console.log(loadUrl);
       App.getResourceRealUrl(`${constant.rootWxCloudPath}${loadUrl}.png`)
         .then(url => {
           cc.loader.load(`${url}?aa=aa.jpg`, (err, texture) => {

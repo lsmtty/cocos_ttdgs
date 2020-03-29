@@ -47,7 +47,6 @@ cc.Class({
       sceneId: monsterData.sceneId,
       monsterId: monsterData.monsterId
     }).then(() => {
-      console.log('接收成功');
       wx && wx.showToast({
         title: '获得小怪兽',
         icon: 'none',
@@ -60,7 +59,6 @@ cc.Class({
         icon: 'none',
         duration: 3000
       })
-      console.log('接收失败');
       cardRoot.active = false
     })
   },

@@ -183,11 +183,9 @@ cc.Class({
   rowRotate(e) {
     if (!e) {return false;}
     const { _prevPoint, _startPoint } = e.touch
-    console.log('rowRotate')
     if (_prevPoint.x != _startPoint.x || _prevPoint.y != _startPoint.y) {
       const r = mathUtil.getRotation({ x: _prevPoint.x, y: _prevPoint.y }, { x: _startPoint.x, y: _startPoint.y })
       this.arrow && (this.arrow.rotation = r - 90) && (this.ballWrap.rotation = r - 90)
-      console.log(r - 90)
     }
   },
   createArrow() {
