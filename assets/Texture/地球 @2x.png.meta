@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "ec4a9e98-07ea-4a25-b83a-e8d4309ecfe9",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 44,
+  "height": 44,
+  "platformSettings": {},
   "subMetas": {
     "地球 @2x": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "6ab9dabe-9100-459b-be07-c694f4263216",
       "rawTextureUuid": "ec4a9e98-07ea-4a25-b83a-e8d4309ecfe9",
       "trimType": "auto",

@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "a4ff6b30-e198-4fa1-b60c-57a9cc3db959",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 400,
+  "height": 700,
+  "platformSettings": {},
   "subMetas": {
     "monster_net": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "f9363f2e-2d6a-4209-abba-e3b5ab7a2737",
       "rawTextureUuid": "a4ff6b30-e198-4fa1-b60c-57a9cc3db959",
       "trimType": "auto",

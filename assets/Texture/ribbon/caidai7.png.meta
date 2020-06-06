@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "54286a3d-46f8-44e6-9d9d-7221a13a4354",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 750,
+  "height": 889,
+  "platformSettings": {},
   "subMetas": {
     "caidai7": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "e295fe40-5f83-4ecf-a32b-e382694dfc32",
       "rawTextureUuid": "54286a3d-46f8-44e6-9d9d-7221a13a4354",
       "trimType": "auto",

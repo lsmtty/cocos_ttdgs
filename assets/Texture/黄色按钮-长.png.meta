@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "fa58c3ef-025e-4353-9610-b474ae7a2fc8",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 338,
+  "height": 109,
+  "platformSettings": {},
   "subMetas": {
     "黄色按钮-长": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "222f0235-b1f4-4b3e-8f95-c6e6ce93ae60",
       "rawTextureUuid": "fa58c3ef-025e-4353-9610-b474ae7a2fc8",
       "trimType": "auto",

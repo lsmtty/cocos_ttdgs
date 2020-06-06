@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "c87003b5-0754-41c1-aa8d-d5b3b791a855",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 70,
+  "height": 69,
+  "platformSettings": {},
   "subMetas": {
     "微信图片_20190714173747": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "003b9b9b-ebba-439f-b6a8-804175b5f52a",
       "rawTextureUuid": "c87003b5-0754-41c1-aa8d-d5b3b791a855",
       "trimType": "auto",

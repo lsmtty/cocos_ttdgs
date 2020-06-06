@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "be0e4f88-655c-4842-91ea-72aa33a6111e",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 451,
+  "height": 22,
+  "platformSettings": {},
   "subMetas": {
     "POWERBYGEGE（BEIJING）TechnologyCo.Ltd": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "0a31939d-a628-4b2b-b8a6-7f49f017510d",
       "rawTextureUuid": "be0e4f88-655c-4842-91ea-72aa33a6111e",
       "trimType": "auto",

@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "daf3b3bb-cf9e-4ec3-a80b-5b727503ed69",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 750,
+  "height": 1060,
+  "platformSettings": {},
   "subMetas": {
     "视频区域": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "6a179c5b-842f-43d4-aead-8283007b19d5",
       "rawTextureUuid": "daf3b3bb-cf9e-4ec3-a80b-5b727503ed69",
       "trimType": "auto",

@@ -184,6 +184,7 @@ cc.Class({
     this.cardParent = card
     card.active = false
     this.node.addChild(this.cardParent)
+    this.showGongliang()
   },
 
   initShareData() {
@@ -213,6 +214,30 @@ cc.Class({
 
   saveMonsterData() {
     cc.find('Canvas/background/monsterBox').getComponent('monsterParent').saveMonsterData()
+  },
+
+  showGongliang() {
+    if(wx) {
+      // 定义推荐位
+      let iconAd = null
+
+      // 创建推荐位实例，提前初始化
+      if (wx.createGameIcon) {
+          iconAd = wx.createGameIcon({
+              adUnitId: 'PBgAAfGGOIttwLQk'
+          })
+      }
+
+      // 在合适的场景显示推荐位
+      // err.errCode返回1004时表示当前没有适合推荐的内容，建议游戏做兼容，在返回该错误码时展示其他内容
+      if (iconAd) {
+          iconAd.load().then(() => {
+              iconAd.show()
+          }).catch((err) => {
+              console.error(err)
+          })
+      }
+    }
   },
 
   // 供其他组件调用的公共函数

@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "4e68de54-7678-4889-9398-5d0eb56c6687",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 524,
+  "height": 526,
+  "platformSettings": {},
   "subMetas": {
     "微信图片_20200322184737": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "c911196b-f624-47de-a3a0-e86f6a553445",
       "rawTextureUuid": "4e68de54-7678-4889-9398-5d0eb56c6687",
       "trimType": "auto",

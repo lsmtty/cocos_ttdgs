@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "b1dc031b-6fbd-44f9-9423-59330be8b7cc",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 245,
+  "height": 103,
+  "platformSettings": {},
   "subMetas": {
     "红-按钮": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "380a6435-be74-4c42-aae0-21a24047a701",
       "rawTextureUuid": "b1dc031b-6fbd-44f9-9423-59330be8b7cc",
       "trimType": "auto",

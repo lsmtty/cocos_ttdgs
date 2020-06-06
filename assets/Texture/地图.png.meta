@@ -1,13 +1,18 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "8cdeadde-bd2e-42e9-b195-c0607d4d4fbe",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 166,
+  "height": 99,
+  "platformSettings": {},
   "subMetas": {
     "地图": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "9821387a-625a-4f76-94a3-86ec9fa63b84",
       "rawTextureUuid": "8cdeadde-bd2e-42e9-b195-c0607d4d4fbe",
       "trimType": "auto",

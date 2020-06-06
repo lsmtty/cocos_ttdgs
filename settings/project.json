@@ -6,7 +6,14 @@
   ],
   "design-resolution-height": 1334,
   "design-resolution-width": 750,
-  "excluded-modules": [],
+  "excluded-modules": [
+    "Geom Utils",
+    "3D",
+    "3D Primitive",
+    "3D Physics/cannon.js",
+    "3D Physics/Builtin",
+    "3D Particle"
+  ],
   "facebook": {
     "appID": "",
     "audience": {
@@ -17,12 +24,12 @@
       "enable": false
     }
   },
-  "fit-height": false,
+  "fit-height": true,
   "fit-width": true,
   "group-list": [
     "default"
   ],
-  "last-module-event-record-time": 1584873415963,
+  "last-module-event-record-time": 1591436773526,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,
@@ -30,5 +37,6 @@
   },
   "start-scene": "current",
   "use-customize-simulator": false,
-  "use-project-simulator-setting": false
+  "use-project-simulator-setting": false,
+  "assets-sort-type": "name"
 }
