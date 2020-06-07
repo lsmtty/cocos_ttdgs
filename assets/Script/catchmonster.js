@@ -224,7 +224,9 @@ cc.Class({
       // 创建推荐位实例，提前初始化
       if (wx.createGameIcon) {
           iconAd = wx.createGameIcon({
-              adUnitId: 'PBgAAfGGOIttwLQk'
+              adUnitId: 'PBgAAfGGOIttwLQk',
+              count: 3,
+              color: '#fff'
           })
       }
 

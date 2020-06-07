@@ -1,11 +1,10 @@
 "use strict";
 
-require('utils/ald-game.js')
-require('adapter-min.js');
+require('adapter.js');
 
 __globalAdapter.init();
 
-require('cocos/cocos2d-js-min.js');
+require('cocos/cocos2d-js.js');
 
 __globalAdapter.adaptEngine();
 
@@ -39,6 +38,5 @@ if (cc.sys.platform === cc.sys.WECHAT_GAME_SUB) {
 }
 
 remoteDownloader.init();
-
 wx.cloud.init({env: 'ttdgs-test-c6724c'}); // ttdgs-test 或者 ttdgs-release33
 window.boot();

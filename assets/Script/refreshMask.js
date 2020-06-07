@@ -24,39 +24,40 @@ cc.Class({
       this.refreshByRabbit()
     })
     this.node.active = false
+    this.isRunning = false
     this.root = cc.find('Canvas').getComponent('catchmonster')
+    this.schedule = cc.director.getScheduler()
   },
 
   show() {
-    const label = this.refreshLabel.getComponent(cc.Label)
-    this.showRefreshToolCount()
     this.node.active = true
-    const showRefreshTime = function() {
-      // if (App.getRealTime() % (3600 * 1000) < 1500) {
-      //   this.refresh()
-      //   return
-      // } // 交由主页面控制到时刷新
-      const date = App.getRealTime()
-      var nextHours = new Date(date).getHours()
-      if (nextHours == 23) {
-        nextHours = 0
-      } else {
-        nextHours += 1
-      }
-      const overTime = 3600 * 1000 - date % (3600 * 1000)
-      const minutes = parseInt((overTime % (1000 * 60 * 60)) / (1000 * 60))
-      const seconds = parseInt((overTime % (1000 * 60)) / 1000)
-      label.string = `距离下次${nextHours}点 还有${minutes}分${seconds}秒`
+    this.isRunning = true
+    this.showRefreshToolCount()
+    this.schedule.schedule(this.showRefreshTime, this, 1, !this.isRunning)
+  },
+
+  showRefreshTime() {
+    if(!this.node.active) {
+      this.unschedule(this.showRefreshTime)
+      return
     }
-    showRefreshTime.call(this)
-    this.timer = setInterval(() => {
-      this.node && this.node.active && showRefreshTime.call(this)
-    }, 1000)
+    const label = this.refreshLabel.getComponent(cc.Label)
+    const date = App.getRealTime()
+    let nextHours = new Date(date).getHours()
+    if (nextHours == 23) {
+      nextHours = 0
+    } else {
+      nextHours += 1
+    }
+    const overTime = 3600 * 1000 - date % (3600 * 1000)
+    const minutes = parseInt((overTime % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = parseInt((overTime % (1000 * 60)) / 1000)
+    label.string = `距离下次${nextHours}点 还有${minutes}分${seconds}秒`
   },
 
   hide() {
-    clearInterval(this.timer)
     this.node.active = false
+    this.isRunning = false
   },
 
   refreshByRabbit() {
