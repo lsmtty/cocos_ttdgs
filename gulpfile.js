@@ -14,7 +14,7 @@ gulp.task('copy_cloud',  function() {
 });
 
 gulp.task('copy_gameJs', function() {
-  return gulp.src(`cloud/gameJs/game_${isProd ? 'build': 'dev'}.js`)
+  return gulp.src(`cloud/gameJs/game_${isProd ? 'prod': 'dev'}.js`)
     .pipe(rename('game.js'))
     .pipe(gulp.dest('build/wechatgame'))
 });

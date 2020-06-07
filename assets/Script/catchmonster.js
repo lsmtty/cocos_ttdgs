@@ -38,7 +38,8 @@ cc.Class({
     handBookBtn: {
       default: null,
       type: cc.Node
-    }
+    },
+
   },
 
   onLoad: function () {
@@ -47,11 +48,15 @@ cc.Class({
     App.adjustScreen(this.node)
     this.init()
     this.mapBtn.on('touchend', () => {
-      cc.find('Canvas').getComponent('catchmonster').saveMonsterData()
+      let root = cc.find('Canvas').getComponent('catchmonster')
+      root.saveMonsterData()
+      root.clearAd()
       cc.director.loadScene('map')
     })
     this.handBookBtn.on('touchend', () => {
-      cc.find('Canvas').getComponent('catchmonster').saveMonsterData()
+      let root = cc.find('Canvas').getComponent('catchmonster')
+      root.saveMonsterData()
+      root.clearAd()
       cc.director.loadScene('handbook')
     })
   },
@@ -185,6 +190,7 @@ cc.Class({
     card.active = false
     this.node.addChild(this.cardParent)
     this.showGongliang()
+    this.showLiuLiang()
   },
 
   initShareData() {
@@ -214,19 +220,36 @@ cc.Class({
 
   saveMonsterData() {
     cc.find('Canvas/background/monsterBox').getComponent('monsterParent').saveMonsterData()
+
+  },
+
+  clearAd() {
+    this.bannerAd && this.bannerAd.destroy()
+    this.iconAd && this.iconAd.destroy()
   },
 
   showGongliang() {
     if(wx) {
       // 定义推荐位
       let iconAd = null
-
       // 创建推荐位实例，提前初始化
+      let baseItemSetting = {
+        color: '#fff',
+        appNameHidden: false,
+        size: 100,
+        borderWidth: 1,
+        borderColor: '#fff',
+        left: 0
+      }
       if (wx.createGameIcon) {
           iconAd = wx.createGameIcon({
               adUnitId: 'PBgAAfGGOIttwLQk',
               count: 3,
-              color: '#fff'
+              style: [
+                Object.assign({}, baseItemSetting, { top: 100 }),
+                Object.assign({}, baseItemSetting, { top: 200 }),
+                Object.assign({}, baseItemSetting, { top: 300 })
+              ]
           })
       }
 
@@ -235,6 +258,7 @@ cc.Class({
       if (iconAd) {
           iconAd.load().then(() => {
               iconAd.show()
+              this.iconAd = iconAd
           }).catch((err) => {
               console.error(err)
           })
@@ -242,6 +266,35 @@ cc.Class({
     }
   },
 
+  showLiuLiang() {
+    if(wx) {
+      const systemInfo = wx.getSystemInfoSync()
+      let bannerAd = wx.createBannerAd({
+        adUnitId: 'adunit-5987512e416a7f06',
+        adIntervals: 30,
+        style: {
+            left: 0,
+            top: systemInfo.windowHeight / 1334 * (1334 - 270),
+            width: 750,
+            height: 100
+        }
+      })
+      bannerAd.onError(errcode => {
+        switch(errcode) {
+          case 1004:
+          case 1005:
+          case 1006:
+          case 1007:
+          case 1008: {
+            this.mapBtn.setPosition(cc.v2(591, 40))
+            this.handBookBtn.setPosition(cc.v2(0, 40))
+          }
+        }
+      })
+      bannerAd.show()
+      this.bannerAd = bannerAd
+    }
+  },
   // 供其他组件调用的公共函数
 
   // 游戏数据封装
