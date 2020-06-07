@@ -150,6 +150,7 @@ class AppMain {
     }
   }
 
+  // 使用线程池 重构
   getResourceRealUrlArray(fileIdArrays) {
     const { resoureMap } = this.globalData
     let targetFileUrlArrays = []
